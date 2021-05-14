@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsp.dao.ProductPackageDao">
+    <resultMap id="PackageMap" type="com.example.jsp.pojo.ProductPackage">
+        <id column="op_id" property="id"/>
+        <association property="num" column="op_num"/>
+        <association property="product" select="com.example.jsp.dao.ProductDao.selectById" column="op_p_id"
+                     javaType="com.example.jsp.pojo.Product"/>
+        <association property="order" select="com.example.jsp.dao.OrderDao.selectById" column="op_o_id"
+                     javaType="com.example.jsp.pojo.Order"/>
+    </resultMap>
+    <select id="selectByOrderId" resultMap="PackageMap" parameterType="int">
+        select *
+        from order_product
+        where op_o_id = #{id}
+    </select>
+    <select id="selectById" resultMap="PackageMap" parameterType="int">
+        select *
+        from order_product
+        where op_id = #{id}
+    </select>
+    <insert id="save" parameterType="com.example.jsp.pojo.ProductPackage">
+        insert into order_product(op_p_id, op_o_id, op_num)
+        VALUES (#{target.product.id}, #{target.order.id}, #{target.num})
+    </insert>
+    <update id="update" parameterType="com.example.jsp.pojo.ProductPackage">
+        update order_product
+        set op_num=#{target.num},
+            op_p_id=#{target.product.id},
+            op_o_id=#{target.product.id}
+        where op_id = #{target.id}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete
+        from order_product
+        where op_id = #{id}
+    </delete>
+    <delete id="deleteByOrderId" parameterType="int">
+        delete
+        from order_product
+        where op_o_id = #{id}
+    </delete>
+</mapper>

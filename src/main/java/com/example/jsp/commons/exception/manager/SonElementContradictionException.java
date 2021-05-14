@@ -1,9 +1,17 @@
-package com.example.jsp.commons.exception;
+package com.example.jsp.commons.exception.manager;
 
 /**
  * @author 橙鼠鼠
  */
-public class SonElementContradictionException extends Exception {
+public class SonElementContradictionException extends ProjectException {
+    /**
+     * Constructs a new exception with {@code null} as its detail message.
+     * The cause is not initialized, and may subsequently be initialized by a
+     * call to {@link #initCause}.
+     */
+    public SonElementContradictionException() {
+    }
+
     /**
      * Constructs a new exception with the specified detail message.  The
      * cause is not initialized, and may subsequently be initialized by
@@ -14,13 +22,5 @@ public class SonElementContradictionException extends Exception {
      */
     public SonElementContradictionException(String message) {
         super(message);
-    }
-
-    /**
-     * Constructs a new exception with {@code null} as its detail message.
-     * The cause is not initialized, and may subsequently be initialized by a
-     * call to {@link #initCause}.
-     */
-    public SonElementContradictionException() {
     }
 }

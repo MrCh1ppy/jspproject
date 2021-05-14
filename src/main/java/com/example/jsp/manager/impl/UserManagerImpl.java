@@ -1,9 +1,9 @@
 package com.example.jsp.manager.impl;
 
-import com.example.jsp.commons.exception.SonElementContradictionException;
 import com.example.jsp.dao.UserDao;
+import com.example.jsp.manager.todao.UserManagerToDao;
+import com.example.jsp.manager.toservice.UserManager;
 import com.example.jsp.pojo.User;
-import com.example.jsp.manager.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 @Service
-public class UserManagerImpl implements UserManager {
+public class UserManagerImpl implements UserManager, UserManagerToDao {
     private UserDao userDao;
 
     @Autowired
@@ -22,24 +22,28 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public int save(User user) {
-        userDao.save(user);
-        return user.getId();
+    public int save(User targetUser) {
+        return userDao.save(targetUser);
     }
 
     @Override
-    public void update(User user) {
-        userDao.update(user);
-    }
-
-    @Override
-    public void delete(int id) {
+    public void del(int id) {
         userDao.delete(id);
     }
 
     @Override
-    public List<User> select() {
-        return userDao.selectAll();
+    public void destroy(int id) {
+        del(id);
+    }
+
+    @Override
+    public void update(User user) {
+        restore(user);
+    }
+
+    @Override
+    public void restore(User user) {
+        userDao.update(user);
     }
 
     @Override
@@ -48,28 +52,25 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public int updatePre(int id, User user) {
-        var user1 = userDao.selectById(id);
-        int res;
-        if (user1 == null) {
-            res = this.save(user);
-        } else if (id == user.getId()) {
-            this.update(user);
-            res = id;
-        } else {
-            this.delete(id);
-            res = this.save(user);
-        }
-        return res;
+    public List<User> select() {
+        return userDao.selectAll();
     }
 
     @Override
-    public int savePre(User user) throws SonElementContradictionException {
-        var user1 = userDao.selectById(user.getId());
-        if (user1 != null && !user.equals(user1)) {
-            throw new SonElementContradictionException("XXX.user");
+    public Integer insert(User targetUser) {
+        Integer id = userDao.getId(targetUser);
+        if (id != null) {
+            targetUser.setId(id);
+            userDao.update(targetUser);
+            /*没必要专门写一个更新update字段的函数,因为mysql的底层是delete/insert 所以没有意义*/
+            return id;
+        } else {
+            return save(targetUser);
         }
-        return userDao.save(user1);
     }
 
+    @Override
+    public boolean isNotExist(int id) {
+        return userDao.selectById(id) == null;
+    }
 }

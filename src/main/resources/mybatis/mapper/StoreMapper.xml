@@ -30,13 +30,21 @@
         from store
         where s_id = #{id}
     </delete>
-    <update id="update" parameterType="store">
+    <update id="update" parameterType="com.example.jsp.pojo.Store">
         update store
         set s_u_id=#{store.user.id},
             s_name=#{store.name},
-            s_telephone=#{store.telephone}
+            s_telephone=#{store.telephone},
+            s_address=#{store.address}
         where s_id = #{store.id}
     </update>
-
+    <select id="getId" parameterType="com.example.jsp.pojo.Store" resultType="integer">
+        select s_id
+        from store
+        where s_telephone = #{store.name}
+          and s_address = #{store.address}
+          and s_u_id = #{store.user.id}
+          and s_name = #{store.name}
+    </select>
 
 </mapper>

@@ -5,6 +5,9 @@
 <mapper namespace="com.example.jsp.dao.OrderDao">
     <resultMap id="orderMap" type="com.example.jsp.pojo.Order">
         <id property="id" column="o_id" javaType="int"/>
+        <result property="message" column="o_msg" javaType="String"/>
+        <result property="status" column="o_status" javaType="int"/>
+        <result property="time" column="o_time" javaType="String"/>
         <association property="store" select="com.example.jsp.dao.StoreDao.selectById" column="o_s_id"
                      javaType="com.example.jsp.pojo.Store"/>
         <association property="deliver" select="com.example.jsp.dao.DeliverDao.selectById" column="o_d_id"
@@ -19,6 +22,33 @@
                     ofType="com.example.jsp.pojo.OrderInfo"/>
     </resultMap>
     <select id="selectById" resultMap="orderMap" parameterType="int">
-        select * from `order` where o_id=#{id}
+        select *
+        from `order`
+        where o_id = #{id}
     </select>
+    <select id="selectAll" resultMap="orderMap">
+        select *
+        from `order`
+    </select>
+    <insert id="save" parameterType="com.example.jsp.pojo.Order">
+        insert into `order`(o_msg, o_status, o_d_id, o_g_id, o_s_id, o_a_id, o_time)
+        VALUES (#{target.message}, #{target.staus}, #{target.deliver.id}, #{target.guest.id}, #{target.store.id},
+                #{target.address.id}, #{target.time})
+    </insert>
+    <delete id="delete" parameterType="int">
+        delete
+        from `order`
+        where o_id = #{id}
+    </delete>
+    <update id="update" parameterType="com.example.jsp.pojo.Order">
+        update `order`
+        set o_a_id=#{target.address.id},
+            o_msg=#{target.message},
+            o_d_id=#{target.deliver.id},
+            o_s_id=#{target.store.id},
+            o_status=#{target.status},
+            o_g_id=#{target.guest.id},
+            o_time=#{target.time}
+        where o_id = #{target}
+    </update>
 </mapper>

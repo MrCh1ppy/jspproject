@@ -41,4 +41,10 @@
             enabled=#{tUser.enabled}
         where u_id = #{tUser.id}
     </update>
+    <select id="getId" parameterType="com.example.jsp.pojo.User" resultType="Integer">
+        select u_id
+        from user
+        where username = #{user.username}
+          and password = #{user.password}
+    </select>
 </mapper>

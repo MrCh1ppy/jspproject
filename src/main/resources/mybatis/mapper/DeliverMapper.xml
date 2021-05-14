@@ -38,4 +38,11 @@
             d_u_id=#{deliver.loginUser.id}
         where d_id = #{deliver.id}
     </update>
+    <select id="getId" resultType="integer" parameterType="com.example.jsp.pojo.Deliver">
+        select d_id
+        from deliver
+        where d_name = #{deliver.name}
+          and d_telephone = #{deliver.telephone}
+          and d_u_id = #{deliver.loginUser.id}
+    </select>
 </mapper>

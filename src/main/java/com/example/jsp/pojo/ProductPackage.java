@@ -16,4 +16,5 @@ public class ProductPackage implements Serializable {
     private int id;
     private int num;
     private Product product;
+    private Order order;
 }

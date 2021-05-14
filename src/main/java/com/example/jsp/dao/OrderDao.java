@@ -2,19 +2,20 @@ package com.example.jsp.dao;
 
 import com.example.jsp.pojo.Order;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author 橙鼠鼠
  */
 @Mapper
 public interface OrderDao {
-    int save(Order target);
+    int save(@Param("target") Order target);
 
-    void delete(int id);
+    void delete(@Param("id") int id);
 
-    void selectById(int id);
+    void selectById(@Param("id") int id);
 
     void selectAll();
 
-    void update(Order target);
+    void update(@Param("target") Order target);
 }

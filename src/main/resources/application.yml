@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/jspproject?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8081
+mybatis:
+  type-aliases-package: com.example.jsp.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    lazy-loading-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: true
+

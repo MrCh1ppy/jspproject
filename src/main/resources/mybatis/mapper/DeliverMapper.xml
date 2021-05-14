@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsp.dao.DeliverDao">
+    <cache/>
+    <resultMap id="deliverMap" type="com.example.jsp.pojo.Deliver">
+        <id column="d_id" property="id"/>
+        <result property="telephone" column="d_telephone"/>
+        <result property="name" column="d_name"/>
+        <!--注意这里的方法-->
+        <association property="loginUser" select="com.example.jsp.dao.UserDao.selectById" column="d_u_id"
+                     javaType="com.example.jsp.pojo.User"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="deliverMap" parameterType="int">
+        select *
+        from deliver
+        where d_id = #{id};
+    </select>
+    <select id="selectAll" resultMap="deliverMap">
+        select *
+        from deliver
+    </select>
+    <insert id="save" parameterType="com.example.jsp.pojo.Deliver" useGeneratedKeys="true" keyColumn="d_id">
+        insert into deliver(d_name, d_telephone, d_u_id)
+        VALUES (#{deliver.name}, #{deliver.telephone}, #{deliver.loginUser.id})
+    </insert>
+    <delete id="delete" parameterType="int">
+        delete
+        from deliver
+        where d_id = #{id}
+    </delete>
+    <update id="update" parameterType="com.example.jsp.pojo.Deliver">
+        update deliver
+        set d_name=#{deliver.name},
+            d_telephone=#{deliver.telephone},
+            d_u_id=#{deliver.loginUser.id}
+        where d_id = #{deliver.id}
+    </update>
+</mapper>

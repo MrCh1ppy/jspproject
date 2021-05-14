@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsp.dao.AddressDao">
+    <cache/>
+    <resultMap id="AddressMap" type="com.example.jsp.pojo.Address">
+        <id property="id" javaType="int" column="a_id"/>
+        <result property="addressString" column="address"/>
+        <result property="guestId" column="a_g_id"/>
+    </resultMap>
+    <insert id="save" parameterType="com.example.jsp.pojo.Address" keyColumn="a_id" useGeneratedKeys="true">
+        insert into address(a_g_id, address)
+        VALUES (#{target.guestId}, #{target.addressString})
+    </insert>
+    <delete id="delete" parameterType="int">
+        delete
+        from address
+        where a_id = #{id}
+    </delete>
+    <select id="selectById" parameterType="int" resultMap="AddressMap">
+        select *
+        from address
+        where a_id = #{id}
+    </select>
+    <select id="selectAll" resultMap="AddressMap">
+        select *
+        from address
+    </select>
+    <select id="selectByGuestId" resultMap="AddressMap" parameterType="int">
+        select *
+        from address
+        where a_g_id = #{id}
+    </select>
+    <update id="update" parameterType="com.example.jsp.pojo.Address">
+        update address
+        set address=#{target.addressString},
+            a_g_id=#{guestId}
+        where a_id = #{target.id}
+    </update>
+    <delete id="dropByGuestId" parameterType="int">
+        delete
+        from address
+        where a_g_id = #{id}
+    </delete>
+</mapper>

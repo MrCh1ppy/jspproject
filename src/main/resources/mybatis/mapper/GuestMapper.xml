@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsp.dao.GuestDao">
+    <cache/>
+    <resultMap id="guestMap" type="com.example.jsp.pojo.Guest">
+        <id property="id" column="g_id"/>
+        <result property="name" column="g_name"/>
+        <result property="telephone" column="g_telephone"/>
+        <association property="loginUser" select="com.example.jsp.dao.UserDao.selectById" column="g_u_id"/>
+        <collection property="addresses" ofType="com.example.jsp.pojo.Address" javaType="java.util.List"
+                    select="com.example.jsp.dao.AddressDao.selectByGuestId" column="g_id"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.example.jsp.pojo.Guest">
+        insert into guest(g_name, g_telephone, g_u_id)
+        VALUES (#{target.name}, #{target.telephone}, #{target.loginUser.id})
+    </insert>
+    <delete id="delete" parameterType="int">
+        delete
+        from guest
+        where g_id = #{id}
+    </delete>
+    <select id="selectById" parameterType="int" resultMap="guestMap">
+        select *
+        from guest
+        where g_id = #{id}
+    </select>
+    <select id="selectAll" resultMap="guestMap">
+        select *
+        from guest
+    </select>
+    <update id="update" parameterType="com.example.jsp.pojo.Guest">
+        update guest
+        set g_name=#{target.name},
+            g_telephone=#{target.telephone},
+            g_u_id=#{target.loginUser.id}
+        where g_id = #{target.id}
+    </update>
+</mapper>

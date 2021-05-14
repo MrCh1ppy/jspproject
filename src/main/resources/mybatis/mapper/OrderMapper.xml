@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsp.dao.OrderDao">
+    <resultMap id="orderMap" type="com.example.jsp.pojo.Order">
+        <id property="id" column="o_id" javaType="int"/>
+        <association property="store" select="com.example.jsp.dao.StoreDao.selectById" column="o_s_id"
+                     javaType="com.example.jsp.pojo.Store"/>
+        <association property="deliver" select="com.example.jsp.dao.DeliverDao.selectById" column="o_d_id"
+                     javaType="com.example.jsp.pojo.Deliver"/>
+        <association property="guest" select="com.example.jsp.dao.GuestDao.selectById" column="o_g_id"
+                     javaType="com.example.jsp.pojo.Guest"/>
+        <association property="address" select="com.example.jsp.dao.AddressDao.selectById" column="o_a_id"
+                     javaType="com.example.jsp.pojo.Address"/>
+        <collection property="productPackages" ofType="com.example.jsp.pojo.ProductPackage"
+                    select="com.example.jsp.dao.ProductPackageDao.selectByOrderId" column="o_id"/>
+        <collection property="orderInfos" select="com.example.jsp.dao.OrderInfoDao.selectByOrderId" column="o_id"
+                    ofType="com.example.jsp.pojo.OrderInfo"/>
+    </resultMap>
+    <select id="selectById" resultMap="orderMap" parameterType="int">
+        select * from `order` where o_id=#{id}
+    </select>
+</mapper>

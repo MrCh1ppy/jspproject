@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.jsp.dao.UserDao">
+    <cache/>
+    <parameterMap id="userMap" type="com.example.jsp.pojo.User">
+        <parameter property="id" javaType="int"/>
+        <parameter property="enabled" javaType="int"/>
+        <parameter property="username" javaType="String" jdbcType="VARCHAR"/>
+        <parameter property="password" javaType="String" jdbcType="VARCHAR"/>
+    </parameterMap>
+    <resultMap id="userMap" type="com.example.jsp.pojo.User">
+        <id property="id" column="u_id"/>
+        <result property="password" column="password"/>
+        <result property="username" column="username"/>
+        <result property="enabled" column="enabled"/>
+    </resultMap>
+    <insert id="save" keyProperty="id" useGeneratedKeys="true">
+        insert into user(username, password, enabled)
+        VALUES (#{tUser.username}, #{tUser.password}, #{tUser.enabled})
+    </insert>
+    <delete id="delete">
+        delete
+        from user
+        where u_id = #{id}
+    </delete>
+    <select id="selectAll" resultMap="userMap">
+        select *
+        from user
+    </select>
+    <select id="selectById" resultMap="userMap">
+        select *
+        from user
+        where u_id = #{tId}
+    </select>
+    <update id="update" parameterMap="userMap">
+        update user
+        set username=#{tUser.username},
+            password=#{tUser.password},
+            enabled=#{tUser.enabled}
+        where u_id = #{tUser.id}
+    </update>
+</mapper>

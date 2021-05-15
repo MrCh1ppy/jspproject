@@ -17,9 +17,11 @@ public interface DeliverManager {
 
     Integer getId(Deliver deliver);
 
-    void restore(Deliver deliver) throws ProjectException;
+    int restore(Deliver deliver) throws ProjectException;
 
     void destroy(int id);
+
+    void destroy(Deliver deliver);
 
     boolean isNotExist(int id);
 }

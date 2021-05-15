@@ -13,11 +13,13 @@ public interface StoreManager {
 
     void destroy(int id);
 
+    void destroy(Store store);
+
     Store select(int id);
 
     List<Store> select();
 
-    void restore(Store store) throws ProjectException;
+    int restore(Store store) throws ProjectException;
 
     Integer getId(Store store);
 

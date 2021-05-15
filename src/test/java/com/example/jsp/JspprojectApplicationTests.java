@@ -11,12 +11,13 @@ class JspprojectApplicationTests {
 
     @Autowired
     private UserManager userManager;
+
     @Test
     void contextLoads() {
         int assertion;
-        assertion=0;
+        assertion = 0;
         User select = userManager.select(assertion);
-        assert select!=null;
+        assert select != null;
         System.out.println("over");
     }
 

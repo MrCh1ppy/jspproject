@@ -11,7 +11,9 @@ public interface UserManager {
 
     void destroy(int id);
 
-    void restore(User user);
+    void destroy(User user);
+
+    int restore(User user);
 
     User select(int id);
 

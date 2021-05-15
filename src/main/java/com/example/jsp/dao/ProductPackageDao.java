@@ -22,4 +22,6 @@ public interface ProductPackageDao {
     void update(@Param("target") ProductPackage target);
 
     List<ProductPackage> selectByOrderId(@Param("id") int id);
+
+    Integer getId(@Param("target") ProductPackage productPackage);
 }

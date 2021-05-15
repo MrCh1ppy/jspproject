@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author 橙鼠鼠
@@ -43,7 +42,12 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
             throw new SonElementNotExistException("deliver.User");
         }
         Integer id = getId(deliver);
-        return Objects.requireNonNullElseGet(id, () -> deliverDao.save(deliver));
+        if(id==null){
+            Integer save = save(deliver);
+            deliver.setId(save);
+            return save;
+        }
+        return id.intValue();
     }
 
     @Override
@@ -62,23 +66,34 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     }
 
     @Override
-    public void restore(Deliver deliver) throws SonElementNotExistException {
-        if (userManager.isNotExist(deliver.getLoginUser().getId())) {
-            throw new SonElementNotExistException("deliver.user");
+    public int restore(Deliver deliver) throws SonElementNotExistException {
+        Integer id = getId(deliver);
+        if(id==null){
+            if (userManager.isNotExist(deliver.getLoginUser().getId())) {
+                throw new SonElementNotExistException("deliver.user");
+            }
+            update(deliver);
+            return 0;
         }
-        update(deliver);
+        return id.intValue();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void destroy(int id) {
-        userManager.destroy(deliverDao.selectById(id).getLoginUser().getId());
-        delete(id);
+        destroy(deliverDao.selectById(id));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void destroy(Deliver deliver) {
+        userManager.destroy(deliver.getLoginUser().getId());
+        delete(deliver.getId());
     }
 
     @Override
     public boolean isNotExist(int id) {
-        return deliverDao.selectById(id)==null;
+        return deliverDao.selectById(id) == null;
     }
 
     @Override

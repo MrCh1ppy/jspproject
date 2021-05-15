@@ -48,15 +48,27 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
         }
 
         Integer id = storeDao.getId(store);
-        return Objects.requireNonNullElseGet(id, () -> storeDao.save(store));
+        if(id==null){
+            int save = save(store);
+            store.setId(save);
+            return save;
+        }
+        return id.intValue();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void destroy(int id) {
-        userManager.destroy(storeDao.selectById(id).getId());
-        delete(id);
+        destroy(select(id));
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void destroy(Store store) {
+        userManager.destroy(store.getId());
+        delete(store.getId());
+    }
+
 
     @Override
     public Store select(int id) {
@@ -69,11 +81,16 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     }
 
     @Override
-    public void restore(Store store) throws SonElementNotExistException {
-        if (userManager.isNotExist(store.getUser().getId())) {
-            throw new SonElementNotExistException();
+    public int restore(Store store) throws SonElementNotExistException {
+        Integer id = getId(store);
+        if(id==null){
+            if (userManager.isNotExist(store.getUser().getId())) {
+                throw new SonElementNotExistException();
+            }
+            storeDao.update(store);
+            return 0;
         }
-        storeDao.update(store);
+        return id;
     }
 
     @Override
@@ -88,6 +105,6 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
 
     @Override
     public boolean isNotExist(int id) {
-        return storeDao.selectById(id)==null;
+        return storeDao.selectById(id) == null;
     }
 }

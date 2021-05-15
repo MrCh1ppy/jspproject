@@ -4,6 +4,8 @@ import com.example.jsp.pojo.Order;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author 橙鼠鼠
  */
@@ -13,9 +15,11 @@ public interface OrderDao {
 
     void delete(@Param("id") int id);
 
-    void selectById(@Param("id") int id);
+    Order selectById(@Param("id") int id);
 
-    void selectAll();
+    List<Order> selectAll();
 
     void update(@Param("target") Order target);
+
+    Integer getId(@Param("target")Order target);
 }

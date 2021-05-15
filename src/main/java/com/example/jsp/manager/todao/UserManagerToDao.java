@@ -17,4 +17,6 @@ public interface UserManagerToDao {
     User select(int id);
 
     List<User> select();
+
+    Integer getId(User target);
 }

@@ -1,7 +1,6 @@
-package com.example.jsp.dao;
+package com.example.jsp.manager.todao;
 
 import com.example.jsp.pojo.Product;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,15 +8,15 @@ import java.util.List;
 /**
  * @author 橙鼠鼠
  */
-@Mapper
-public interface ProductDao {
+
+public interface ProductManagerToDao {
     int save(@Param("target") Product target);
 
     void delete(@Param("id") int id);
 
-    Product selectById(@Param("id") int id);
+    Product select(@Param("id") int id);
 
-    List<Product> selectAll();
+    List<Product> select();
 
     void update(@Param("target") Product target);
 

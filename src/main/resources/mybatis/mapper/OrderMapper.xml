@@ -51,4 +51,7 @@
             o_time=#{target.time}
         where o_id = #{target}
     </update>
+    <select id="getId" resultType="integer" parameterType="com.example.jsp.pojo.Order">
+        select o_id from `order` where o_a_id=#{target.address.id} and o_msg=#{target.message} and o_d_id=#{target.deliver.id} and o_status=#{target.status} and o_g_id=#{target.guest.id} and o_time=#{target.time}
+    </select>
 </mapper>

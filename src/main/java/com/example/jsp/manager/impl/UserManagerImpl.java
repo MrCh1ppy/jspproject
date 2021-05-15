@@ -37,13 +37,23 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
     }
 
     @Override
+    public void destroy(User user) {
+        del(user.getId());
+    }
+
+    @Override
     public void update(User user) {
         restore(user);
     }
 
     @Override
-    public void restore(User user) {
-        userDao.update(user);
+    public int restore(User user) {
+        Integer id = getId(user);
+        if(id==null){
+            update(user);
+            return 0;
+        }
+        return id.intValue();
     }
 
     @Override
@@ -57,6 +67,11 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
     }
 
     @Override
+    public Integer getId(User target) {
+        return userDao.getId(target);
+    }
+
+    @Override
     public Integer insert(User targetUser) {
         Integer id = userDao.getId(targetUser);
         if (id != null) {
@@ -64,9 +79,8 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
             userDao.update(targetUser);
             /*没必要专门写一个更新update字段的函数,因为mysql的底层是delete/insert 所以没有意义*/
             return id;
-        } else {
-            return save(targetUser);
         }
+        return save(targetUser);
     }
 
     @Override

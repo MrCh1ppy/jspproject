@@ -2,6 +2,7 @@ package com.example.jsp.dao;
 
 import com.example.jsp.pojo.Guest;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,14 +11,16 @@ import java.util.List;
  */
 @Mapper
 public interface GuestDao {
-    int save(Guest target);
+    int save(@Param("target") Guest target);
 
-    void delete(int id);
+    void delete(@Param("id") int id);
 
-    Guest selectById(int id);
+    Guest selectById(@Param("id") int id);
 
     List<Guest> selectAll();
 
-    void update(Guest target);
+    void update(@Param("target") Guest target);
+
+    Integer getId(@Param("guest") Guest guest);
 
 }

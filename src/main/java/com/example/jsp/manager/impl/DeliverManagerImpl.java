@@ -42,7 +42,7 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
             throw new SonElementNotExistException("deliver.User");
         }
         Integer id = getId(deliver);
-        if(id==null){
+        if (id == null) {
             Integer save = save(deliver);
             deliver.setId(save);
             return save;
@@ -68,7 +68,7 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     @Override
     public int restore(Deliver deliver) throws SonElementNotExistException {
         Integer id = getId(deliver);
-        if(id==null){
+        if (id == null) {
             if (userManager.isNotExist(deliver.getLoginUser().getId())) {
                 throw new SonElementNotExistException("deliver.user");
             }

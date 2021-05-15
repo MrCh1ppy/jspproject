@@ -46,11 +46,11 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
             throw new SonElementNotExistException();
         }
         Integer id = getId(target);
-        if(id==null){
+        if (id == null) {
             int save = save(target);
             target.setId(save);
             return save;
-        }else {
+        } else {
             return id;
         }
     }
@@ -78,7 +78,7 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
     @Override
     public int restore(Product target) throws ProjectException {
         Integer id = getId(target);
-        if(id==null){
+        if (id == null) {
             if (storeManager.isNotExist(target.getStore().getId())) {
                 throw new SonElementNotExistException();
             }
@@ -100,6 +100,6 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
 
     @Override
     public boolean isNotExist(int id) {
-        return select(id)==null;
+        return select(id) == null;
     }
 }

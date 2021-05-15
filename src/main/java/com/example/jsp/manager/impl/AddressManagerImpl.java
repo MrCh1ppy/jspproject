@@ -48,7 +48,7 @@ public class AddressManagerImpl implements AddressManagerToDao, AddressManager {
     @Override
     public int restore(Address address) {
         Integer id = addressDao.getId(address);
-        if(id==null){
+        if (id == null) {
             addressDao.update(address);
             return 0;
         }

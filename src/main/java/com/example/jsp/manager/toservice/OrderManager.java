@@ -9,7 +9,7 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface OrderManager {
-    int insert(Order target)throws ProjectException;
+    int insert(Order target) throws ProjectException;
 
     void destroy(int id);
 
@@ -19,7 +19,7 @@ public interface OrderManager {
 
     List<Order> select();
 
-    int restore(Order target)throws ProjectException;
+    int restore(Order target) throws ProjectException;
 
     Integer getId(Order target);
 

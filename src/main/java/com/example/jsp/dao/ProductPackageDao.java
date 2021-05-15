@@ -23,5 +23,5 @@ public interface ProductPackageDao {
 
     List<ProductPackage> selectByOrderId(@Param("id") int id);
 
-    Integer getId(@Param("target")ProductPackage productPackage);
+    Integer getId(@Param("target") ProductPackage productPackage);
 }

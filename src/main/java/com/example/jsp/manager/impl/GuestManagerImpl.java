@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author 橙鼠鼠
@@ -68,7 +67,7 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
         }
 
         Integer id = guestDao.getId(target);
-        if(id==null){
+        if (id == null) {
             int save = save(target);
             target.setId(save);
             for (Address address : target.getAddresses()) {
@@ -110,7 +109,7 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
      * */
     public int restore(Guest target) throws ProjectException {
         Integer id = getId(target);
-        if(id==null){
+        if (id == null) {
             if (userManager.isNotExist(target.getLoginUser().getId())) {
                 throw new SonElementNotExistException();
             }

@@ -1,6 +1,5 @@
 package com.example.jsp.dao;
 
-import com.example.jsp.pojo.Order;
 import com.example.jsp.pojo.OrderInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,7 +21,7 @@ public interface OrderInfoDao {
 
     List<OrderInfo> selectByOrderId(@Param("id") int id);
 
-    Integer getId(@Param("target")OrderInfo orderInfo);
+    Integer getId(@Param("target") OrderInfo orderInfo);
 
-    void deleteByOrder(@Param("id")int id);
+    void deleteByOrder(@Param("id") int id);
 }

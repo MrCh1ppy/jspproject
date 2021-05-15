@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author 橙鼠鼠
@@ -48,7 +47,7 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
         }
 
         Integer id = storeDao.getId(store);
-        if(id==null){
+        if (id == null) {
             int save = save(store);
             store.setId(save);
             return save;
@@ -83,7 +82,7 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     @Override
     public int restore(Store store) throws SonElementNotExistException {
         Integer id = getId(store);
-        if(id==null){
+        if (id == null) {
             if (userManager.isNotExist(store.getUser().getId())) {
                 throw new SonElementNotExistException();
             }

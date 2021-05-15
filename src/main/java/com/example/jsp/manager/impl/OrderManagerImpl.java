@@ -18,7 +18,7 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 @Service
-public class OrderManagerImpl implements OrderManagerToDao,OrderManager {
+public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
     private OrderDao orderDao;
     private GuestManager guestManager;
     private AddressManager addressManager;
@@ -82,8 +82,8 @@ public class OrderManagerImpl implements OrderManagerToDao,OrderManager {
     @Transactional(rollbackFor = Exception.class)
     public int insert(Order target) throws ProjectException {
         exist(target);
-        Integer id=getId(target);
-        if(id==null){
+        Integer id = getId(target);
+        if (id == null) {
             int save = save(target);
             target.setId(save);
             for (OrderInfo orderInfo : target.getOrderInfos()) {
@@ -92,7 +92,7 @@ public class OrderManagerImpl implements OrderManagerToDao,OrderManager {
             }
             for (ProductPackage productPackage : target.getProductPackages()) {
                 productPackage.setOrder(target);
-                if(productManager.isNotExist(productPackage.getProduct().getId())){
+                if (productManager.isNotExist(productPackage.getProduct().getId())) {
                     throw new SonElementNotExistException("product");
                 }
                 int i = productPackageManager.insert(productPackage);
@@ -106,7 +106,7 @@ public class OrderManagerImpl implements OrderManagerToDao,OrderManager {
     @Transactional(rollbackFor = Exception.class)
     public void destroy(int id) {
         Order select = select(id);
-        if(select!=null){
+        if (select != null) {
             destroy(select(id));
         }
     }
@@ -114,8 +114,8 @@ public class OrderManagerImpl implements OrderManagerToDao,OrderManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void destroy(Order order) {
-       orderInfoManager.deleteByOrderId(order.getId());
-       productPackageManager.deleteByOrderId(order.getId());
+        orderInfoManager.deleteByOrderId(order.getId());
+        productPackageManager.deleteByOrderId(order.getId());
         delete(order.getId());
     }
 
@@ -133,7 +133,7 @@ public class OrderManagerImpl implements OrderManagerToDao,OrderManager {
     @Transactional(rollbackFor = Exception.class)
     public int restore(Order target) throws ProjectException {
         Integer id = getId(target);
-        if(id==null){
+        if (id == null) {
             exist(target);
             productPackageManager.deleteByOrderId(target.getId());
             orderInfoManager.deleteByOrderId(target.getId());
@@ -163,21 +163,21 @@ public class OrderManagerImpl implements OrderManagerToDao,OrderManager {
 
     @Override
     public boolean isNotExist(int id) {
-        return select(id)==null;
+        return select(id) == null;
     }
 
 
-    private void exist(Order target) throws ProjectException{
-        if(guestManager.isNotExist(target.getGuest().getId())){
+    private void exist(Order target) throws ProjectException {
+        if (guestManager.isNotExist(target.getGuest().getId())) {
             throw new SonElementNotExistException("guest");
         }
-        if(storeManager.isNotExist(target.getStore().getId())){
+        if (storeManager.isNotExist(target.getStore().getId())) {
             throw new SonElementNotExistException("store");
         }
-        if(deliverManager.isNotExist(target.getDeliver().getId())){
+        if (deliverManager.isNotExist(target.getDeliver().getId())) {
             throw new SonElementNotExistException("deliver");
         }
-        if(addressManager.isNotExist(target.getAddress().getId())){
+        if (addressManager.isNotExist(target.getAddress().getId())) {
             throw new SonElementNotExistException("address");
         }
     }

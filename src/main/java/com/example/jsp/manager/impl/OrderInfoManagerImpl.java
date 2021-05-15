@@ -34,7 +34,7 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
     @Override
     public int insert(OrderInfo target) {
         Integer id = getId(target);
-        if(id==null){
+        if (id == null) {
             int save = save(target);
             target.setId(save);
             return save;
@@ -60,7 +60,7 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
     @Override
     public int restore(OrderInfo target) {
         Integer id = getId(target);
-        if(id==null){
+        if (id == null) {
             update(target);
             return 0;
         }
@@ -84,7 +84,7 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
 
     @Override
     public boolean isNotExist(int id) {
-        return select(id)==null;
+        return select(id) == null;
     }
 
     @Override

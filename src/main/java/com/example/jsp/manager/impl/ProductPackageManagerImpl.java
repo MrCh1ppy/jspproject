@@ -35,7 +35,7 @@ public class ProductPackageManagerImpl implements ProductPackageManagerToDao, Pr
     @Override
     public int insert(ProductPackage target) {
         Integer id = getId(target);
-        if(id==null){
+        if (id == null) {
             int save = save(target);
             target.setId(save);
             return save;
@@ -66,7 +66,7 @@ public class ProductPackageManagerImpl implements ProductPackageManagerToDao, Pr
     @Override
     public int restore(ProductPackage target) {
         Integer id = getId(target);
-        if(id==null){
+        if (id == null) {
             update(target);
             return 0;
         }
@@ -90,6 +90,6 @@ public class ProductPackageManagerImpl implements ProductPackageManagerToDao, Pr
 
     @Override
     public boolean isNotExist(int id) {
-        return select(id)==null;
+        return select(id) == null;
     }
 }

@@ -37,9 +37,15 @@
         where e_id = #{id}
     </select>
     <select id="getId" parameterType="com.example.jsp.pojo.OrderInfo" resultType="integer">
-        select e_id from exception where e_enabled=#{target.enabled} and e_msg=#{target.message} and e_o_id=#{target.order.id}
+        select e_id
+        from exception
+        where e_enabled = #{target.enabled}
+          and e_msg = #{target.message}
+          and e_o_id = #{target.order.id}
     </select>
     <delete id="deleteByOrder" parameterType="int">
-        delete from order_product where op_o_id=#{id}
+        delete
+        from order_product
+        where op_o_id = #{id}
     </delete>
 </mapper>

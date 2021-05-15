@@ -49,7 +49,7 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
     @Override
     public int restore(User user) {
         Integer id = getId(user);
-        if(id==null){
+        if (id == null) {
             update(user);
             return 0;
         }

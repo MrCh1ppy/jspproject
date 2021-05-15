@@ -43,6 +43,10 @@
         where op_o_id = #{id}
     </delete>
     <select id="getId" resultType="integer" parameterType="com.example.jsp.pojo.ProductPackage">
-        select op_id from order_product where op_num=#{target.num} and op_p_id=#{target.product.id} and op_o_id=#{target.order.id}
+        select op_id
+        from order_product
+        where op_num = #{target.num}
+          and op_p_id = #{target.product.id}
+          and op_o_id = #{target.order.id}
     </select>
 </mapper>

@@ -21,5 +21,5 @@ public interface OrderDao {
 
     void update(@Param("target") Order target);
 
-    Integer getId(@Param("target")Order target);
+    Integer getId(@Param("target") Order target);
 }

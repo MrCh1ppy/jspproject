@@ -20,4 +20,6 @@ public interface UserDao {
     List<User> selectAll();
 
     void update(@Param("tUser") User tUser);
+
+    Integer getId(@Param("user") User user);
 }

@@ -1,64 +1,97 @@
 package com.example.jsp.manager.impl;
 
-
-import com.example.jsp.commons.exception.SonElementContradictionException;
+import com.example.jsp.commons.exception.manager.ProjectException;
+import com.example.jsp.commons.exception.manager.SonElementNotExistException;
 import com.example.jsp.dao.GuestDao;
-import com.example.jsp.manager.UserManager;
+import com.example.jsp.manager.todao.GuestManagerToDao;
+import com.example.jsp.manager.toservice.AddressManager;
+import com.example.jsp.manager.toservice.GuestManager;
+import com.example.jsp.manager.toservice.UserManager;
 import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Guest;
-import com.example.jsp.manager.AddressManager;
-import com.example.jsp.manager.GuestManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author 橙鼠鼠
  */
 @Service
-public class GuestManagerImpl implements GuestManager {
-    private AddressManager addressManager;
-    private UserManager userManager;
+public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
     private GuestDao guestDao;
-
-    @Autowired
-    public void setAddressService(AddressManager addressManager) {
-        this.addressManager = addressManager;
-    }
-
-    @Autowired
-    public void setUserService(UserManager userManager) {
-        this.userManager = userManager;
-    }
+    private UserManager userManager;
+    private AddressManager addressManager;
 
     @Autowired
     public void setGuestDao(GuestDao guestDao) {
         this.guestDao = guestDao;
     }
 
+    @Autowired
+    public void setAddressManager(AddressManager addressManager) {
+        this.addressManager = addressManager;
+    }
+
+    @Autowired
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
+    }
+
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int save(Guest target) throws SonElementContradictionException {
-        var select = userManager.select(target.getLoginUser().getId());
-        if (select == null) {
-            int save = userManager.save(target.getLoginUser());
-            target.getLoginUser().setId(save);
-        } else if (!select.equals(target.getLoginUser())) {
-            throw new SonElementContradictionException("guest.user");
-        }
-        return guestDao.save(target);
+    public int save(Guest guest) {
+        guestDao.save(guest);
+        return guest.getId();
     }
 
     @Override
     public void delete(int id) {
         guestDao.delete(id);
-        userManager.delete(id);
-        List<Address> addresses = addressManager.selectFromG(id);
-        for (Address address : addresses) {
-            addressManager.delete(address.getId());
+    }
+
+    @Override
+    public void update(Guest guest) {
+        guestDao.update(guest);
+    }
+
+    /**
+     * @apiNote :如果寻找到有相同内容的数据,将停止插入对应的子元素转而使用数据表中原先记录的数据,
+     * 即如果发现插入的id与原先的不一样,需要使用update而不是insert
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int insert(Guest target) throws ProjectException {
+        if (userManager.isNotExist(target.getLoginUser().getId())) {
+            throw new SonElementNotExistException("Guest.user");
         }
+
+        Integer id = guestDao.getId(target);
+        if(id==null){
+            int save = save(target);
+            target.setId(save);
+            for (Address address : target.getAddresses()) {
+                int i = addressManager.insert(address);
+                address.setId(i);
+            }
+            return save;
+        }
+        return id.intValue();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void destroy(int id) {
+        destroy(select(id));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void destroy(Guest guest) {
+        userManager.destroy(guest.getLoginUser().getId());
+        addressManager.dropByGuestId(guest.getId());
+        delete(guest.getId());
     }
 
     @Override
@@ -72,14 +105,33 @@ public class GuestManagerImpl implements GuestManager {
     }
 
     @Override
-    public void update(Guest target) {
-        var select = userManager.select(target.getId());
-        userManager.updatePre(select.getId(), target.getLoginUser());
-        guestDao.update(target);
-        addressManager.dropByGuestId(target.getId());
-        List<Address> addresses = target.getAddresses();
-        for (Address address : addresses) {
-            addressManager.save(address);
+    @Transactional(rollbackFor = Exception.class)
+    /**@apiNote :对于地址的更新,直接使用完全删除与完全添加;
+     * */
+    public int restore(Guest target) throws ProjectException {
+        Integer id = getId(target);
+        if(id==null){
+            if (userManager.isNotExist(target.getLoginUser().getId())) {
+                throw new SonElementNotExistException();
+            }
+            addressManager.dropByGuestId(target.getId());
+            for (Address address : target.getAddresses()) {
+                int i = addressManager.insert(address);
+                address.setId(i);
+            }
+            guestDao.update(target);
+            return 0;
         }
+        return id.intValue();
+    }
+
+    @Override
+    public Integer getId(Guest target) {
+        return guestDao.getId(target);
+    }
+
+    @Override
+    public boolean isNotExist(int id) {
+        return select(id) == null;
     }
 }

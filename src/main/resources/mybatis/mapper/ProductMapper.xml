@@ -35,4 +35,11 @@
             p_s_id=#{target.store.id}
         where p_id = #{target.id}
     </update>
+    <select id="getId" parameterType="com.example.jsp.pojo.Product" resultType="integer">
+        select p_id
+        from product
+        where p_name = #{target.name}
+          and p_price = #{target.price}
+          and p_s_id = #{target.store.id}
+    </select>
 </mapper>

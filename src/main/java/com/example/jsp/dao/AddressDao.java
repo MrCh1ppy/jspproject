@@ -24,4 +24,6 @@ public interface AddressDao {
     List<Address> selectByGuestId(@Param("id") int id);
 
     void dropByGuestId(@Param("id") int id);
+
+    Integer getId(@Param("target") Address address);
 }

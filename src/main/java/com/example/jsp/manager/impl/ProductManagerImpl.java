@@ -1,13 +1,14 @@
 package com.example.jsp.manager.impl;
 
-import com.example.jsp.commons.exception.SonElementContradictionException;
+import com.example.jsp.commons.exception.manager.ProjectException;
+import com.example.jsp.commons.exception.manager.SonElementNotExistException;
 import com.example.jsp.dao.ProductDao;
+import com.example.jsp.manager.todao.ProductManagerToDao;
+import com.example.jsp.manager.toservice.ProductManager;
+import com.example.jsp.manager.toservice.StoreManager;
 import com.example.jsp.pojo.Product;
-import com.example.jsp.manager.ProductManager;
-import com.example.jsp.manager.StoreManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 @Service
-public class ProductManagerImpl implements ProductManager {
-    private ProductDao productDao;
+public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
     private StoreManager storeManager;
+    private ProductDao productDao;
 
     @Autowired
     public void setStoreManager(StoreManager storeManager) {
@@ -30,23 +31,38 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int save(Product target) throws SonElementContradictionException {
-        try {
-            int savePre = storeManager.savePre(target.getStore());
-            target.getStore().setId(savePre);
-            return productDao.save(target);
-        } catch (SonElementContradictionException e) {
-            throw new SonElementContradictionException("product." + e.getMessage());
+    public int save(Product target) {
+        return productDao.save(target);
+    }
+
+    @Override
+    public void delete(int id) {
+        productDao.delete(id);
+    }
+
+    @Override
+    public int insert(Product target) throws ProjectException {
+        if (storeManager.isNotExist(target.getStore().getId())) {
+            throw new SonElementNotExistException();
+        }
+        Integer id = getId(target);
+        if(id==null){
+            int save = save(target);
+            target.setId(save);
+            return save;
+        }else {
+            return id;
         }
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(int id) {
-        var select = select(id);
-        storeManager.delete(select.getId());
-        productDao.delete(id);
+    public void destroy(int id) {
+        delete(id);
+    }
+
+    @Override
+    public void destroy(Product target) {
+        destroy(target.getId());
     }
 
     @Override
@@ -60,14 +76,30 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(Product target) throws SonElementContradictionException {
-        try {
-            int i = storeManager.updatePre(target.getStore());
-            target.getStore().setId(i);
-            productDao.update(target);
-        } catch (SonElementContradictionException e) {
-            throw new SonElementContradictionException("product." + e.getMessage());
+    public int restore(Product target) throws ProjectException {
+        Integer id = getId(target);
+        if(id==null){
+            if (storeManager.isNotExist(target.getStore().getId())) {
+                throw new SonElementNotExistException();
+            }
+            update(target);
+            return 0;
         }
+        return id.intValue();
+    }
+
+    @Override
+    public void update(Product target) {
+        productDao.update(target);
+    }
+
+    @Override
+    public Integer getId(Product product) {
+        return productDao.getId(product);
+    }
+
+    @Override
+    public boolean isNotExist(int id) {
+        return select(id)==null;
     }
 }

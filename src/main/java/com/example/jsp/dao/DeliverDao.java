@@ -13,11 +13,13 @@ import java.util.List;
 public interface DeliverDao {
     int save(@Param("deliver") Deliver deliver);
 
-    void delete(int id);
+    void delete(@Param("deliver") int id);
 
     Deliver selectById(@Param("target") int id);
 
     List<Deliver> selectAll();
 
-    void update(Deliver deliver);
+    void update(@Param("deliver") Deliver deliver);
+
+    Integer getId(@Param("deliver") Deliver deliver);
 }

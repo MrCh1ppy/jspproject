@@ -20,5 +20,8 @@ public class Order implements Serializable {
     private Deliver deliver;
     private Store store;
     private Address address;
+    private int status;
+    private String message;
     private List<ProductPackage> productPackages;
+    private String time;
 }

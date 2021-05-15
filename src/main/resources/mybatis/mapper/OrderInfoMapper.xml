@@ -7,7 +7,8 @@
         <id property="id" column="e_id"/>
         <result property="enabled" column="e_enabled"/>
         <result property="message" column="e_msg"/>
-        <association property="order" select="com.example.jsp.dao.OrderDao.selectById" column="e_o_id" javaType="com.example.jsp.pojo.Order"/>
+        <association property="order" select="com.example.jsp.dao.OrderDao.selectById" column="e_o_id"
+                     javaType="com.example.jsp.pojo.Order"/>
     </resultMap>
     <select id="selectByOrderId" resultMap="InfoMap" parameterType="int">
         select *
@@ -15,15 +16,30 @@
         where op_o_id = #{id}
     </select>
     <insert id="save" parameterType="com.example.jsp.pojo.OrderInfo" useGeneratedKeys="true" keyColumn="e_id">
-        insert into exception(e_enabled, e_o_id, e_msg) VALUES (#{target.enabled},#{target.order.id},#{target.message})
+        insert into exception(e_enabled, e_o_id, e_msg)
+        VALUES (#{target.enabled}, #{target.order.id}, #{target.message})
     </insert>
     <delete id="delete" parameterType="int">
-        delete from exception where e_id=#{id}
+        delete
+        from exception
+        where e_id = #{id}
     </delete>
     <update id="update" parameterType="com.example.jsp.pojo.OrderInfo">
-        update exception set e_enabled=#{target.enabled},e_msg=#{target.message},e_o_id=#{target.order.id} where e_id=#{target.id}
+        update exception
+        set e_enabled=#{target.enabled},
+            e_msg=#{target.message},
+            e_o_id=#{target.order.id}
+        where e_id = #{target.id}
     </update>
     <select id="selectById" parameterType="int" resultMap="InfoMap">
-        select * from exception where e_id=#{id}
+        select *
+        from exception
+        where e_id = #{id}
     </select>
+    <select id="getId" parameterType="com.example.jsp.pojo.OrderInfo" resultType="integer">
+        select e_id from exception where e_enabled=#{target.enabled} and e_msg=#{target.message} and e_o_id=#{target.order.id}
+    </select>
+    <delete id="deleteByOrder" parameterType="int">
+        delete from order_product where op_o_id=#{id}
+    </delete>
 </mapper>

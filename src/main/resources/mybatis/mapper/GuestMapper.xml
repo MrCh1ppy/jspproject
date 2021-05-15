@@ -38,4 +38,11 @@
             g_u_id=#{target.loginUser.id}
         where g_id = #{target.id}
     </update>
+    <select id="getId" parameterType="com.example.jsp.pojo.Guest" resultType="int">
+        select g_id
+        from guest
+        where g_name = #{target.name}
+          and g_telephone = #{target.telephone}
+          and g_u_id = #{target.loginUser.id}
+    </select>
 </mapper>

@@ -1,54 +1,74 @@
 package com.example.jsp.manager.impl;
 
-import com.example.jsp.commons.exception.SonElementContradictionException;
+import com.example.jsp.commons.exception.manager.SonElementNotExistException;
 import com.example.jsp.dao.StoreDao;
-import com.example.jsp.manager.UserManager;
+import com.example.jsp.manager.todao.StoreManagerToDao;
+import com.example.jsp.manager.toservice.StoreManager;
+import com.example.jsp.manager.toservice.UserManager;
 import com.example.jsp.pojo.Store;
-import com.example.jsp.manager.StoreManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author 橙鼠鼠
  */
 @Service
-public class StoreManagerImpl implements StoreManager {
-    private StoreDao storeDao;
+public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     private UserManager userManager;
+    private StoreDao storeDao;
+
+    @Autowired
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
+    }
 
     @Autowired
     public void setStoreDao(StoreDao storeDao) {
         this.storeDao = storeDao;
     }
 
-    @Autowired
-    public void setUserService(UserManager userManager) {
-        this.userManager = userManager;
-    }
-
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int save(Store store) throws SonElementContradictionException {
-        var user = userManager.select(store.getUser().getId());
-        if (user == null) {
-            int save = userManager.save(store.getUser());
-            store.getUser().setId(save);
-        } else if (!user.equals(store.getUser())) {
-            throw new SonElementContradictionException("Store.user");
-        }
+    public int save(Store store) {
         return storeDao.save(store);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void delete(int id) {
-        var user = userManager.select(id);
-        userManager.delete(user.getId());
         storeDao.delete(id);
     }
+
+    @Override
+    public int insert(Store store) throws SonElementNotExistException {
+        if (userManager.isNotExist(store.getUser().getId())) {
+            throw new SonElementNotExistException("Store.user");
+        }
+
+        Integer id = storeDao.getId(store);
+        if(id==null){
+            int save = save(store);
+            store.setId(save);
+            return save;
+        }
+        return id.intValue();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void destroy(int id) {
+        destroy(select(id));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void destroy(Store store) {
+        userManager.destroy(store.getId());
+        delete(store.getId());
+    }
+
 
     @Override
     public Store select(int id) {
@@ -61,36 +81,30 @@ public class StoreManagerImpl implements StoreManager {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    public int restore(Store store) throws SonElementNotExistException {
+        Integer id = getId(store);
+        if(id==null){
+            if (userManager.isNotExist(store.getUser().getId())) {
+                throw new SonElementNotExistException();
+            }
+            storeDao.update(store);
+            return 0;
+        }
+        return id;
+    }
+
+    @Override
     public void update(Store store) {
-        var store1 = storeDao.selectById(store.getId());
-        int user = userManager.updatePre(store1.getId(), store.getUser());
-        store.setUser(userManager.select(user));
         storeDao.update(store);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int savePre(Store store) throws SonElementContradictionException {
-        var select = select(store.getId());
-        if (select != null && !store.equals(select)) {
-            throw new SonElementContradictionException();
-        }
-        return save(store);
+    public Integer getId(Store store) {
+        return storeDao.getId(store);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int updatePre(Store store) throws SonElementContradictionException {
-        var select = select(store.getId());
-        if (select == null) {
-            return this.save(store);
-        } else if (select.getId() != store.getId()) {
-            delete(select.getId());
-            return this.save(store);
-        } else {
-            this.update(store);
-            return store.getId();
-        }
+    public boolean isNotExist(int id) {
+        return storeDao.selectById(id) == null;
     }
 }

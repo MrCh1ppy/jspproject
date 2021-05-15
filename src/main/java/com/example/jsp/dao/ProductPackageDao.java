@@ -2,6 +2,7 @@ package com.example.jsp.dao;
 
 import com.example.jsp.pojo.ProductPackage;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,15 +11,17 @@ import java.util.List;
  */
 @Mapper
 public interface ProductPackageDao {
-    int save(ProductPackage target);
+    int save(@Param("target") ProductPackage target);
 
-    void delete(int id);
+    void delete(@Param("id") int id);
 
-    ProductPackage selectById(int id);
+    void deleteByOrderId(@Param("id") int id);
 
-    List<ProductPackage> selectAll();
+    ProductPackage selectById(@Param("id") int id);
 
-    void update(ProductPackage target);
+    void update(@Param("target") ProductPackage target);
 
-    List<ProductPackage> selectByOrderId(int id);
+    List<ProductPackage> selectByOrderId(@Param("id") int id);
+
+    Integer getId(@Param("target")ProductPackage productPackage);
 }

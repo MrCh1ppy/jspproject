@@ -1,11 +1,12 @@
 package com.example.jsp.manager.impl;
 
-import com.example.jsp.commons.exception.SonElementContradictionException;
+import com.example.jsp.commons.exception.manager.ProjectException;
+import com.example.jsp.commons.exception.manager.SonElementNotExistException;
 import com.example.jsp.dao.DeliverDao;
-import com.example.jsp.manager.UserManager;
+import com.example.jsp.manager.todao.DeliverManagerToDao;
+import com.example.jsp.manager.toservice.DeliverManager;
+import com.example.jsp.manager.toservice.UserManager;
 import com.example.jsp.pojo.Deliver;
-import com.example.jsp.pojo.User;
-import com.example.jsp.manager.DeliverManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,18 +17,37 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 @Service
-public class DeliverManagerImpl implements DeliverManager {
-    private DeliverDao deliverDao;
+public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     private UserManager userManager;
+    private DeliverDao deliverDao;
 
     @Autowired
-    private void setDeliverDao(DeliverDao deliverDao) {
-        this.deliverDao = deliverDao;
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
     }
 
     @Autowired
-    public void setUserService(UserManager userManager) {
-        this.userManager = userManager;
+    public void setDeliverDao(DeliverDao deliverDao) {
+        this.deliverDao = deliverDao;
+    }
+
+    @Override
+    public Integer save(Deliver deliver) {
+        return deliverDao.save(deliver);
+    }
+
+    @Override
+    public Integer insert(Deliver deliver) throws ProjectException {
+        if (userManager.isNotExist(deliver.getLoginUser().getId())) {
+            throw new SonElementNotExistException("deliver.User");
+        }
+        Integer id = getId(deliver);
+        if(id==null){
+            Integer save = save(deliver);
+            deliver.setId(save);
+            return save;
+        }
+        return id.intValue();
     }
 
     @Override
@@ -41,44 +61,48 @@ public class DeliverManagerImpl implements DeliverManager {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int save(Deliver deliver) throws SonElementContradictionException {
-        var select = userManager.select(deliver.getLoginUser().getId());
-        if (select == null) {
-            int save = userManager.save(deliver.getLoginUser());
-            deliver.getLoginUser().setId(save);
-        } else if (!deliver.getLoginUser().equals(select)) {
-            throw new SonElementContradictionException("deliver.son");
-        }
-        return deliverDao.save(deliver);
+    public Integer getId(Deliver deliver) {
+        return deliverDao.getId(deliver);
     }
 
     @Override
-    @Deprecated
-    /**@deprecated 减少使用级联更新
-     * @date 2021.5.13
-     * */
-    public int save(Deliver deliver, User user) {
-        if (userManager.select(user.getId()) == null) {
-            userManager.save(user);
-        } else {
-            userManager.update(user);
+    public int restore(Deliver deliver) throws SonElementNotExistException {
+        Integer id = getId(deliver);
+        if(id==null){
+            if (userManager.isNotExist(deliver.getLoginUser().getId())) {
+                throw new SonElementNotExistException("deliver.user");
+            }
+            update(deliver);
+            return 0;
         }
-        deliver.setId(user.getId());
-        deliverDao.save(deliver);
-        return deliver.getId();
+        return id.intValue();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void destroy(int id) {
+        destroy(deliverDao.selectById(id));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void destroy(Deliver deliver) {
+        userManager.destroy(deliver.getLoginUser().getId());
+        delete(deliver.getId());
+    }
+
+    @Override
+    public boolean isNotExist(int id) {
+        return deliverDao.selectById(id) == null;
+    }
+
+    @Override
+    public void update(Deliver deliver) {
+        deliverDao.update(deliver);
     }
 
     @Override
     public void delete(int id) {
         deliverDao.delete(id);
-        userManager.delete(id);
-    }
-
-    @Override
-    public void update(Deliver deliver) {
-        var select = userManager.select(deliver.getId());
-        userManager.updatePre(select.getId(), deliver.getLoginUser());
-        deliverDao.update(deliver);
     }
 }

@@ -20,4 +20,6 @@ public interface StoreDao {
     List<Store> selectAll();
 
     void update(@Param("store") Store store);
+
+    Integer getId(@Param("store") Store store);
 }

@@ -43,4 +43,10 @@
         from address
         where a_g_id = #{id}
     </delete>
+    <select id="getId" resultType="integer" parameterType="com.example.jsp.pojo.Address">
+        select a_id
+        from address
+        where address = #{target.addressString}
+          and a_g_id = #{guestId}
+    </select>
 </mapper>

@@ -39,7 +39,8 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
             target.setId(save);
             return save;
         }
-        return id.intValue();
+        target.setId(id);
+        return target.getId();
     }
 
     @Override
@@ -64,7 +65,8 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
             update(target);
             return 0;
         }
-        return id.intValue();
+        target.setId(id);
+        return target.getId();
     }
 
     @Override

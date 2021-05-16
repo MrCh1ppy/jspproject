@@ -47,7 +47,8 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
             deliver.setId(save);
             return save;
         }
-        return id.intValue();
+        deliver.setId(id);
+        return deliver.getId();
     }
 
     @Override
@@ -75,7 +76,8 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
             update(deliver);
             return 0;
         }
-        return id.intValue();
+        deliver.setId(id);
+        return deliver.getId();
     }
 
     @Override

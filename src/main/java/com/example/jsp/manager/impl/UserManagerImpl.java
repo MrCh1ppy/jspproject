@@ -48,12 +48,13 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
 
     @Override
     public int restore(User user) {
-        Integer id = getId(user);
-        if (id == null) {
+        User temp = getId(user);
+        if (temp == null) {
             update(user);
             return 0;
         }
-        return id.intValue();
+        user.setId(temp.getId());
+        return temp.getId();
     }
 
     @Override
@@ -67,20 +68,21 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
     }
 
     @Override
-    public Integer getId(User target) {
+    public User getId(User target) {
         return userDao.getId(target);
     }
 
     @Override
     public Integer insert(User targetUser) {
-        Integer id = userDao.getId(targetUser);
-        if (id != null) {
-            targetUser.setId(id);
+        User tempUser = userDao.getId(targetUser);
+        if (tempUser != null) {
+            targetUser.setId(tempUser.getId());
             userDao.update(targetUser);
             /*没必要专门写一个更新update字段的函数,因为mysql的底层是delete/insert 所以没有意义*/
-            return id;
+            return tempUser.getId();
         }
-        return save(targetUser);
+        targetUser.setId(save(targetUser));
+        return targetUser.getId();
     }
 
     @Override

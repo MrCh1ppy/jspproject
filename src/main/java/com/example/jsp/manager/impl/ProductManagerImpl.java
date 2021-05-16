@@ -50,9 +50,9 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
             int save = save(target);
             target.setId(save);
             return save;
-        } else {
-            return id;
         }
+        target.setId(id);
+        return target.getId();
     }
 
     @Override
@@ -85,7 +85,8 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
             update(target);
             return 0;
         }
-        return id.intValue();
+        target.setId(id);
+        return target.getId();
     }
 
     @Override

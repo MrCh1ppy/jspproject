@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author 橙鼠鼠
@@ -32,7 +31,13 @@ public class AddressManagerImpl implements AddressManagerToDao, AddressManager {
      * */
     public int insert(Address address) {
         Integer id = addressDao.getId(address);
-        return Objects.requireNonNullElseGet(id, () -> addressDao.save(address));
+        if(id==null){
+            int save = save(address);
+            address.setId(save);
+            return save;
+        }
+        address.setId(id);
+        return address.getId();
     }
 
     @Override
@@ -52,7 +57,8 @@ public class AddressManagerImpl implements AddressManagerToDao, AddressManager {
             addressDao.update(address);
             return 0;
         }
-        return id.intValue();
+        address.setId(id);
+        return address.getId();
     }
 
     @Override

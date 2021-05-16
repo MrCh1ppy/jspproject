@@ -9,19 +9,19 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface OrderManager {
-    int insert(Order target) throws ProjectException;
+    Integer insert(Order target) throws ProjectException;
 
-    void destroy(int id);
+    void destroy(Integer id);
 
     void destroy(Order order);
 
-    Order select(int id);
+    Order select(Integer id);
 
     List<Order> select();
 
-    int restore(Order target) throws ProjectException;
+    Integer restore(Order target) throws ProjectException;
 
     Integer getId(Order target);
 
-    boolean isNotExist(int id);
+    Boolean isNotExist(Integer id);
 }

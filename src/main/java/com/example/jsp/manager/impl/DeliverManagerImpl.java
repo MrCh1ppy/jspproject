@@ -57,7 +57,7 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     }
 
     @Override
-    public Deliver select(int id) {
+    public Deliver select(Integer id) {
         return deliverDao.selectById(id);
     }
 
@@ -67,7 +67,7 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     }
 
     @Override
-    public int restore(Deliver deliver) throws SonElementNotExistException {
+    public Integer restore(Deliver deliver) throws SonElementNotExistException {
         Integer id = getId(deliver);
         if (id == null) {
             if (userManager.isNotExist(deliver.getLoginUser().getId())) {
@@ -82,7 +82,7 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void destroy(int id) {
+    public void destroy(Integer id) {
         destroy(deliverDao.selectById(id));
     }
 
@@ -94,7 +94,7 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     }
 
     @Override
-    public boolean isNotExist(int id) {
+    public Boolean isNotExist(Integer id) {
         return deliverDao.selectById(id) == null;
     }
 
@@ -104,7 +104,7 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         deliverDao.delete(id);
     }
 }

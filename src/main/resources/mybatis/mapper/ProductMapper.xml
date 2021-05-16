@@ -15,12 +15,12 @@
         insert into product(p_name, p_price, p_s_id)
         VALUES (#{target.name}, #{target.price}, #{target.store.id})
     </insert>
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="integer">
         delete
         from product
         where p_id = #{id}
     </delete>
-    <select id="selectById" parameterType="int" resultMap="ProductMap">
+    <select id="selectById" parameterType="integer" resultMap="ProductMap">
         select *
         from product
         where p_id = #{id}

@@ -13,8 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements Serializable {
-    private int id;
+    private Integer id;
     private String username;
     private String password;
-    private int enabled;
+    private Integer enabled;
 }

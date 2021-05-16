@@ -14,10 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Guest implements Serializable {
-    int id;
-    String name;
-    String telephone;
-    User loginUser;
+    private Integer id;
+    private String name;
+    private String telephone;
+    private User loginUser;
     private List<Address> addresses;
 }
 

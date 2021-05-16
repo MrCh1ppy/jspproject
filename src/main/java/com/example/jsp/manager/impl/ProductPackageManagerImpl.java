@@ -23,17 +23,17 @@ public class ProductPackageManagerImpl implements ProductPackageManagerToDao, Pr
 
 
     @Override
-    public int save(ProductPackage target) {
+    public Integer save(ProductPackage target) {
         return productPackageDao.save(target);
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         productPackageDao.delete(id);
     }
 
     @Override
-    public int insert(ProductPackage target) {
+    public Integer insert(ProductPackage target) {
         Integer id = getId(target);
         if (id == null) {
             int save = save(target);
@@ -45,7 +45,7 @@ public class ProductPackageManagerImpl implements ProductPackageManagerToDao, Pr
     }
 
     @Override
-    public void destroy(int id) {
+    public void destroy(Integer id) {
         delete(id);
     }
 
@@ -55,17 +55,17 @@ public class ProductPackageManagerImpl implements ProductPackageManagerToDao, Pr
     }
 
     @Override
-    public void deleteByOrderId(int id) {
+    public void deleteByOrderId(Integer id) {
         productPackageDao.deleteByOrderId(id);
     }
 
     @Override
-    public ProductPackage select(int id) {
+    public ProductPackage select(Integer id) {
         return productPackageDao.selectById(id);
     }
 
     @Override
-    public int restore(ProductPackage target) {
+    public Integer restore(ProductPackage target) {
         Integer id = getId(target);
         if (id == null) {
             update(target);
@@ -81,7 +81,7 @@ public class ProductPackageManagerImpl implements ProductPackageManagerToDao, Pr
     }
 
     @Override
-    public List<ProductPackage> selectByOrderId(int id) {
+    public List<ProductPackage> selectByOrderId(Integer id) {
         return productPackageDao.selectByOrderId(id);
     }
 
@@ -91,7 +91,7 @@ public class ProductPackageManagerImpl implements ProductPackageManagerToDao, Pr
     }
 
     @Override
-    public boolean isNotExist(int id) {
+    public Boolean isNotExist(Integer id) {
         return select(id) == null;
     }
 }

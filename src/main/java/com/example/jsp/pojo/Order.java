@@ -14,13 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order implements Serializable {
-    private int id;
+    private Integer id;
     private List<OrderInfo> orderInfos;
     private Guest guest;
     private Deliver deliver;
     private Store store;
     private Address address;
-    private int status;
+    private Integer status;
     private String message;
     private List<ProductPackage> productPackages;
     private String time;

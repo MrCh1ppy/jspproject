@@ -13,8 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductPackage implements Serializable {
-    private int id;
-    private int num;
+    private Integer id;
+    private Integer num;
     private Product product;
     private Order order;
 }

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Store implements Serializable {
-    private int id;
+    private Integer id;
     private String name;
     private String address;
     private String telephone;

@@ -10,19 +10,19 @@ import java.util.List;
 public interface AddressManager {
     List<Address> select();
 
-    Address select(int id);
+    Address select(Integer id);
 
-    int insert(Address address);
+    Integer insert(Address address);
 
-    void destroy(int id);
+    void destroy(Integer id);
 
     void destroy(Address address);
 
-    int restore(Address address);
+    Integer restore(Address address);
 
-    List<Address> selectByGuestId(int id);
+    List<Address> selectByGuestId(Integer id);
 
-    void dropByGuestId(int id);
+    void dropByGuestId(Integer id);
 
-    boolean isNotExist(int id);
+    Boolean isNotExist(Integer id);
 }

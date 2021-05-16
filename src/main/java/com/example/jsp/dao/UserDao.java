@@ -11,11 +11,11 @@ import java.util.List;
  */
 @Mapper
 public interface UserDao {
-    int save(@Param("tUser") User user);
+    Integer save(@Param("tUser") User user);
 
-    void delete(@Param("tId") int tid);
+    void delete(@Param("tId") Integer tid);
 
-    User selectById(@Param("tId") int tid);
+    User selectById(@Param("tId") Integer tid);
 
     List<User> selectAll();
 

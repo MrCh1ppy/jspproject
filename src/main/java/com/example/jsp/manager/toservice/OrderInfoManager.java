@@ -8,19 +8,19 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface OrderInfoManager {
-    int insert(OrderInfo target);
+    Integer insert(OrderInfo target);
 
-    void destroy(int id);
+    void destroy(Integer id);
 
     void destroy(OrderInfo orderInfo);
 
-    OrderInfo select(int id);
+    OrderInfo select(Integer id);
 
-    void deleteByOrderId(int id);
+    void deleteByOrderId(Integer id);
 
-    int restore(OrderInfo target);
+    Integer restore(OrderInfo target);
 
-    List<OrderInfo> selectByOrderId(int id);
+    List<OrderInfo> selectByOrderId(Integer id);
 
     Integer getId(OrderInfo orderInfo);
 }

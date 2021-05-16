@@ -10,11 +10,11 @@ import java.util.List;
  */
 
 public interface ProductManagerToDao {
-    int save(@Param("target") Product target);
+    Integer save(@Param("target") Product target);
 
-    void delete(@Param("id") int id);
+    void delete(@Param("id") Integer id);
 
-    Product select(@Param("id") int id);
+    Product select(@Param("id") Integer id);
 
     List<Product> select();
 

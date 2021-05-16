@@ -10,15 +10,15 @@ import java.util.List;
 public interface AddressManagerToDao {
     List<Address> select();
 
-    Address select(int id);
+    Address select(Integer id);
 
-    int save(Address address);
+    Integer save(Address address);
 
-    void delete(int id);
+    void delete(Integer id);
 
     void update(Address address);
 
-    List<Address> selectByGuestId(int id);
+    List<Address> selectByGuestId(Integer id);
 
-    void dropByGuestId(int id);
+    void dropByGuestId(Integer id);
 }

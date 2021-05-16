@@ -16,7 +16,7 @@
         select *
         from store
     </select>
-    <select id="selectById" parameterType="int" resultMap="StoreMap">
+    <select id="selectById" parameterType="integer" resultMap="StoreMap">
         select *
         from store
         where s_id = #{id}
@@ -25,7 +25,7 @@
         insert into store(s_name, s_address, s_telephone, s_u_id)
         VALUES (#{store.name}, #{store.address}, #{store.telephone}, #{store.user.id})
     </insert>
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="integer">
         delete
         from store
         where s_id = #{id}

@@ -9,19 +9,19 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface StoreManager {
-    int insert(Store store) throws ProjectException;
+    Integer insert(Store store) throws ProjectException;
 
-    void destroy(int id);
+    void destroy(Integer id);
 
     void destroy(Store store);
 
-    Store select(int id);
+    Store select(Integer id);
 
     List<Store> select();
 
-    int restore(Store store) throws ProjectException;
+    Integer restore(Store store) throws ProjectException;
 
     Integer getId(Store store);
 
-    boolean isNotExist(int id);
+    Boolean isNotExist(Integer id);
 }

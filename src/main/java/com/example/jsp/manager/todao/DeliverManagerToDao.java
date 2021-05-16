@@ -12,11 +12,11 @@ public interface DeliverManagerToDao {
 
     List<Deliver> select();
 
-    Deliver select(int id);
+    Deliver select(Integer id);
 
     Integer getId(Deliver deliver);
 
     void update(Deliver deliver);
 
-    void delete(int id);
+    void delete(Integer id);
 }

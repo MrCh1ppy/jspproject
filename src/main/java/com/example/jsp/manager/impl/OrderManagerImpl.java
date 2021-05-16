@@ -69,18 +69,18 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
     }
 
     @Override
-    public int save(Order target) {
+    public Integer save(Order target) {
         return orderDao.save(target);
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         orderDao.delete(id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int insert(Order target) throws ProjectException {
+    public Integer insert(Order target) throws ProjectException {
         exist(target);
         Integer id = getId(target);
         if (id == null) {
@@ -106,7 +106,7 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void destroy(int id) {
+    public void destroy(Integer id) {
         Order select = select(id);
         if (select != null) {
             destroy(select(id));
@@ -122,7 +122,7 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
     }
 
     @Override
-    public Order select(int id) {
+    public Order select(Integer id) {
         return orderDao.selectById(id);
     }
 
@@ -133,7 +133,7 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int restore(Order target) throws ProjectException {
+    public Integer restore(Order target) throws ProjectException {
         Integer id = getId(target);
         if (id == null) {
             exist(target);
@@ -165,7 +165,7 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
     }
 
     @Override
-    public boolean isNotExist(int id) {
+    public Boolean isNotExist(Integer id) {
         return select(id) == null;
     }
 

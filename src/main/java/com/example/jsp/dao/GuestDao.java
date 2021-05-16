@@ -11,11 +11,11 @@ import java.util.List;
  */
 @Mapper
 public interface GuestDao {
-    int save(@Param("target") Guest target);
+    Integer save(@Param("target") Guest target);
 
-    void delete(@Param("id") int id);
+    void delete(@Param("id") Integer id);
 
-    Guest selectById(@Param("id") int id);
+    Guest selectById(@Param("id") Integer id);
 
     List<Guest> selectAll();
 

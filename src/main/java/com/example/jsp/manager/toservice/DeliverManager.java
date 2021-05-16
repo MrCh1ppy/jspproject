@@ -13,15 +13,15 @@ public interface DeliverManager {
 
     List<Deliver> select();
 
-    Deliver select(int id);
+    Deliver select(Integer id);
 
     Integer getId(Deliver deliver);
 
-    int restore(Deliver deliver) throws ProjectException;
+    Integer restore(Deliver deliver) throws ProjectException;
 
-    void destroy(int id);
+    void destroy(Integer id);
 
     void destroy(Deliver deliver);
 
-    boolean isNotExist(int id);
+    Boolean isNotExist(Integer id);
 }

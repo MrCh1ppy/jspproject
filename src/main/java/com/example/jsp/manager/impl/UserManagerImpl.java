@@ -22,17 +22,17 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
     }
 
     @Override
-    public int save(User targetUser) {
+    public Integer save(User targetUser) {
         return userDao.save(targetUser);
     }
 
     @Override
-    public void del(int id) {
+    public void del(Integer id) {
         userDao.delete(id);
     }
 
     @Override
-    public void destroy(int id) {
+    public void destroy(Integer id) {
         del(id);
     }
 
@@ -47,7 +47,7 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
     }
 
     @Override
-    public int restore(User user) {
+    public Integer restore(User user) {
         User temp = getId(user);
         if (temp == null) {
             update(user);
@@ -58,7 +58,7 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
     }
 
     @Override
-    public User select(int id) {
+    public User select(Integer id) {
         return userDao.selectById(id);
     }
 
@@ -86,7 +86,7 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
     }
 
     @Override
-    public boolean isNotExist(int id) {
+    public Boolean isNotExist(Integer id) {
         return userDao.selectById(id) == null;
     }
 }

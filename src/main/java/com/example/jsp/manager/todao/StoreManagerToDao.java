@@ -8,11 +8,11 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface StoreManagerToDao {
-    int save(Store store);
+    Integer save(Store store);
 
-    void delete(int id);
+    void delete(Integer id);
 
-    Store select(int id);
+    Store select(Integer id);
 
     List<Store> select();
 

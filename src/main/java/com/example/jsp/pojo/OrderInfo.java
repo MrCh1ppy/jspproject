@@ -13,8 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderInfo implements Serializable {
-    int id;
-    Order order;
-    int enabled;
-    String message;
+    private Integer id;
+    private Order order;
+    private Integer enabled;
+    private String message;
 }

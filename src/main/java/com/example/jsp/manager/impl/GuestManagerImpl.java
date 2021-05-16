@@ -40,13 +40,13 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
     }
 
     @Override
-    public int save(Guest guest) {
+    public Integer save(Guest guest) {
         guestDao.save(guest);
         return guest.getId();
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         guestDao.delete(id);
     }
 
@@ -61,7 +61,7 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int insert(Guest target) throws ProjectException {
+    public Integer insert(Guest target) throws ProjectException {
         if (userManager.isNotExist(target.getLoginUser().getId())) {
             throw new SonElementNotExistException("Guest.user");
         }
@@ -82,7 +82,7 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void destroy(int id) {
+    public void destroy(Integer id) {
         destroy(select(id));
     }
 
@@ -95,7 +95,7 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
     }
 
     @Override
-    public Guest select(int id) {
+    public Guest select(Integer id) {
         return guestDao.selectById(id);
     }
 
@@ -108,7 +108,7 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
     @Transactional(rollbackFor = Exception.class)
     /**@apiNote :对于地址的更新,直接使用完全删除与完全添加;
      * */
-    public int restore(Guest target) throws ProjectException {
+    public Integer restore(Guest target) throws ProjectException {
         Integer id = getId(target);
         if (id == null) {
             if (userManager.isNotExist(target.getLoginUser().getId())) {
@@ -132,7 +132,7 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
     }
 
     @Override
-    public boolean isNotExist(int id) {
+    public Boolean isNotExist(Integer id) {
         return select(id) == null;
     }
 }

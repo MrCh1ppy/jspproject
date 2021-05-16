@@ -9,17 +9,17 @@ import java.util.List;
  */
 public interface UserManager {
 
-    void destroy(int id);
+    void destroy(Integer id);
 
     void destroy(User user);
 
-    int restore(User user);
+    Integer restore(User user);
 
-    User select(int id);
+    User select(Integer id);
 
     List<User> select();
 
     Integer insert(User targetUser);
 
-    boolean isNotExist(int id);
+    Boolean isNotExist(Integer id);
 }

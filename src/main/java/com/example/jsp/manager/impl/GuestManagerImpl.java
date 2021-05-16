@@ -76,7 +76,8 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
             }
             return save;
         }
-        return id.intValue();
+        target.setId(id);
+        return target.getId();
     }
 
     @Override
@@ -121,7 +122,8 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
             guestDao.update(target);
             return 0;
         }
-        return id.intValue();
+        target.setId(id);
+        return target.getId();
     }
 
     @Override

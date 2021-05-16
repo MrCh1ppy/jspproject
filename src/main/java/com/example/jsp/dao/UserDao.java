@@ -21,5 +21,5 @@ public interface UserDao {
 
     void update(@Param("tUser") User tUser);
 
-    Integer getId(@Param("user") User user);
+    User getId(@Param("user") User user);
 }

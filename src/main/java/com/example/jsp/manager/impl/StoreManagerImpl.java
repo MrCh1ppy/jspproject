@@ -52,7 +52,8 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
             store.setId(save);
             return save;
         }
-        return id.intValue();
+        store.setId(id);
+        return store.getId();
     }
 
     @Override
@@ -89,7 +90,8 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
             storeDao.update(store);
             return 0;
         }
-        return id;
+        store.setId(id);
+        return store.getId();
     }
 
     @Override

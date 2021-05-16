@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.jsp.dao.AddressDao">
-    <cache/>
     <resultMap id="AddressMap" type="com.example.jsp.pojo.Address">
         <id property="id" javaType="int" column="a_id"/>
         <result property="addressString" column="address"/>

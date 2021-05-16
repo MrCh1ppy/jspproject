@@ -98,8 +98,10 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
                 int i = productPackageManager.insert(productPackage);
                 productPackage.setId(i);
             }
+            return save;
         }
-        return 0;
+        target.setId(id);
+        return target.getId();
     }
 
     @Override
@@ -148,7 +150,8 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
             orderDao.update(target);
             return 0;
         }
-        return id.intValue();
+        target.setId(id);
+        return target.getId();
     }
 
     @Override

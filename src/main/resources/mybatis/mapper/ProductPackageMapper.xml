@@ -11,12 +11,12 @@
         <association property="order" select="com.example.jsp.dao.OrderDao.selectById" column="op_o_id"
                      javaType="com.example.jsp.pojo.Order"/>
     </resultMap>
-    <select id="selectByOrderId" resultMap="PackageMap" parameterType="int">
+    <select id="selectByOrderId" resultMap="PackageMap" parameterType="integer">
         select *
         from order_product
         where op_o_id = #{id}
     </select>
-    <select id="selectById" resultMap="PackageMap" parameterType="int">
+    <select id="selectById" resultMap="PackageMap" parameterType="integer">
         select *
         from order_product
         where op_id = #{id}
@@ -32,12 +32,12 @@
             op_o_id=#{target.order.id}
         where op_id = #{target.id}
     </update>
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="integer">
         delete
         from order_product
         where op_id = #{id}
     </delete>
-    <delete id="deleteByOrderId" parameterType="int">
+    <delete id="deleteByOrderId" parameterType="integer">
         delete
         from order_product
         where op_o_id = #{id}

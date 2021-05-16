@@ -13,7 +13,7 @@
                      javaType="com.example.jsp.pojo.User"/>
     </resultMap>
 
-    <select id="selectById" resultMap="deliverMap" parameterType="int">
+    <select id="selectById" resultMap="deliverMap" parameterType="integer">
         select *
         from deliver
         where d_id = #{id};
@@ -26,7 +26,7 @@
         insert into deliver(d_name, d_telephone, d_u_id)
         VALUES (#{deliver.name}, #{deliver.telephone}, #{deliver.loginUser.id})
     </insert>
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="integer">
         delete
         from deliver
         where d_id = #{id}

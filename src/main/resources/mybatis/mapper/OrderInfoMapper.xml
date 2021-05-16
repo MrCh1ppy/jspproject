@@ -10,7 +10,7 @@
         <association property="order" select="com.example.jsp.dao.OrderDao.selectById" column="e_o_id"
                      javaType="com.example.jsp.pojo.Order"/>
     </resultMap>
-    <select id="selectByOrderId" resultMap="InfoMap" parameterType="int">
+    <select id="selectByOrderId" resultMap="InfoMap" parameterType="integer">
         select *
         from order_product
         where op_o_id = #{id}
@@ -19,7 +19,7 @@
         insert into exception(e_enabled, e_o_id, e_msg)
         VALUES (#{target.enabled}, #{target.order.id}, #{target.message})
     </insert>
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="integer">
         delete
         from exception
         where e_id = #{id}
@@ -31,7 +31,7 @@
             e_o_id=#{target.order.id}
         where e_id = #{target.id}
     </update>
-    <select id="selectById" parameterType="int" resultMap="InfoMap">
+    <select id="selectById" parameterType="integer" resultMap="InfoMap">
         select *
         from exception
         where e_id = #{id}
@@ -43,7 +43,7 @@
           and e_msg = #{target.message}
           and e_o_id = #{target.order.id}
     </select>
-    <delete id="deleteByOrder" parameterType="int">
+    <delete id="deleteByOrder" parameterType="integer">
         delete
         from order_product
         where op_o_id = #{id}

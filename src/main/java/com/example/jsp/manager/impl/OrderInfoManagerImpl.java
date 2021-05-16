@@ -22,17 +22,17 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
     }
 
     @Override
-    public int save(OrderInfo target) {
+    public Integer save(OrderInfo target) {
         return orderInfoDao.save(target);
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         orderInfoDao.delete(id);
     }
 
     @Override
-    public int insert(OrderInfo target) {
+    public Integer insert(OrderInfo target) {
         Integer id = getId(target);
         if (id == null) {
             int save = save(target);
@@ -44,7 +44,7 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
     }
 
     @Override
-    public void destroy(int id) {
+    public void destroy(Integer id) {
         delete(id);
     }
 
@@ -54,12 +54,12 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
     }
 
     @Override
-    public OrderInfo select(int id) {
+    public OrderInfo select(Integer id) {
         return orderInfoDao.selectById(id);
     }
 
     @Override
-    public int restore(OrderInfo target) {
+    public Integer restore(OrderInfo target) {
         Integer id = getId(target);
         if (id == null) {
             update(target);
@@ -75,7 +75,7 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
     }
 
     @Override
-    public List<OrderInfo> selectByOrderId(int id) {
+    public List<OrderInfo> selectByOrderId(Integer id) {
         return orderInfoDao.selectByOrderId(id);
     }
 
@@ -85,12 +85,12 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
     }
 
     @Override
-    public boolean isNotExist(int id) {
+    public Boolean isNotExist(Integer id) {
         return select(id) == null;
     }
 
     @Override
-    public void deleteByOrderId(int id) {
+    public void deleteByOrderId(Integer id) {
         orderInfoDao.deleteByOrder(id);
     }
 }

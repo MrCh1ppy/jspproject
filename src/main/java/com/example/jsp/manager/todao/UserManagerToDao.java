@@ -8,13 +8,13 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface UserManagerToDao {
-    int save(User targetUser);
+    Integer save(User targetUser);
 
-    void del(int id);
+    void del(Integer id);
 
     void update(User user);
 
-    User select(int id);
+    User select(Integer id);
 
     List<User> select();
 

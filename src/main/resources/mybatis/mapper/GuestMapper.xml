@@ -17,12 +17,12 @@
         insert into guest(g_name, g_telephone, g_u_id)
         VALUES (#{target.name}, #{target.telephone}, #{target.loginUser.id})
     </insert>
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="integer">
         delete
         from guest
         where g_id = #{id}
     </delete>
-    <select id="selectById" parameterType="int" resultMap="guestMap">
+    <select id="selectById" parameterType="integer" resultMap="guestMap">
         select *
         from guest
         where g_id = #{id}
@@ -38,7 +38,7 @@
             g_u_id=#{target.loginUser.id}
         where g_id = #{target.id}
     </update>
-    <select id="getId" parameterType="com.example.jsp.pojo.Guest" resultType="int">
+    <select id="getId" parameterType="com.example.jsp.pojo.Guest" resultType="integer">
         select g_id
         from guest
         where g_name = #{target.name}

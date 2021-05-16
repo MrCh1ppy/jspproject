@@ -22,14 +22,14 @@ public class AddressManagerImpl implements AddressManagerToDao, AddressManager {
     }
 
     @Override
-    public Address select(int id) {
+    public Address select(Integer id) {
         return addressDao.selectById(id);
     }
 
     @Override
     /**@apiNote :会在数据库寻找是否有相同的数据,如果有则返回那个数据的id,反之则返回新插入数据的id
      * */
-    public int insert(Address address) {
+    public Integer insert(Address address) {
         Integer id = addressDao.getId(address);
         if(id==null){
             int save = save(address);
@@ -46,12 +46,12 @@ public class AddressManagerImpl implements AddressManagerToDao, AddressManager {
     }
 
     @Override
-    public void destroy(int id) {
+    public void destroy(Integer id) {
         addressDao.delete(id);
     }
 
     @Override
-    public int restore(Address address) {
+    public Integer restore(Address address) {
         Integer id = addressDao.getId(address);
         if (id == null) {
             addressDao.update(address);
@@ -62,12 +62,12 @@ public class AddressManagerImpl implements AddressManagerToDao, AddressManager {
     }
 
     @Override
-    public int save(Address address) {
+    public Integer save(Address address) {
         return addressDao.save(address);
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         addressDao.delete(id);
     }
 
@@ -77,17 +77,17 @@ public class AddressManagerImpl implements AddressManagerToDao, AddressManager {
     }
 
     @Override
-    public List<Address> selectByGuestId(int id) {
+    public List<Address> selectByGuestId(Integer id) {
         return addressDao.selectByGuestId(id);
     }
 
     @Override
-    public void dropByGuestId(int id) {
+    public void dropByGuestId(Integer id) {
         addressDao.dropByGuestId(id);
     }
 
     @Override
-    public boolean isNotExist(int id) {
+    public Boolean isNotExist(Integer id) {
         return addressDao.selectById(id) == null;
     }
 

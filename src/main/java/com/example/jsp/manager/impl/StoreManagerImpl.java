@@ -31,17 +31,17 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     }
 
     @Override
-    public int save(Store store) {
+    public Integer save(Store store) {
         return storeDao.save(store);
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         storeDao.delete(id);
     }
 
     @Override
-    public int insert(Store store) throws SonElementNotExistException {
+    public Integer insert(Store store) throws SonElementNotExistException {
         if (userManager.isNotExist(store.getUser().getId())) {
             throw new SonElementNotExistException("Store.user");
         }
@@ -58,7 +58,7 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void destroy(int id) {
+    public void destroy(Integer id) {
         destroy(select(id));
     }
 
@@ -71,7 +71,7 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
 
 
     @Override
-    public Store select(int id) {
+    public Store select(Integer id) {
         return storeDao.selectById(id);
     }
 
@@ -81,7 +81,7 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     }
 
     @Override
-    public int restore(Store store) throws SonElementNotExistException {
+    public Integer restore(Store store) throws SonElementNotExistException {
         Integer id = getId(store);
         if (id == null) {
             if (userManager.isNotExist(store.getUser().getId())) {
@@ -105,7 +105,7 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     }
 
     @Override
-    public boolean isNotExist(int id) {
+    public Boolean isNotExist(Integer id) {
         return storeDao.selectById(id) == null;
     }
 }

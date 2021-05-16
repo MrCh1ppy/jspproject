@@ -11,19 +11,19 @@ import java.util.List;
  */
 @Mapper
 public interface AddressDao {
-    int save(@Param("target") Address target);
+    Integer save(@Param("target") Address target);
 
-    void delete(@Param("id") int id);
+    void delete(@Param("id") Integer id);
 
-    Address selectById(@Param("id") int id);
+    Address selectById(@Param("id") Integer id);
 
     List<Address> selectAll();
 
     void update(@Param("target") Address target);
 
-    List<Address> selectByGuestId(@Param("id") int id);
+    List<Address> selectByGuestId(@Param("id") Integer id);
 
-    void dropByGuestId(@Param("id") int id);
+    void dropByGuestId(@Param("id") Integer id);
 
     Integer getId(@Param("target") Address address);
 }

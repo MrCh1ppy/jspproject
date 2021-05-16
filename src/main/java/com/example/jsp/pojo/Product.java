@@ -13,8 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product implements Serializable {
-    private int id;
+    private Integer id;
     private String name;
-    private double price;
+    private Double price;
     private Store store;
 }

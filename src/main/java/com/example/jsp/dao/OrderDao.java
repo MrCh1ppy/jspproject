@@ -11,11 +11,11 @@ import java.util.List;
  */
 @Mapper
 public interface OrderDao {
-    int save(@Param("target") Order target);
+    Integer save(@Param("target") Order target);
 
-    void delete(@Param("id") int id);
+    void delete(@Param("id") Integer id);
 
-    Order selectById(@Param("id") int id);
+    Order selectById(@Param("id") Integer id);
 
     List<Order> selectAll();
 

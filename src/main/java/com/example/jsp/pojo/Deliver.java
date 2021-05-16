@@ -13,8 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Deliver implements Serializable {
-    int id;
-    String name;
-    String telephone;
+    private Integer id;
+    private String name;
+    private String telephone;
     private User loginUser;
 }

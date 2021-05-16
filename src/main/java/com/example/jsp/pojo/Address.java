@@ -13,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Address implements Serializable {
-    String addressString;
-    int id;
-    int guestId;
+    private String addressString;
+    private Integer id;
+    private Integer guestId;
 }

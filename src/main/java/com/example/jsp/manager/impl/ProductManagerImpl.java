@@ -31,17 +31,17 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
     }
 
     @Override
-    public int save(Product target) {
+    public Integer save(Product target) {
         return productDao.save(target);
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         productDao.delete(id);
     }
 
     @Override
-    public int insert(Product target) throws ProjectException {
+    public Integer insert(Product target) throws ProjectException {
         if (storeManager.isNotExist(target.getStore().getId())) {
             throw new SonElementNotExistException();
         }
@@ -56,7 +56,7 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
     }
 
     @Override
-    public void destroy(int id) {
+    public void destroy(Integer id) {
         delete(id);
     }
 
@@ -66,7 +66,7 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
     }
 
     @Override
-    public Product select(int id) {
+    public Product select(Integer id) {
         return productDao.selectById(id);
     }
 
@@ -76,7 +76,7 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
     }
 
     @Override
-    public int restore(Product target) throws ProjectException {
+    public Integer restore(Product target) throws ProjectException {
         Integer id = getId(target);
         if (id == null) {
             if (storeManager.isNotExist(target.getStore().getId())) {
@@ -100,7 +100,7 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
     }
 
     @Override
-    public boolean isNotExist(int id) {
+    public Boolean isNotExist(Integer id) {
         return select(id) == null;
     }
 }

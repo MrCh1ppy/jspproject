@@ -8,11 +8,11 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface OrderManagerToDao {
-    int save(Order target);
+    Integer save(Order target);
 
-    void delete(int id);
+    void delete(Integer id);
 
-    Order select(int id);
+    Order select(Integer id);
 
     List<Order> select();
 

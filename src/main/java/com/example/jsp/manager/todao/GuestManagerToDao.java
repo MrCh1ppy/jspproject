@@ -8,13 +8,13 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface GuestManagerToDao {
-    int save(Guest guest);
+    Integer save(Guest guest);
 
-    void delete(int id);
+    void delete(Integer id);
 
     void update(Guest guest);
 
-    Guest select(int id);
+    Guest select(Integer id);
 
     List<Guest> select();
 }

@@ -8,21 +8,21 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface ProductPackageManager {
-    int insert(ProductPackage target);
+    Integer insert(ProductPackage target);
 
-    void destroy(int id);
+    void destroy(Integer id);
 
     void destroy(ProductPackage productPackage);
 
-    void deleteByOrderId(int id);
+    void deleteByOrderId(Integer id);
 
-    ProductPackage select(int id);
+    ProductPackage select(Integer id);
 
-    int restore(ProductPackage target);
+    Integer restore(ProductPackage target);
 
-    List<ProductPackage> selectByOrderId(int id);
+    List<ProductPackage> selectByOrderId(Integer id);
 
     Integer getId(ProductPackage productPackage);
 
-    boolean isNotExist(int id);
+    Boolean isNotExist(Integer id);
 }

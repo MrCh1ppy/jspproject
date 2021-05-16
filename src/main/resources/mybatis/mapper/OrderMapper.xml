@@ -4,9 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.jsp.dao.OrderDao">
     <resultMap id="orderMap" type="com.example.jsp.pojo.Order">
-        <id property="id" column="o_id" javaType="int"/>
+        <id property="id" column="o_id" javaType="integer"/>
         <result property="message" column="o_msg" javaType="String"/>
-        <result property="status" column="o_status" javaType="int"/>
+        <result property="status" column="o_status" javaType="integer"/>
         <result property="time" column="o_time" javaType="String"/>
         <association property="store" select="com.example.jsp.dao.StoreDao.selectById" column="o_s_id"
                      javaType="com.example.jsp.pojo.Store"/>
@@ -21,7 +21,7 @@
         <collection property="orderInfos" select="com.example.jsp.dao.OrderInfoDao.selectByOrderId" column="o_id"
                     ofType="com.example.jsp.pojo.OrderInfo"/>
     </resultMap>
-    <select id="selectById" resultMap="orderMap" parameterType="int">
+    <select id="selectById" resultMap="orderMap" parameterType="integer">
         select *
         from `order`
         where o_id = #{id}
@@ -35,7 +35,7 @@
         VALUES (#{target.message}, #{target.staus}, #{target.deliver.id}, #{target.guest.id}, #{target.store.id},
                 #{target.address.id}, #{target.time})
     </insert>
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="integer">
         delete
         from `order`
         where o_id = #{id}

@@ -11,11 +11,11 @@ import java.util.List;
  */
 @Mapper
 public interface ProductDao {
-    int save(@Param("target") Product target);
+    Integer save(@Param("target") Product target);
 
-    void delete(@Param("id") int id);
+    void delete(@Param("id") Integer id);
 
-    Product selectById(@Param("id") int id);
+    Product selectById(@Param("id") Integer id);
 
     List<Product> selectAll();
 

@@ -107,4 +107,9 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     public void delete(Integer id) {
         deliverDao.delete(id);
     }
+
+    @Override
+    public Boolean isDeliver (int userId) {
+        return deliverDao.findIdByLoginUser(userId)!=null;
+    }
 }

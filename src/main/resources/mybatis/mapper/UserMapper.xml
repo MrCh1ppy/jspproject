@@ -47,4 +47,7 @@
         where username = #{user.username}
           and password = #{user.password}
     </select>
+    <select id="findByUsername" parameterType="string" resultType="integer">
+        select u_id from user where username=#{username}
+    </select>
 </mapper>

@@ -19,4 +19,6 @@ public interface StoreManagerToDao {
     void update(Store store);
 
     Integer getId(Store store);
+
+    Boolean isStore (int userId);
 }

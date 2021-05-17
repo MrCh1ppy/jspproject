@@ -1,5 +1,7 @@
 package com.example.jsp.manager.impl;
 
+import com.example.jsp.commons.exception.manager.ElementAlreadyExistException;
+import com.example.jsp.commons.exception.manager.ProjectException;
 import com.example.jsp.dao.UserDao;
 import com.example.jsp.manager.todao.UserManagerToDao;
 import com.example.jsp.manager.toservice.UserManager;
@@ -73,7 +75,15 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
     }
 
     @Override
-    public Integer insert(User targetUser) {
+    public Integer findByUsername (String username) {
+        return userDao.findByUsername(username);
+    }
+
+    @Override
+    public Integer insert(User targetUser)throws ProjectException {
+        if(findByUsername(targetUser.getUsername())!=null){
+            throw new ElementAlreadyExistException();
+        }
         User tempUser = userDao.getId(targetUser);
         if (tempUser != null) {
             targetUser.setId(tempUser.getId());

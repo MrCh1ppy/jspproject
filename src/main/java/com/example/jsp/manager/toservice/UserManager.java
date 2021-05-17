@@ -1,5 +1,6 @@
 package com.example.jsp.manager.toservice;
 
+import com.example.jsp.commons.exception.manager.ProjectException;
 import com.example.jsp.pojo.User;
 
 import java.util.List;
@@ -19,7 +20,9 @@ public interface UserManager {
 
     List<User> select();
 
-    Integer insert(User targetUser);
+    Integer insert(User targetUser)throws ProjectException;
 
     Boolean isNotExist(Integer id);
+
+    Integer findByUsername(String username);
 }

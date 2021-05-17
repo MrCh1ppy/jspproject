@@ -24,4 +24,6 @@ public interface GuestManager {
     Integer getId(Guest target);
 
     Boolean isNotExist(Integer id);
+
+    Boolean isGuest(int userId);
 }

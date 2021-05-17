@@ -17,4 +17,6 @@ public interface GuestManagerToDao {
     Guest select(Integer id);
 
     List<Guest> select();
+
+    Boolean isGuest(int userId);
 }

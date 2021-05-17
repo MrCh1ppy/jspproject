@@ -19,4 +19,6 @@ public interface DeliverManagerToDao {
     void update(Deliver deliver);
 
     void delete(Integer id);
+
+    Boolean isDeliver(int userId);
 }

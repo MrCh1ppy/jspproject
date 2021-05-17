@@ -23,4 +23,6 @@ public interface GuestDao {
 
     Integer getId(@Param("guest") Guest guest);
 
+    Guest findIdByLoginUser(@Param("id")int userId);
+
 }

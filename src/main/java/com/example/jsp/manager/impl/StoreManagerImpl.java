@@ -105,6 +105,11 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     }
 
     @Override
+    public Boolean isStore (int userId) {
+        return storeDao.findIdByLoginUser(userId) != null;
+    }
+
+    @Override
     public Boolean isNotExist(Integer id) {
         return storeDao.selectById(id) == null;
     }

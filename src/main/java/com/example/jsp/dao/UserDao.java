@@ -22,4 +22,6 @@ public interface UserDao {
     void update(@Param("tUser") User tUser);
 
     User getId(@Param("user") User user);
+
+    Integer findByUsername(@Param("username")String username);
 }

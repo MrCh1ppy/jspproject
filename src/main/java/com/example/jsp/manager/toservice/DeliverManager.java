@@ -24,4 +24,6 @@ public interface DeliverManager {
     void destroy(Deliver deliver);
 
     Boolean isNotExist(Integer id);
+
+    Boolean isDeliver(int userId);
 }

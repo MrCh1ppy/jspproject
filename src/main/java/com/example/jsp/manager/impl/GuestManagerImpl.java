@@ -105,6 +105,11 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
     }
 
     @Override
+    public Boolean isGuest (int userId) {
+        return guestDao.findIdByLoginUser(userId)!=null;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     /**@apiNote :对于地址的更新,直接使用完全删除与完全添加;
      * */

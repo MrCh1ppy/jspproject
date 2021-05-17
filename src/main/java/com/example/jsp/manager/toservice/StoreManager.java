@@ -24,4 +24,6 @@ public interface StoreManager {
     Integer getId(Store store);
 
     Boolean isNotExist(Integer id);
+
+    Boolean isStore (int userId);
 }

@@ -22,4 +22,6 @@ public interface DeliverDao {
     void update(@Param("deliver") Deliver deliver);
 
     Integer getId(@Param("deliver") Deliver deliver);
+
+    Deliver findIdByLoginUser(@Param("id")Integer userId);
 }

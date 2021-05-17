@@ -45,4 +45,7 @@
           and d_telephone = #{deliver.telephone}
           and d_u_id = #{deliver.loginUser.id}
     </select>
+    <select id="findIdByLoginUser" resultMap="deliverMap" parameterType="integer">
+        select d_id from deliver where d_u_id=#{id}
+    </select>
 </mapper>

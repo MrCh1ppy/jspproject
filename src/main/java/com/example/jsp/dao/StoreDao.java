@@ -22,4 +22,6 @@ public interface StoreDao {
     void update(@Param("store") Store store);
 
     Integer getId(@Param("store") Store store);
+
+    Store findIdByLoginUser(@Param("id")Integer userId);
 }

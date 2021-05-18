@@ -33,7 +33,8 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
 
     @Override
     public Integer save(Deliver deliver) {
-        return deliverDao.save(deliver);
+        deliverDao.save(deliver);
+        return deliver.getId();
     }
 
     @Override

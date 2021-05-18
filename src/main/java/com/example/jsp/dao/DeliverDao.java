@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Mapper
 public interface DeliverDao {
-    Integer save(@Param("deliver") Deliver deliver);
+    void save(@Param("deliver") Deliver deliver);
 
     void delete(@Param("deliver") int id);
 

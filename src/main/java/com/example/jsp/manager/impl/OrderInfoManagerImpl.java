@@ -23,7 +23,8 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
 
     @Override
     public Integer save(OrderInfo target) {
-        return orderInfoDao.save(target);
+        orderInfoDao.save(target);
+        return target.getId();
     }
 
     @Override

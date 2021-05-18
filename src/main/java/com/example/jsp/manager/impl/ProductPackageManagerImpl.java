@@ -24,7 +24,8 @@ public class ProductPackageManagerImpl implements ProductPackageManagerToDao, Pr
 
     @Override
     public Integer save(ProductPackage target) {
-        return productPackageDao.save(target);
+        productPackageDao.save(target);
+        return target.getId();
     }
 
     @Override

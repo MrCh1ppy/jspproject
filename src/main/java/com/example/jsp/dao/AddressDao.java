@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Mapper
 public interface AddressDao {
-    Integer save(@Param("target") Address target);
+    void save(@Param("target") Address target);
 
     void delete(@Param("id") Integer id);
 

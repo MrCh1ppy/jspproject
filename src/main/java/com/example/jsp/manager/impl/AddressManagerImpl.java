@@ -63,7 +63,8 @@ public class AddressManagerImpl implements AddressManagerToDao, AddressManager {
 
     @Override
     public Integer save(Address address) {
-        return addressDao.save(address);
+        addressDao.save(address);
+        return address.getId();
     }
 
     @Override

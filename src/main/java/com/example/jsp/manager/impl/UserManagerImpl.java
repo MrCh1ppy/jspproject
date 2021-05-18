@@ -25,7 +25,9 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
 
     @Override
     public Integer save(User targetUser) {
-        return userDao.save(targetUser);
+        userDao.save(targetUser);
+        System.out.println("/////////////////////////////////"+targetUser.getId());
+        return targetUser.getId();
     }
 
     @Override
@@ -45,7 +47,7 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
 
     @Override
     public void update(User user) {
-        restore(user);
+        userDao.update(user);
     }
 
     @Override
@@ -84,12 +86,15 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
         if(findByUsername(targetUser.getUsername())!=null){
             throw new ElementAlreadyExistException();
         }
-        User tempUser = userDao.getId(targetUser);
+        var tempUser = userDao.getId(targetUser);
         if (tempUser != null) {
             targetUser.setId(tempUser.getId());
             userDao.update(targetUser);
             /*没必要专门写一个更新update字段的函数,因为mysql的底层是delete/insert 所以没有意义*/
             return tempUser.getId();
+        }
+        if(targetUser.getEnabled()==null){
+            targetUser.setEnabled(1);
         }
         targetUser.setId(save(targetUser));
         return targetUser.getId();

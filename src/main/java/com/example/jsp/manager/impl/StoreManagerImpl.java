@@ -32,7 +32,8 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
 
     @Override
     public Integer save(Store store) {
-        return storeDao.save(store);
+        storeDao.save(store);
+        return store.getId();
     }
 
     @Override

@@ -32,7 +32,8 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
 
     @Override
     public Integer save(Product target) {
-        return productDao.save(target);
+        productDao.save(target);
+        return target.getId();
     }
 
     @Override

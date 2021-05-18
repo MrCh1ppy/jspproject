@@ -11,15 +11,16 @@ import java.util.List;
  */
 @Mapper
 public interface UserDao {
-    Integer save(@Param("tUser") User user);
 
-    void delete(@Param("tId") Integer tid);
+    void save(@Param("user") User user);
 
-    User selectById(@Param("tId") Integer tid);
+    void delete(@Param("tid") Integer tid);
+
+    User selectById(@Param("tid") Integer tid);
 
     List<User> selectAll();
 
-    void update(@Param("tUser") User tUser);
+    void update(@Param("user") User user);
 
     User getId(@Param("user") User user);
 

@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Mapper
 public interface OrderDao {
-    Integer save(@Param("target") Order target);
+    void save(@Param("target") Order target);
 
     void delete(@Param("id") Integer id);
 

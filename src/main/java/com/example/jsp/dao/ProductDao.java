@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Mapper
 public interface ProductDao {
-    Integer save(@Param("target") Product target);
+    void save(@Param("target") Product target);
 
     void delete(@Param("id") Integer id);
 

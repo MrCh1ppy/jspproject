@@ -70,7 +70,8 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
 
     @Override
     public Integer save(Order target) {
-        return orderDao.save(target);
+        orderDao.save(target);
+        return target.getId();
     }
 
     @Override

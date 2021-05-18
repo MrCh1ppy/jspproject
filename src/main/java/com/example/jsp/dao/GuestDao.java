@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Mapper
 public interface GuestDao {
-    Integer save(@Param("target") Guest target);
+    void save(@Param("target") Guest target);
 
     void delete(@Param("id") Integer id);
 

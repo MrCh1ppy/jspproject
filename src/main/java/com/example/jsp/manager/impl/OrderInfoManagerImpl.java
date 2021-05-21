@@ -36,9 +36,8 @@ public class OrderInfoManagerImpl implements OrderInfoManagerToDao, OrderInfoMan
     public Integer insert(OrderInfo target) {
         Integer id = getId(target);
         if (id == null) {
-            int save = save(target);
-            target.setId(save);
-            return save;
+            save(target);
+            return target.getId();
         }
         target.setId(id);
         return target.getId();

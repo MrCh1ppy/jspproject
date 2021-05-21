@@ -13,9 +13,9 @@ import java.util.List;
 public interface DeliverDao {
     void save(@Param("deliver") Deliver deliver);
 
-    void delete(@Param("deliver") int id);
+    void delete(@Param("id") int id);
 
-    Deliver selectById(@Param("target") int id);
+    Deliver selectById(@Param("id") int id);
 
     List<Deliver> selectAll();
 

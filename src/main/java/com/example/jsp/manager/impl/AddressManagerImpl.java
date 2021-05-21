@@ -32,9 +32,8 @@ public class AddressManagerImpl implements AddressManagerToDao, AddressManager {
     public Integer insert(Address address) {
         Integer id = addressDao.getId(address);
         if(id==null){
-            int save = save(address);
-            address.setId(save);
-            return save;
+            save(address);
+            return address.getId();
         }
         address.setId(id);
         return address.getId();

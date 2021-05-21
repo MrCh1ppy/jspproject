@@ -22,7 +22,7 @@
         select *
         from deliver
     </select>
-    <insert id="save" parameterType="com.example.jsp.pojo.Deliver" useGeneratedKeys="true" keyColumn="d_id">
+    <insert id="save" parameterType="com.example.jsp.pojo.Deliver" useGeneratedKeys = "true" keyColumn = "d_id" keyProperty = "id">
         insert into deliver(d_name, d_telephone, d_u_id)
         VALUES (#{deliver.name}, #{deliver.telephone}, #{deliver.loginUser.id})
     </insert>

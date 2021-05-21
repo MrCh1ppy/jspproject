@@ -85,8 +85,7 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
         exist(target);
         Integer id = getId(target);
         if (id == null) {
-            int save = save(target);
-            target.setId(save);
+            save(target);
             for (OrderInfo orderInfo : target.getOrderInfos()) {
                 int i = orderInfoManager.insert(orderInfo);
                 orderInfo.setId(i);
@@ -99,7 +98,7 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
                 int i = productPackageManager.insert(productPackage);
                 productPackage.setId(i);
             }
-            return save;
+            return target.getId();
         }
         target.setId(id);
         return target.getId();

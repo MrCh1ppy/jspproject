@@ -39,14 +39,14 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
 
     @Override
     public Integer insert(Deliver deliver) throws ProjectException {
-        if (userManager.isNotExist(deliver.getLoginUser().getId())) {
+        Boolean notExist = userManager.isNotExist(deliver.getLoginUser().getId());
+        if (Boolean.TRUE.equals(notExist)) {
             throw new SonElementNotExistException("deliver.User");
         }
         Integer id = getId(deliver);
         if (id == null) {
-            Integer save = save(deliver);
-            deliver.setId(save);
-            return save;
+            save(deliver);
+            return deliver.getId();
         }
         deliver.setId(id);
         return deliver.getId();
@@ -71,7 +71,8 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     public Integer restore(Deliver deliver) throws SonElementNotExistException {
         Integer id = getId(deliver);
         if (id == null) {
-            if (userManager.isNotExist(deliver.getLoginUser().getId())) {
+            Boolean notExist = userManager.isNotExist(deliver.getLoginUser().getId());
+            if (Boolean.TRUE.equals(notExist)) {
                 throw new SonElementNotExistException("deliver.user");
             }
             update(deliver);
@@ -90,8 +91,8 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void destroy(Deliver deliver) {
-        userManager.destroy(deliver.getLoginUser().getId());
         delete(deliver.getId());
+        userManager.destroy(deliver.getLoginUser().getId());
     }
 
     @Override

@@ -1,15 +1,14 @@
 package com.example.jsp.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
 /**
  * @author 橙鼠鼠
  */
-@Data
+@ToString
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Store implements Serializable {
@@ -18,4 +17,29 @@ public class Store implements Serializable {
     private String address;
     private String telephone;
     private User user;
+
+    public Store setId (Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Store setName (String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Store setAddress (String address) {
+        this.address = address;
+        return this;
+    }
+
+    public Store setTelephone (String telephone) {
+        this.telephone = telephone;
+        return this;
+    }
+
+    public Store setUser (User user) {
+        this.user = user;
+        return this;
+    }
 }

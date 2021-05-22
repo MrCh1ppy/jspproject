@@ -62,19 +62,21 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer insert(Guest target) throws ProjectException {
-        if (userManager.isNotExist(target.getLoginUser().getId())) {
-            throw new SonElementNotExistException("Guest.user");
+        Boolean notExist = userManager.isNotExist(target.getLoginUser().getId());
+        if (Boolean.TRUE.equals(notExist)) {
+            throw new SonElementNotExistException();
         }
 
         Integer id = guestDao.getId(target);
         if (id == null) {
-            int save = save(target);
-            target.setId(save);
+            save(target);
+            addressManager.dropByGuestId(target.getId());
             for (Address address : target.getAddresses()) {
+                address.setGuestId(target.getId());
                 int i = addressManager.insert(address);
                 address.setId(i);
             }
-            return save;
+            return target.getId();
         }
         target.setId(id);
         return target.getId();
@@ -89,9 +91,9 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void destroy(Guest guest) {
-        userManager.destroy(guest.getLoginUser().getId());
         addressManager.dropByGuestId(guest.getId());
         delete(guest.getId());
+        userManager.destroy(guest.getLoginUser().getId());
     }
 
     @Override
@@ -115,15 +117,17 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
      * */
     public Integer restore(Guest target) throws ProjectException {
         Integer id = getId(target);
+        Boolean notExist = userManager.isNotExist(target.getLoginUser().getId());
+        if (Boolean.TRUE.equals(notExist)) {
+            throw new SonElementNotExistException();
+        }
+        addressManager.dropByGuestId(target.getId());
+        for (Address address : target.getAddresses()) {
+            address.setGuestId(target.getId());
+            int i = addressManager.insert(address);
+            address.setId(i);
+        }
         if (id == null) {
-            if (userManager.isNotExist(target.getLoginUser().getId())) {
-                throw new SonElementNotExistException();
-            }
-            addressManager.dropByGuestId(target.getId());
-            for (Address address : target.getAddresses()) {
-                int i = addressManager.insert(address);
-                address.setId(i);
-            }
             guestDao.update(target);
             return 0;
         }

@@ -8,7 +8,7 @@
         <result property="addressString" column="address"/>
         <result property="guestId" column="a_g_id"/>
     </resultMap>
-    <insert id="save" parameterType="com.example.jsp.pojo.Address" keyColumn="a_id" useGeneratedKeys="true">
+    <insert id="save" parameterType="com.example.jsp.pojo.Address" keyColumn="a_id" useGeneratedKeys="true" keyProperty="id">
         insert into address(a_g_id, address)
         VALUES (#{target.guestId}, #{target.addressString})
     </insert>
@@ -34,7 +34,7 @@
     <update id="update" parameterType="com.example.jsp.pojo.Address">
         update address
         set address=#{target.addressString},
-            a_g_id=#{guestId}
+            a_g_id=#{target.guestId}
         where a_id = #{target.id}
     </update>
     <delete id="dropByGuestId" parameterType="integer">
@@ -46,6 +46,6 @@
         select a_id
         from address
         where address = #{target.addressString}
-          and a_g_id = #{guestId}
+          and a_g_id = #{target.guestId}
     </select>
 </mapper>

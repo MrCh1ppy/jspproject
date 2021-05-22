@@ -21,7 +21,7 @@
         from store
         where s_id = #{id}
     </select>
-    <insert id="save" parameterType="com.example.jsp.pojo.Store">
+    <insert id="save" parameterType="com.example.jsp.pojo.Store" useGeneratedKeys="true" keyColumn="s_id" keyProperty="id">
         insert into store(s_name, s_address, s_telephone, s_u_id)
         VALUES (#{store.name}, #{store.address}, #{store.telephone}, #{store.user.id})
     </insert>

@@ -21,7 +21,7 @@ public interface GuestDao {
 
     void update(@Param("target") Guest target);
 
-    Integer getId(@Param("guest") Guest guest);
+    Integer getId(@Param("target") Guest guest);
 
     Guest findIdByLoginUser(@Param("id")int userId);
 

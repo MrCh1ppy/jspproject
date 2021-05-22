@@ -30,9 +30,9 @@
         select *
         from `order`
     </select>
-    <insert id="save" parameterType="com.example.jsp.pojo.Order">
+    <insert id="save" parameterType="com.example.jsp.pojo.Order" keyColumn="o_id" keyProperty="id" useGeneratedKeys="true">
         insert into `order`(o_msg, o_status, o_d_id, o_g_id, o_s_id, o_a_id, o_time)
-        VALUES (#{target.message}, #{target.staus}, #{target.deliver.id}, #{target.guest.id}, #{target.store.id},
+        VALUES (#{target.message}, #{target.status}, #{target.deliver.id}, #{target.guest.id}, #{target.store.id},
                 #{target.address.id}, #{target.time})
     </insert>
     <delete id="delete" parameterType="integer">

@@ -12,10 +12,10 @@
     </resultMap>
     <select id="selectByOrderId" resultMap="InfoMap" parameterType="integer">
         select *
-        from order_product
-        where op_o_id = #{id}
+        from exception
+        where e_o_id = #{id}
     </select>
-    <insert id="save" parameterType="com.example.jsp.pojo.OrderInfo" useGeneratedKeys="true" keyColumn="e_id">
+    <insert id="save" parameterType="com.example.jsp.pojo.OrderInfo" useGeneratedKeys="true" keyColumn="e_id" keyProperty="id">
         insert into exception(e_enabled, e_o_id, e_msg)
         VALUES (#{target.enabled}, #{target.order.id}, #{target.message})
     </insert>

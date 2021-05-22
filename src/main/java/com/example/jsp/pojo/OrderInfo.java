@@ -1,15 +1,13 @@
 package com.example.jsp.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
 /**
  * @author 橙鼠鼠
  */
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderInfo implements Serializable {
@@ -17,4 +15,34 @@ public class OrderInfo implements Serializable {
     private Order order;
     private Integer enabled;
     private String message;
+
+    public OrderInfo setId (Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public OrderInfo setOrder (Order order) {
+        this.order = order;
+        return this;
+    }
+
+    public OrderInfo setEnabled (Integer enabled) {
+        this.enabled = enabled;
+        return this;
+    }
+
+    public OrderInfo setMessage (String message) {
+        this.message = message;
+        return this;
+    }
+
+    @Override
+    public String toString () {
+        return "OrderInfo{" +
+                "id=" + id +
+                ", order=" + order.getId() +
+                ", enabled=" + enabled +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

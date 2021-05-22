@@ -7,11 +7,13 @@ import com.example.jsp.manager.todao.OrderManagerToDao;
 import com.example.jsp.manager.toservice.*;
 import com.example.jsp.pojo.Order;
 import com.example.jsp.pojo.OrderInfo;
+import com.example.jsp.pojo.Product;
 import com.example.jsp.pojo.ProductPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -85,21 +87,25 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
         exist(target);
         Integer id = getId(target);
         if (id == null) {
-            int save = save(target);
-            target.setId(save);
+            save(target);
+            System.out.println("//////->"+select(target.getId()));
+            orderInfoManager.deleteByOrderId(target.getId());
+            productPackageManager.deleteByOrderId(target.getId());
             for (OrderInfo orderInfo : target.getOrderInfos()) {
                 int i = orderInfoManager.insert(orderInfo);
+                orderInfo.setOrder(target);
                 orderInfo.setId(i);
             }
             for (ProductPackage productPackage : target.getProductPackages()) {
                 productPackage.setOrder(target);
-                if (productManager.isNotExist(productPackage.getProduct().getId())) {
+                Boolean notExist = productManager.isNotExist(productPackage.getProduct().getId());
+                if (Boolean.TRUE.equals(notExist)) {
                     throw new SonElementNotExistException("product");
                 }
                 int i = productPackageManager.insert(productPackage);
                 productPackage.setId(i);
             }
-            return save;
+            return target.getId();
         }
         target.setId(id);
         return target.getId();
@@ -135,19 +141,19 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer restore(Order target) throws ProjectException {
+        productPackageManager.deleteByOrderId(target.getId());
+        orderInfoManager.deleteByOrderId(target.getId());
+        for (ProductPackage aPackage : target.getProductPackages()) {
+            int i = productPackageManager.insert(aPackage);
+            aPackage.setId(i);
+        }
+        for (OrderInfo orderInfo : target.getOrderInfos()) {
+            int insert = orderInfoManager.insert(orderInfo);
+            orderInfo.setId(insert);
+        }
         Integer id = getId(target);
         if (id == null) {
             exist(target);
-            productPackageManager.deleteByOrderId(target.getId());
-            orderInfoManager.deleteByOrderId(target.getId());
-            for (ProductPackage aPackage : target.getProductPackages()) {
-                int i = productPackageManager.insert(aPackage);
-                aPackage.setId(i);
-            }
-            for (OrderInfo orderInfo : target.getOrderInfos()) {
-                int insert = orderInfoManager.insert(orderInfo);
-                orderInfo.setId(insert);
-            }
             orderDao.update(target);
             return 0;
         }
@@ -168,6 +174,81 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
     @Override
     public Boolean isNotExist(Integer id) {
         return select(id) == null;
+    }
+
+    @Override
+    public OrderManager addProduct (Order target, Product product, int num) throws ProjectException{
+        if(target.getProductPackages()==null){
+            target.setProductPackages(new LinkedList<>());
+        }
+        Boolean notExist = productManager.isNotExist(product.getId());
+        if(Boolean.TRUE.equals(notExist)){
+            throw new SonElementNotExistException("order.productPackage.product");
+        }
+        for (ProductPackage productPackage : target.getProductPackages()) {
+            if(productPackage.getProduct().equals(product)){
+                productPackage.setNum(productPackage.getNum()+num);
+                return this;
+            }
+        }
+        ProductPackage aPackage = new ProductPackage().setProduct(product).setOrder(target).setNum(num);
+        target.getProductPackages().add(aPackage);
+        return this;
+    }
+
+    @Override
+    public OrderManager addProduct (Order target, int productId, int num)throws ProjectException {
+        addProduct(target,productManager.select(productId),num);
+        return this;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public OrderManager linkedInsert (Order target) throws ProjectException {
+        insert(target);
+        return this;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public OrderManager linkedRestore (Order order) throws ProjectException {
+        restore(order);
+        return this;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public OrderManager linkedDestroy (Order target) {
+        destroy(target);
+        return this;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public OrderManager linkedDestroy (int orderId) {
+        destroy(orderId);
+        return null;
+    }
+
+    @Override
+    public OrderManager addOrderInfo (Order target, OrderInfo orderInfo) {
+        if(target.getOrderInfos()==null){
+            target.setOrderInfos(new LinkedList<>());
+        }
+        orderInfo.setOrder(target);
+        if (orderInfo.getEnabled()==null){
+            orderInfo.setEnabled(1);
+        }
+        target.getOrderInfos().add(orderInfo);
+        return this;
+    }
+
+    @Override
+    @Deprecated
+    public OrderManager addOrderInfo (Order target, int orderInfoId) throws ProjectException{
+        OrderInfo select = orderInfoManager.select(orderInfoId);
+        addOrderInfo(target,select);
+        return this;
     }
 
 

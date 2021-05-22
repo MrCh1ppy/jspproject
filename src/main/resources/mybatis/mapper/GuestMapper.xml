@@ -13,7 +13,7 @@
                     select="com.example.jsp.dao.AddressDao.selectByGuestId" column="g_id"/>
     </resultMap>
 
-    <insert id="save" parameterType="com.example.jsp.pojo.Guest">
+    <insert id="save" parameterType="com.example.jsp.pojo.Guest" keyProperty="id" useGeneratedKeys="true" keyColumn="g_id">
         insert into guest(g_name, g_telephone, g_u_id)
         VALUES (#{target.name}, #{target.telephone}, #{target.loginUser.id})
     </insert>

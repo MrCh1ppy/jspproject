@@ -96,7 +96,7 @@ public class UserManagerImpl implements UserManager, UserManagerToDao {
         if(targetUser.getEnabled()==null){
             targetUser.setEnabled(1);
         }
-        targetUser.setId(save(targetUser));
+        save(targetUser);
         return targetUser.getId();
     }
 

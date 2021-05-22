@@ -1,15 +1,17 @@
 package com.example.jsp.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
 /**
  * @author 橙鼠鼠
  */
-@Data
+@ToString
+@Getter
+@Setter
+@Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements Serializable {

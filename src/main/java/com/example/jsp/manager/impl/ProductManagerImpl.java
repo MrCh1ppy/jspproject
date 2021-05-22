@@ -48,9 +48,8 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
         }
         Integer id = getId(target);
         if (id == null) {
-            int save = save(target);
-            target.setId(save);
-            return save;
+            save(target);
+            return target.getId();
         }
         target.setId(id);
         return target.getId();

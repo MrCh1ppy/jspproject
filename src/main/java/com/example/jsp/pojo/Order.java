@@ -1,18 +1,18 @@
 package com.example.jsp.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * @author 橙鼠鼠
  */
 @Data
+@Accessors(chain = true)
 @AllArgsConstructor
-@NoArgsConstructor
 public class Order implements Serializable {
     private Integer id;
     private List<OrderInfo> orderInfos;
@@ -24,4 +24,8 @@ public class Order implements Serializable {
     private String message;
     private List<ProductPackage> productPackages;
     private String time;
+
+    public Order () {
+        String time= LocalDateTime.now().toString();
+    }
 }

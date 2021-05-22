@@ -49,9 +49,8 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
 
         Integer id = storeDao.getId(store);
         if (id == null) {
-            int save = save(store);
-            store.setId(save);
-            return save;
+            save(store);
+            return store.getId();
         }
         store.setId(id);
         return store.getId();
@@ -66,8 +65,8 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void destroy(Store store) {
-        userManager.destroy(store.getId());
         delete(store.getId());
+        userManager.destroy(store.getUser().getId());
     }
 
 

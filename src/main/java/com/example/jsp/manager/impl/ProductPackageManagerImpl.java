@@ -37,9 +37,8 @@ public class ProductPackageManagerImpl implements ProductPackageManagerToDao, Pr
     public Integer insert(ProductPackage target) {
         Integer id = getId(target);
         if (id == null) {
-            int save = save(target);
-            target.setId(save);
-            return save;
+            save(target);
+            return target.getId();
         }
         target.setId(id);
         return target.getId();

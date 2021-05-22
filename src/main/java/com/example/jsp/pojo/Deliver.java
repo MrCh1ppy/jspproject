@@ -8,6 +8,7 @@ import java.io.Serializable;
  * @author 橙鼠鼠
  */
 @Getter
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor

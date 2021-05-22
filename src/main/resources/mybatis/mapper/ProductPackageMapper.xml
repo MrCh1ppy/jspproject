@@ -21,7 +21,7 @@
         from order_product
         where op_id = #{id}
     </select>
-    <insert id="save" parameterType="com.example.jsp.pojo.ProductPackage">
+    <insert id="save" parameterType="com.example.jsp.pojo.ProductPackage" useGeneratedKeys="true" keyProperty="id" keyColumn="op_id">
         insert into order_product(op_p_id, op_o_id, op_num)
         VALUES (#{target.product.id}, #{target.order.id}, #{target.num})
     </insert>

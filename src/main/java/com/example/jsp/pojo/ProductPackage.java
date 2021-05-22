@@ -7,7 +7,6 @@ import java.io.Serializable;
 /**
  * @author 橙鼠鼠
  */
-@ToString
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,5 +34,15 @@ public class ProductPackage implements Serializable {
     public ProductPackage setOrder (Order order) {
         this.order = order;
         return this;
+    }
+
+    @Override
+    public String toString () {
+        return "ProductPackage{" +
+                "id=" + id +
+                ", num=" + num +
+                ", product=" + product +
+                ", order=" + order.getId() +
+                '}';
     }
 }

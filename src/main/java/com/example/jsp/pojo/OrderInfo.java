@@ -8,7 +8,6 @@ import java.io.Serializable;
  * @author 橙鼠鼠
  */
 @Getter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderInfo implements Serializable {
@@ -35,5 +34,15 @@ public class OrderInfo implements Serializable {
     public OrderInfo setMessage (String message) {
         this.message = message;
         return this;
+    }
+
+    @Override
+    public String toString () {
+        return "OrderInfo{" +
+                "id=" + id +
+                ", order=" + order.getId() +
+                ", enabled=" + enabled +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

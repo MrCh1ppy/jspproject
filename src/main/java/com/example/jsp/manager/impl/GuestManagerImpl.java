@@ -70,8 +70,8 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
         Integer id = guestDao.getId(target);
         if (id == null) {
             save(target);
+            addressManager.dropByGuestId(target.getId());
             for (Address address : target.getAddresses()) {
-                addressManager.dropByGuestId(target.getId());
                 address.setGuestId(target.getId());
                 int i = addressManager.insert(address);
                 address.setId(i);
@@ -117,17 +117,17 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
      * */
     public Integer restore(Guest target) throws ProjectException {
         Integer id = getId(target);
+        Boolean notExist = userManager.isNotExist(target.getLoginUser().getId());
+        if (Boolean.TRUE.equals(notExist)) {
+            throw new SonElementNotExistException();
+        }
+        addressManager.dropByGuestId(target.getId());
+        for (Address address : target.getAddresses()) {
+            address.setGuestId(target.getId());
+            int i = addressManager.insert(address);
+            address.setId(i);
+        }
         if (id == null) {
-            Boolean notExist = userManager.isNotExist(target.getLoginUser().getId());
-            if (Boolean.TRUE.equals(notExist)) {
-                throw new SonElementNotExistException();
-            }
-            addressManager.dropByGuestId(target.getId());
-            for (Address address : target.getAddresses()) {
-                address.setGuestId(target.getId());
-                int i = addressManager.insert(address);
-                address.setId(i);
-            }
             guestDao.update(target);
             return 0;
         }

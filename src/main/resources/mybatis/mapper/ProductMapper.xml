@@ -7,11 +7,12 @@
     <resultMap id="ProductMap" type="com.example.jsp.pojo.Product">
         <id property="id" column="p_id"/>
         <result property="name" column="p_name"/>
-        <result property="price" column="p_price" jdbcType="DECIMAL" javaType="Double"/>
+        <result property="price" column="p_price" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
         <association property="store" select="com.example.jsp.dao.StoreDao.selectById" column="p_s_id"
                      javaType="com.example.jsp.pojo.Store"/>
     </resultMap>
-    <insert id="save" parameterType="com.example.jsp.pojo.Product" useGeneratedKeys="true" keyProperty="id" keyColumn="p_id">
+    <insert id="save" parameterType="com.example.jsp.pojo.Product" useGeneratedKeys="true" keyProperty="id" keyColumn="p_id
+">
         insert into product(p_name, p_price, p_s_id)
         VALUES (#{target.name}, #{target.price}, #{target.store.id})
     </insert>

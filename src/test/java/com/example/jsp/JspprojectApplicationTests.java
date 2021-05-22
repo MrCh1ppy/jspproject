@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +30,9 @@ class JspprojectApplicationTests {
 
     @Autowired
     private ProductManager productManager;
+
+    @Autowired
+    private OrderManager orderManager;
 
     @Test
     @Transactional(rollbackFor = Exception.class)
@@ -91,7 +96,7 @@ class JspprojectApplicationTests {
     public void productTest(){
         Product product = new Product();
         product.setName("蟹皇堡");
-        product.setPrice(11.4514);
+        product.setPrice(BigDecimal.valueOf(11.4514));
         Store store = new Store();
         store.setName("蟹堡王");
         store.setTelephone("2022337");
@@ -121,13 +126,8 @@ class JspprojectApplicationTests {
     @Test
     public void build(){
         User user = new User();
-        user.setUsername("userForStore");
-        user.setPassword("2022337");
-        Store store = new Store();
-        store.setUser(user);
-        store.setTelephone("StoreTelephone");
-        store.setAddress("StoreAddress");
-        store.setName("StoreName");
+        user.setUsername("userForStore").setPassword("2022337");
+        Store store = new Store().setUser(user).setTelephone("StoreTelephone").setAddress("StoreAddress").setName("StoreName");
         try {
             userManager.insert(user);
             storeManager.insert(store);
@@ -137,12 +137,25 @@ class JspprojectApplicationTests {
     }
 
     @Test
-    @Transactional
+    public void GuestBuild(){
+        User user = new User().setUsername("UserForGuest").setPassword("2022337");
+        Guest guest = new Guest().setAddresses(new LinkedList<>()).setName("GuestName").setTelephone("2022337").setLoginUser(user);
+        guest.getAddresses().add(new Address().setAddressString("海里"));
+        guest.getAddresses().add(new Address().setAddressString("河里"));
+        System.out.println(guest);
+        try {
+            userManager.insert(user);
+            guestManager.insert(guest);
+            System.out.println(guestManager.select(guest.getId()));
+        } catch (ProjectException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void productBuild(){
         Product product = new Product();
-        product.setName("productName");
-        product.setStore(storeManager.select(18));
-        product.setPrice(114.514);
+        product.setName("productName").setStore(storeManager.select(18)).setPrice(BigDecimal.valueOf(114.514));
         try {
             productManager.insert(product);
         } catch (ProjectException e) {
@@ -153,9 +166,46 @@ class JspprojectApplicationTests {
     @Test
     @Transactional
     public void test(){
-        Product product = new Product();
+        Product product = new Product()
+                .setId(1)
+                .setPrice(BigDecimal.valueOf(2.23))
+                .setName("cjj");
         /*推荐的setter调用方法*/
-        product.setId(1).setPrice(2.23).setName("cjj");
         System.out.println(product);
+    }
+
+    @Test
+    @Transactional(rollbackFor = Exception.class)
+    public void OrderTest(){
+        Order order = new Order()
+                .setGuest(guestManager.select(21))
+                .setTime(LocalTime.now().toString())
+                .setAddress(guestManager.select(21).getAddresses().get(0))
+                .setDeliver(deliverManager.select(37))
+                .setStore(storeManager.select(18))
+                .setStatus(1)
+                .setMessage("没问题")
+                .setOrderInfos(new LinkedList<>())
+                .setProductPackages(new LinkedList<>());
+        try {
+            orderManager.addProduct(order,13,1)
+                    .addProduct(order,13,2)
+                    .linkedInsert(order)
+                    .addProduct(order,13,1)
+                    .addOrderInfo(order,new OrderInfo().setMessage("Hello!!!!!!!!!!!!!!!!!!!!!"))
+                    .linkedRestore(order)
+                    .destroy(order);
+            System.out.println("///////////////////"+orderManager.select(order.getId()));
+        } catch (ProjectException e) {
+            e.printStackTrace();
+
+    }
+}
+
+    @Test
+    public void testForLink(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("1").append("2");
+        System.out.println(stringBuilder.toString());
     }
 }

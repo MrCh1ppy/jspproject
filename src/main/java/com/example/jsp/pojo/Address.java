@@ -1,6 +1,7 @@
 package com.example.jsp.pojo;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -8,26 +9,13 @@ import java.io.Serializable;
  * @author 橙鼠鼠
  */
 @Getter
+@Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Accessors(chain = true)
 public class Address implements Serializable {
     private String addressString;
     private Integer id;
     private Integer guestId;
-
-    public Address setAddressString (String addressString) {
-        this.addressString = addressString;
-        return this;
-    }
-
-    public Address setId (Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public Address setGuestId (Integer guestId) {
-        this.guestId = guestId;
-        return this;
-    }
 }

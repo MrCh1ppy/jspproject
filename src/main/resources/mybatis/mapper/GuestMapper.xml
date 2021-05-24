@@ -48,4 +48,8 @@
     <select id="findIdByLoginUser" parameterType="integer" resultMap="guestMap">
         select g_id from guest where g_u_id=#{id}
     </select>
+    <select id="findUserByUserName" resultMap="com.example.jsp.dao.UserDao.userMap" parameterType="string">
+        select username,password,id,enabled from user,guest where g_u_id=id and username=#{username}
+    </select>
+
 </mapper>

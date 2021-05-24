@@ -1,6 +1,7 @@
 package com.example.jsp.manager.todao;
 
 import com.example.jsp.pojo.Deliver;
+import com.example.jsp.pojo.User;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface DeliverManagerToDao {
     void delete(Integer id);
 
     Boolean isDeliver(int userId);
+
+    User findUserByUserName(String username);
 }

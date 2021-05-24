@@ -1,6 +1,6 @@
 package com.example.jsp.manager.toservice;
 
-import com.example.jsp.commons.exception.manager.ProjectException;
+import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.pojo.Order;
 import com.example.jsp.pojo.OrderInfo;
 import com.example.jsp.pojo.Product;
@@ -11,7 +11,7 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface OrderManager {
-    Integer insert(Order target) throws ProjectException;
+    Integer insert(Order target) throws SonElementNotExistExceptionOld;
 
     void destroy(Integer id);
 
@@ -21,19 +21,19 @@ public interface OrderManager {
 
     List<Order> select();
 
-    Integer restore(Order target) throws ProjectException;
+    Integer restore(Order target) throws SonElementNotExistExceptionOld;
 
     Integer getId(Order target);
 
     Boolean isNotExist(Integer id);
 
-    OrderManager addProduct(Order target, Product product,int num)throws ProjectException;
+    OrderManager addProduct(Order target, Product product,int num)throws SonElementNotExistExceptionOld;
 
-    OrderManager addProduct(Order target, int productId,int num)throws ProjectException;
+    OrderManager addProduct(Order target, int productId,int num)throws SonElementNotExistExceptionOld;
 
-    OrderManager linkedInsert(Order target)throws ProjectException;
+    OrderManager linkedInsert(Order target)throws SonElementNotExistExceptionOld;
 
-    OrderManager linkedRestore(Order order)throws ProjectException;
+    OrderManager linkedRestore(Order order)throws SonElementNotExistExceptionOld;
 
     OrderManager linkedDestroy(Order target);
 
@@ -41,5 +41,5 @@ public interface OrderManager {
 
     OrderManager addOrderInfo(Order target, OrderInfo orderInfo);
 
-    OrderManager addOrderInfo(Order target,int OrderInfoId)throws ProjectException;
+    OrderManager addOrderInfo(Order target,int orderInfoId);
 }

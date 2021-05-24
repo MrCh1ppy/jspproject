@@ -1,15 +1,15 @@
-package com.example.jsp.commons.exception.manager;
+package com.example.jsp.commons.oldexception.manager;
 
 /**
  * @author 橙鼠鼠
  */
-public class OneToMuchException extends ProjectException {
+public class SonElementContradictionExceptionOld extends ProjectExceptionOld {
     /**
      * Constructs a new exception with {@code null} as its detail message.
      * The cause is not initialized, and may subsequently be initialized by a
      * call to {@link #initCause}.
      */
-    public OneToMuchException() {
+    public SonElementContradictionExceptionOld () {
     }
 
     /**
@@ -20,7 +20,7 @@ public class OneToMuchException extends ProjectException {
      * @param message the detail message. The detail message is saved for
      *                later retrieval by the {@link #getMessage()} method.
      */
-    public OneToMuchException(String message) {
+    public SonElementContradictionExceptionOld (String message) {
         super(message);
     }
 }

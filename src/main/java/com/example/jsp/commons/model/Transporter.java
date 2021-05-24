@@ -1,19 +1,27 @@
 package com.example.jsp.commons.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import lombok.experimental.Accessors;
 
 /**
  * @author 橙鼠鼠
  */
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
+@Accessors(chain = true)
 public class Transporter<T> {
-	private int code;
-	private String msg;
 	private T data;
+	private String msg;
+	private int code;
+
+	public Transporter () {
+		this.setCode(0);
+	}
+
+	public void fail(int errorCode, String msg){
+		this.code=errorCode;
+		this.msg=msg;
+	}
+	/*0 is success otherwise boom!!!!!*/
 }

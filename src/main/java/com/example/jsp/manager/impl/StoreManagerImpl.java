@@ -1,11 +1,12 @@
 package com.example.jsp.manager.impl;
 
-import com.example.jsp.commons.exception.manager.SonElementNotExistException;
+import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.dao.StoreDao;
 import com.example.jsp.manager.todao.StoreManagerToDao;
 import com.example.jsp.manager.toservice.StoreManager;
 import com.example.jsp.manager.toservice.UserManager;
 import com.example.jsp.pojo.Store;
+import com.example.jsp.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,9 +43,10 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     }
 
     @Override
-    public Integer insert(Store store) throws SonElementNotExistException {
-        if (userManager.isNotExist(store.getUser().getId())) {
-            throw new SonElementNotExistException("Store.user");
+    public Integer insert(Store store) throws SonElementNotExistExceptionOld {
+        Boolean notExist = userManager.isNotExist(store.getUser().getId());
+        if (Boolean.TRUE.equals(notExist)) {
+            throw new SonElementNotExistExceptionOld("Store.user");
         }
 
         Integer id = storeDao.getId(store);
@@ -81,11 +83,12 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     }
 
     @Override
-    public Integer restore(Store store) throws SonElementNotExistException {
+    public Integer restore(Store store) throws SonElementNotExistExceptionOld {
         Integer id = getId(store);
         if (id == null) {
-            if (userManager.isNotExist(store.getUser().getId())) {
-                throw new SonElementNotExistException();
+            Boolean notExist = userManager.isNotExist(store.getUser().getId());
+            if (Boolean.TRUE.equals(notExist)) {
+                throw new SonElementNotExistExceptionOld();
             }
             storeDao.update(store);
             return 0;
@@ -107,6 +110,11 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     @Override
     public Boolean isStore (int userId) {
         return storeDao.findIdByLoginUser(userId) != null;
+    }
+
+    @Override
+    public User findUserByUserName (String username) {
+        return storeDao.findUserByUserName(username);
     }
 
     @Override

@@ -25,4 +25,6 @@ public interface UserDao {
     User getId(@Param("user") User user);
 
     Integer findByUsername(@Param("username")String username);
+
+    User findUserByUsername(@Param("username")String username);
 }

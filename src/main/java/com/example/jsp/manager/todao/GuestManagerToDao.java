@@ -1,6 +1,7 @@
 package com.example.jsp.manager.todao;
 
 import com.example.jsp.pojo.Guest;
+import com.example.jsp.pojo.User;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface GuestManagerToDao {
     List<Guest> select();
 
     Boolean isGuest(int userId);
+
+    User findUserByUserName(String username);
 }

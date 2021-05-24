@@ -1,7 +1,6 @@
 package com.example.jsp.manager.impl;
 
-import com.example.jsp.commons.exception.manager.ProjectException;
-import com.example.jsp.commons.exception.manager.SonElementNotExistException;
+import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.dao.OrderDao;
 import com.example.jsp.manager.todao.OrderManagerToDao;
 import com.example.jsp.manager.toservice.*;
@@ -9,6 +8,7 @@ import com.example.jsp.pojo.Order;
 import com.example.jsp.pojo.OrderInfo;
 import com.example.jsp.pojo.Product;
 import com.example.jsp.pojo.ProductPackage;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,12 +83,11 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer insert(Order target) throws ProjectException {
+    public Integer insert(Order target) throws SonElementNotExistExceptionOld {
         exist(target);
         Integer id = getId(target);
         if (id == null) {
             save(target);
-            System.out.println("//////->"+select(target.getId()));
             orderInfoManager.deleteByOrderId(target.getId());
             productPackageManager.deleteByOrderId(target.getId());
             for (OrderInfo orderInfo : target.getOrderInfos()) {
@@ -100,7 +99,7 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
                 productPackage.setOrder(target);
                 Boolean notExist = productManager.isNotExist(productPackage.getProduct().getId());
                 if (Boolean.TRUE.equals(notExist)) {
-                    throw new SonElementNotExistException("product");
+                    throw new SonElementNotExistExceptionOld("product");
                 }
                 int i = productPackageManager.insert(productPackage);
                 productPackage.setId(i);
@@ -140,7 +139,7 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer restore(Order target) throws ProjectException {
+    public Integer restore(Order target) throws SonElementNotExistExceptionOld {
         productPackageManager.deleteByOrderId(target.getId());
         orderInfoManager.deleteByOrderId(target.getId());
         for (ProductPackage aPackage : target.getProductPackages()) {
@@ -177,13 +176,13 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
     }
 
     @Override
-    public OrderManager addProduct (Order target, Product product, int num) throws ProjectException{
+    public OrderManager addProduct (Order target, Product product, int num) throws SonElementNotExistExceptionOld {
         if(target.getProductPackages()==null){
             target.setProductPackages(new LinkedList<>());
         }
         Boolean notExist = productManager.isNotExist(product.getId());
         if(Boolean.TRUE.equals(notExist)){
-            throw new SonElementNotExistException("order.productPackage.product");
+            throw new SonElementNotExistExceptionOld("order.productPackage.product");
         }
         for (ProductPackage productPackage : target.getProductPackages()) {
             if(productPackage.getProduct().equals(product)){
@@ -197,21 +196,21 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
     }
 
     @Override
-    public OrderManager addProduct (Order target, int productId, int num)throws ProjectException {
+    public OrderManager addProduct (Order target, int productId, int num)throws SonElementNotExistExceptionOld {
         addProduct(target,productManager.select(productId),num);
         return this;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public OrderManager linkedInsert (Order target) throws ProjectException {
+    public OrderManager linkedInsert (Order target) throws SonElementNotExistExceptionOld {
         insert(target);
         return this;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public OrderManager linkedRestore (Order order) throws ProjectException {
+    public OrderManager linkedRestore (Order order) throws SonElementNotExistExceptionOld {
         restore(order);
         return this;
     }
@@ -242,28 +241,33 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
         target.getOrderInfos().add(orderInfo);
         return this;
     }
-
+/**@deprecated :这个方法相当不安全,不推荐
+ * */
     @Override
     @Deprecated
-    public OrderManager addOrderInfo (Order target, int orderInfoId) throws ProjectException{
-        OrderInfo select = orderInfoManager.select(orderInfoId);
+    public OrderManager addOrderInfo (Order target, int orderInfoId){
+        var select = orderInfoManager.select(orderInfoId);
         addOrderInfo(target,select);
         return this;
     }
 
 
-    private void exist(Order target) throws ProjectException {
-        if (guestManager.isNotExist(target.getGuest().getId())) {
-            throw new SonElementNotExistException("guest");
+    private void exist(Order target) throws SonElementNotExistExceptionOld {
+        val notExist = guestManager.isNotExist(target.getGuest().getId());
+        if (Boolean.TRUE.equals(notExist)) {
+            throw new SonElementNotExistExceptionOld("guest");
         }
-        if (storeManager.isNotExist(target.getStore().getId())) {
-            throw new SonElementNotExistException("store");
+        val notExist1 = storeManager.isNotExist(target.getStore().getId());
+        if (Boolean.TRUE.equals(notExist1)) {
+            throw new SonElementNotExistExceptionOld("store");
         }
-        if (deliverManager.isNotExist(target.getDeliver().getId())) {
-            throw new SonElementNotExistException("deliver");
+        final Boolean notExist2 = deliverManager.isNotExist(target.getDeliver().getId());
+        if (Boolean.TRUE.equals(notExist2)) {
+            throw new SonElementNotExistExceptionOld("deliver");
         }
-        if (addressManager.isNotExist(target.getAddress().getId())) {
-            throw new SonElementNotExistException("address");
+        final var notExist3 = addressManager.isNotExist(target.getAddress().getId());
+        if (Boolean.TRUE.equals(notExist3)) {
+            throw new SonElementNotExistExceptionOld("address");
         }
     }
 }

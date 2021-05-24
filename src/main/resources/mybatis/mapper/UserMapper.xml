@@ -50,4 +50,7 @@
     <select id="findByUsername" parameterType="string" resultType="integer">
         select id from user where username=#{username}
     </select>
+    <select id="findUserByUsername" parameterType="string" resultMap="userMap">
+        select * from user where username=#{username}
+    </select>
 </mapper>

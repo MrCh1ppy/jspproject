@@ -1,8 +1,10 @@
 package com.example.jsp;
 
-import com.example.jsp.commons.exception.manager.ProjectException;
+import cn.dev33.satoken.stp.StpInterface;
+import com.example.jsp.commons.oldexception.manager.ProjectExceptionOld;
 import com.example.jsp.manager.toservice.*;
 import com.example.jsp.pojo.*;
+import com.example.jsp.utils.login.LoginId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,6 +36,9 @@ class JspprojectApplicationTests {
     @Autowired
     private OrderManager orderManager;
 
+    @Autowired
+    private StpInterface stpInterface;
+
     @Test
     @Transactional(rollbackFor = Exception.class)
     void contextLoads() {
@@ -41,7 +46,7 @@ class JspprojectApplicationTests {
         user.setUsername("cjj").setPassword("2022337");
         try {
             userManager.insert(user);
-        } catch (ProjectException e) {
+        } catch (ProjectExceptionOld e) {
             e.printStackTrace();
         }
         Deliver deliver = new Deliver();
@@ -60,7 +65,7 @@ class JspprojectApplicationTests {
             }
             deliverManager.destroy(deliver);
 
-        } catch (ProjectException e) {
+        } catch (ProjectExceptionOld e) {
             e.printStackTrace();
         }
     }
@@ -86,7 +91,7 @@ class JspprojectApplicationTests {
             guestManager.restore(select);
             System.out.println("//////////////////////"+guestManager.select(select.getId()));
             guestManager.destroy(guest);
-        } catch (ProjectException e) {
+        } catch (ProjectExceptionOld e) {
             e.printStackTrace();
         }
     }
@@ -118,7 +123,7 @@ class JspprojectApplicationTests {
             select=productManager.select(select.getId());
             System.out.println(select);
             productManager.destroy(product);
-        } catch (ProjectException e) {
+        } catch (ProjectExceptionOld e) {
             e.printStackTrace();
         }
     }
@@ -131,7 +136,7 @@ class JspprojectApplicationTests {
         try {
             userManager.insert(user);
             storeManager.insert(store);
-        } catch (ProjectException e) {
+        } catch (ProjectExceptionOld e) {
             e.printStackTrace();
         }
     }
@@ -147,7 +152,7 @@ class JspprojectApplicationTests {
             userManager.insert(user);
             guestManager.insert(guest);
             System.out.println(guestManager.select(guest.getId()));
-        } catch (ProjectException e) {
+        } catch (ProjectExceptionOld e) {
             e.printStackTrace();
         }
     }
@@ -158,7 +163,7 @@ class JspprojectApplicationTests {
         product.setName("productName").setStore(storeManager.select(18)).setPrice(BigDecimal.valueOf(114.514));
         try {
             productManager.insert(product);
-        } catch (ProjectException e) {
+        } catch (ProjectExceptionOld e) {
             e.printStackTrace();
         }
     }
@@ -196,16 +201,17 @@ class JspprojectApplicationTests {
                     .linkedRestore(order)
                     .destroy(order);
             System.out.println("///////////////////"+orderManager.select(order.getId()));
-        } catch (ProjectException e) {
+        } catch (ProjectExceptionOld e) {
             e.printStackTrace();
 
     }
 }
 
+
+
     @Test
-    public void testForLink(){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("1").append("2");
-        System.out.println(stringBuilder.toString());
+    public void roleTest(){
+        String temp="aa,";
+        stpInterface.getRoleList(new LoginId("aa"),temp);
     }
 }

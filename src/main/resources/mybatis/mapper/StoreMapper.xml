@@ -49,5 +49,7 @@
     <select id="findIdByLoginUser" resultMap="StoreMap" parameterType="integer">
         select s_id from store where s_u_id=#{id}
     </select>
-
+    <select id="findUserByUserName" resultMap="com.example.jsp.dao.UserDao.userMap" parameterType="string">
+        select username,password,id,enabled from user,store where s_u_id=id and username=#{username}
+    </select>
 </mapper>

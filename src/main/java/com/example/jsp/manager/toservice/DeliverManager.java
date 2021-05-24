@@ -1,7 +1,8 @@
 package com.example.jsp.manager.toservice;
 
-import com.example.jsp.commons.exception.manager.ProjectException;
+import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.pojo.Deliver;
+import com.example.jsp.pojo.User;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface DeliverManager {
-    Integer insert(Deliver deliver) throws ProjectException;
+    Integer insert(Deliver deliver) throws SonElementNotExistExceptionOld;
 
     List<Deliver> select();
 
@@ -17,7 +18,7 @@ public interface DeliverManager {
 
     Integer getId(Deliver deliver);
 
-    Integer restore(Deliver deliver) throws ProjectException;
+    Integer restore(Deliver deliver) throws SonElementNotExistExceptionOld;
 
     void destroy(Integer id);
 
@@ -26,4 +27,6 @@ public interface DeliverManager {
     Boolean isNotExist(Integer id);
 
     Boolean isDeliver(int userId);
+
+    User findUserByUserName(String username);
 }

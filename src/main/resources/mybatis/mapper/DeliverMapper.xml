@@ -48,4 +48,7 @@
     <select id="findIdByLoginUser" resultMap="deliverMap" parameterType="integer">
         select d_id from deliver where d_u_id=#{id}
     </select>
+    <select id="findUserByUserName" resultMap="com.example.jsp.dao.UserDao.userMap" parameterType="string">
+        select username,password,id,enabled from user,deliver where d_u_id=user.id and username=#{username}
+    </select>
 </mapper>

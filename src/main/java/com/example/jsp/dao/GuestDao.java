@@ -1,6 +1,7 @@
 package com.example.jsp.dao;
 
 import com.example.jsp.pojo.Guest;
+import com.example.jsp.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,5 +25,8 @@ public interface GuestDao {
     Integer getId(@Param("target") Guest guest);
 
     Guest findIdByLoginUser(@Param("id")int userId);
+
+    User findUserByUserName(@Param("username")String username);
+
 
 }

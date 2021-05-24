@@ -1,7 +1,6 @@
 package com.example.jsp.manager.impl;
 
-import com.example.jsp.commons.exception.manager.ProjectException;
-import com.example.jsp.commons.exception.manager.SonElementNotExistException;
+import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.dao.GuestDao;
 import com.example.jsp.manager.todao.GuestManagerToDao;
 import com.example.jsp.manager.toservice.AddressManager;
@@ -9,6 +8,7 @@ import com.example.jsp.manager.toservice.GuestManager;
 import com.example.jsp.manager.toservice.UserManager;
 import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Guest;
+import com.example.jsp.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,10 +61,10 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer insert(Guest target) throws ProjectException {
+    public Integer insert(Guest target) throws SonElementNotExistExceptionOld {
         Boolean notExist = userManager.isNotExist(target.getLoginUser().getId());
         if (Boolean.TRUE.equals(notExist)) {
-            throw new SonElementNotExistException();
+            throw new SonElementNotExistExceptionOld();
         }
 
         Integer id = guestDao.getId(target);
@@ -112,14 +112,17 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
     }
 
     @Override
+    public User findUserByUserName (String username) {
+        return guestDao.findUserByUserName(username);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
-    /**@apiNote :对于地址的更新,直接使用完全删除与完全添加;
-     * */
-    public Integer restore(Guest target) throws ProjectException {
+    public Integer restore(Guest target) throws SonElementNotExistExceptionOld {
         Integer id = getId(target);
         Boolean notExist = userManager.isNotExist(target.getLoginUser().getId());
         if (Boolean.TRUE.equals(notExist)) {
-            throw new SonElementNotExistException();
+            throw new SonElementNotExistExceptionOld();
         }
         addressManager.dropByGuestId(target.getId());
         for (Address address : target.getAddresses()) {

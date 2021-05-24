@@ -21,4 +21,6 @@ public interface UserManagerToDao {
     User getId(User target);
 
     Integer findByUsername(String username);
+
+    User findUserByUsername(String username);
 }

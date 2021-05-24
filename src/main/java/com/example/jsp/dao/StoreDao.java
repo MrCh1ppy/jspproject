@@ -1,6 +1,7 @@
 package com.example.jsp.dao;
 
 import com.example.jsp.pojo.Store;
+import com.example.jsp.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +25,6 @@ public interface StoreDao {
     Integer getId(@Param("store") Store store);
 
     Store findIdByLoginUser(@Param("id")Integer userId);
+
+    User findUserByUserName(@Param("username")String username);
 }

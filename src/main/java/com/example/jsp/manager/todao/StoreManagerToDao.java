@@ -1,6 +1,7 @@
 package com.example.jsp.manager.todao;
 
 import com.example.jsp.pojo.Store;
+import com.example.jsp.pojo.User;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface StoreManagerToDao {
     Integer getId(Store store);
 
     Boolean isStore (int userId);
+
+    User findUserByUserName(String username);
 }

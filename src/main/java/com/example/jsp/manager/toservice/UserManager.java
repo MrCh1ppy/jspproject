@@ -1,6 +1,6 @@
 package com.example.jsp.manager.toservice;
 
-import com.example.jsp.commons.exception.manager.ProjectException;
+import com.example.jsp.commons.oldexception.manager.ElementAlreadyExistExceptionOld;
 import com.example.jsp.pojo.User;
 
 import java.util.List;
@@ -20,9 +20,13 @@ public interface UserManager {
 
     List<User> select();
 
-    Integer insert(User targetUser)throws ProjectException;
+    Integer insert(User targetUser)throws ElementAlreadyExistExceptionOld;
 
     Boolean isNotExist(Integer id);
 
     Integer findByUsername(String username);
+
+    User findUserByUsername(String username);
+
+    Boolean isNotExist(String username);
 }

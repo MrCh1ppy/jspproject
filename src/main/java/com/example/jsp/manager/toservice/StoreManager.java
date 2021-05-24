@@ -1,7 +1,8 @@
 package com.example.jsp.manager.toservice;
 
-import com.example.jsp.commons.exception.manager.ProjectException;
+import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.pojo.Store;
+import com.example.jsp.pojo.User;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface StoreManager {
-    Integer insert(Store store) throws ProjectException;
+    Integer insert(Store store) throws SonElementNotExistExceptionOld;
 
     void destroy(Integer id);
 
@@ -19,11 +20,13 @@ public interface StoreManager {
 
     List<Store> select();
 
-    Integer restore(Store store) throws ProjectException;
+    Integer restore(Store store) throws SonElementNotExistExceptionOld;
 
     Integer getId(Store store);
 
     Boolean isNotExist(Integer id);
 
     Boolean isStore (int userId);
+
+    User findUserByUserName(String username);
 }

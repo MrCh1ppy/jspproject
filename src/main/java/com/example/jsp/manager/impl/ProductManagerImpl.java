@@ -1,7 +1,6 @@
 package com.example.jsp.manager.impl;
 
-import com.example.jsp.commons.exception.manager.ProjectException;
-import com.example.jsp.commons.exception.manager.SonElementNotExistException;
+import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.dao.ProductDao;
 import com.example.jsp.manager.todao.ProductManagerToDao;
 import com.example.jsp.manager.toservice.ProductManager;
@@ -42,9 +41,10 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
     }
 
     @Override
-    public Integer insert(Product target) throws ProjectException {
-        if (storeManager.isNotExist(target.getStore().getId())) {
-            throw new SonElementNotExistException();
+    public Integer insert(Product target) throws SonElementNotExistExceptionOld {
+        Boolean notExist = storeManager.isNotExist(target.getStore().getId());
+        if (Boolean.TRUE.equals(notExist)) {
+            throw new SonElementNotExistExceptionOld();
         }
         Integer id = getId(target);
         if (id == null) {
@@ -76,11 +76,12 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
     }
 
     @Override
-    public Integer restore(Product target) throws ProjectException {
+    public Integer restore(Product target) throws SonElementNotExistExceptionOld {
         Integer id = getId(target);
         if (id == null) {
-            if (storeManager.isNotExist(target.getStore().getId())) {
-                throw new SonElementNotExistException();
+            Boolean notExist = storeManager.isNotExist(target.getStore().getId());
+            if (Boolean.TRUE.equals(notExist)) {
+                throw new SonElementNotExistExceptionOld();
             }
             update(target);
             return 0;

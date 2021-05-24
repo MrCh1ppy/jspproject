@@ -1,12 +1,12 @@
 package com.example.jsp.manager.impl;
 
-import com.example.jsp.commons.exception.manager.ProjectException;
-import com.example.jsp.commons.exception.manager.SonElementNotExistException;
+import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.dao.DeliverDao;
 import com.example.jsp.manager.todao.DeliverManagerToDao;
 import com.example.jsp.manager.toservice.DeliverManager;
 import com.example.jsp.manager.toservice.UserManager;
 import com.example.jsp.pojo.Deliver;
+import com.example.jsp.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,10 +38,10 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     }
 
     @Override
-    public Integer insert(Deliver deliver) throws ProjectException {
+    public Integer insert(Deliver deliver) throws SonElementNotExistExceptionOld {
         Boolean notExist = userManager.isNotExist(deliver.getLoginUser().getId());
         if (Boolean.TRUE.equals(notExist)) {
-            throw new SonElementNotExistException("deliver.User");
+            throw new SonElementNotExistExceptionOld("deliver.User");
         }
         Integer id = getId(deliver);
         if (id == null) {
@@ -68,12 +68,12 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     }
 
     @Override
-    public Integer restore(Deliver deliver) throws SonElementNotExistException {
+    public Integer restore(Deliver deliver) throws SonElementNotExistExceptionOld {
         Integer id = getId(deliver);
         if (id == null) {
             Boolean notExist = userManager.isNotExist(deliver.getLoginUser().getId());
             if (Boolean.TRUE.equals(notExist)) {
-                throw new SonElementNotExistException("deliver.user");
+                throw new SonElementNotExistExceptionOld("deliver.user");
             }
             update(deliver);
             return 0;
@@ -113,5 +113,10 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
     @Override
     public Boolean isDeliver (int userId) {
         return deliverDao.findIdByLoginUser(userId)!=null;
+    }
+
+    @Override
+    public User findUserByUserName (String username) {
+        return deliverDao.findUserByUserName(username);
     }
 }

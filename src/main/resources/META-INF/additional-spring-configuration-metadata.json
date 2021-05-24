@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "project.config.login.identity",
+      "type": "java.lang.String",
+      "description": "Description for project.config.login.identity."
+    }
+  ]
+}

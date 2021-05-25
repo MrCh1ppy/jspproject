@@ -32,7 +32,7 @@ public class ProjectController {
 	Transporter handlerInnerError(Exception e){
 		var tTransporter = new Transporter();
 		e.printStackTrace();
-		tTransporter.fail(1,"内部错误");
+		tTransporter.fail(666,"内部错误");
 		return tTransporter;
 	}
 

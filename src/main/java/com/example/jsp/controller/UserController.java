@@ -24,13 +24,13 @@ public class UserController {
 	}
 
 	@GetMapping("/login/{type}/{username}/{password}")
-	public Transporter<String> login(@PathVariable("username")String username,
+	public Transporter login(@PathVariable("username")String username,
 	                                 @PathVariable("password")String password,
 	                                 @PathVariable("type")String type) throws Exception{
-		var transporter = new Transporter<String>();
+		var transporter = new Transporter();
 		var user = new User().setPassword(password).setUsername(username);
 		String login = userService.login(user, type);
-		transporter.setCode(0).setData(login);
+		transporter.setCode(0).addData("id",login);
 		return transporter;
 	}
 

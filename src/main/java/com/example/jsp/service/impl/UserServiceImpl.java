@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userManager.insert(user);
 		} catch (ElementAlreadyExistExceptionOld e) {
-			throw new ProjectException(Arrays.toString(e.getStackTrace()),21);
+			throw new ProjectException(Arrays.toString(e.getStackTrace()),301);
 		}
 	}
 

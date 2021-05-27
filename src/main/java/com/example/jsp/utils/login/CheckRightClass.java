@@ -10,12 +10,13 @@ import java.util.List;
 
 /**
  * @author 橙鼠鼠
+ * @apiNote 实现鉴权依赖的获取权限接口
  */
 @Component
 public class CheckRightClass implements StpInterface {
 	@Override
 	public List<String> getPermissionList (Object o, String s) {
-		return null;
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -29,7 +30,6 @@ public class CheckRightClass implements StpInterface {
 			e.printStackTrace();
 			roleList=new ArrayList<>();
 		}
-		System.out.println("->角色列表"+roleList);
 		return roleList;
 	}
 }

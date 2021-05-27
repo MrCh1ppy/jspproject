@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/deliver")
-public class DeliverController<T> {
+public class DeliverController {
 	DeliverService deliverService;
 	UserService userService;
 
@@ -32,7 +32,7 @@ public class DeliverController<T> {
 	}
 
 	@GetMapping("/enroll/{username}/{password}/{deliverName}/{telephone}")
-	public Transporter<T>enroll(@PathVariable("username")String username,
+	public Transporter enroll(@PathVariable("username")String username,
 	                            @PathVariable("password")String password,
 	                            @PathVariable("deliverName")String deliverName,
 	                            @PathVariable("telephone")String telephone)throws ProjectException {
@@ -40,6 +40,6 @@ public class DeliverController<T> {
 		userService.create(user);
 		var deliver = new Deliver().setLoginUser(user).setTelephone(telephone).setName(deliverName);
 		deliverService.create(deliver);
-		return new Transporter<>();
+		return new Transporter();
 	}
 }

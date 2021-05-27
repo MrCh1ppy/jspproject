@@ -4,7 +4,9 @@ import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.manager.toservice.StoreManager;
 import com.example.jsp.pojo.Store;
+import com.example.jsp.pojo.User;
 import com.example.jsp.service.StoreService;
+import com.example.jsp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class StoreServiceImpl implements StoreService {
 	private StoreManager storeManager;
+	private UserService userService;
+
 	@Autowired
 	public void setStoreManager (StoreManager storeManager) {
 		this.storeManager = storeManager;
+	}
+
+	@Autowired
+	public void setUserService (UserService userService) {
+		this.userService = userService;
 	}
 
 	@Override
@@ -26,5 +35,11 @@ public class StoreServiceImpl implements StoreService {
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
 			throw new ProjectException(sonElementNotExistExceptionOld.toString(),303);
 		}
+	}
+
+	@Override
+	public void enroll (Store store, User user) throws ProjectException {
+		userService.create(user);
+		create(store);
 	}
 }

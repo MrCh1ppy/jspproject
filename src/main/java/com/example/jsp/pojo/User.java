@@ -8,9 +8,7 @@ import java.io.Serializable;
 /**
  * @author 橙鼠鼠
  */
-@ToString
-@Getter
-@Setter
+@Data
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor

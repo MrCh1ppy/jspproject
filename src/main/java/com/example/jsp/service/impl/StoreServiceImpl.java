@@ -2,7 +2,6 @@ package com.example.jsp.service.impl;
 
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
-import com.example.jsp.manager.toservice.ProductManager;
 import com.example.jsp.manager.toservice.StoreManager;
 import com.example.jsp.pojo.Store;
 import com.example.jsp.pojo.User;
@@ -55,7 +54,7 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public StoreService addProduct (Store target, int productId) throws ProjectException{
+	public StoreService addProduct (Store target, int productId){
 		return this;
 	}
 }

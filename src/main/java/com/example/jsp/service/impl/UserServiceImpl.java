@@ -87,4 +87,14 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public void delete (User user){
+		userManager.destroy(user);
+	}
+
+	@Override
+	public void delete (int userId){
+		userManager.destroy(userId);
+	}
+
 }

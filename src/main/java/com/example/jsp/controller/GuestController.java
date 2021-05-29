@@ -1,5 +1,6 @@
 package com.example.jsp.controller;
 
+
 import java.util.List;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
@@ -39,3 +40,4 @@ public class GuestController {
         return new Transporter().setMsg("注册成功");
     }
 }
+

@@ -9,8 +9,6 @@ import com.example.jsp.service.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
 /**
  * @author 橙鼠鼠
  */
@@ -34,7 +32,7 @@ public class GuestServiceImpl implements GuestService {
 		try {
 			guestManager.insert(target);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-			throw new ProjectException(Arrays.toString(sonElementNotExistExceptionOld.getStackTrace()),304);
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(),304);
 		}
 	}
 }

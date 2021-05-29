@@ -81,6 +81,7 @@ class JspprojectApplicationTests {
         guest.setLoginUser(user).setTelephone("2022337").setName("cjj");
         Address address = new Address();
         address.setAddressString("65432A");
+
         guest.getAddresses().add(address);
         try {
             userManager.insert(user);
@@ -214,4 +215,32 @@ class JspprojectApplicationTests {
         String temp="aa,";
         stpInterface.getRoleList(new LoginId("aa"),temp);
     }
+
+    @Test
+    @Transactional(rollbackFor = Exception.class)
+    void addressGuestTest2(){
+        Guest guest = new Guest();
+        List<Address> addresses = new LinkedList<>();
+        guest.setAddresses(addresses);
+        User user = new User();
+        user.setUsername("user").setPassword("pwd");
+        guest.setLoginUser(user).setTelephone("2022337").setName("cjj");
+        Address address = new Address();
+        address.setAddressString("65432A");
+
+        guest.getAddresses().add(address);
+        try {
+            userManager.insert(user);
+            guestManager.insert(guest);
+            Guest select = guestManager.select(guest.getId());
+            System.out.println(select);
+            select.setTelephone("2022338");
+            guestManager.restore(select);
+            System.out.println("//////////////////////"+guestManager.select(select.getId()));
+            guestManager.destroy(guest);
+        } catch (ProjectExceptionOld e) {
+            e.printStackTrace();
+        }
+    }
+
 }

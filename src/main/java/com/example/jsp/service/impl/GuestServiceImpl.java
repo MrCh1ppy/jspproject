@@ -40,7 +40,7 @@ public class GuestServiceImpl implements GuestService {
 		try {
 			guestManager.insert(target);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-			throw new ProjectException(Arrays.toString(sonElementNotExistExceptionOld.getStackTrace()),304);
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(),304);
 		}
 	}
 

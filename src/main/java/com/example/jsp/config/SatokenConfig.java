@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Primary;
 
 /**
  * @author 橙鼠鼠
+ * @apiNote satoken的配置类
  */
 @Configuration
 public class SatokenConfig{

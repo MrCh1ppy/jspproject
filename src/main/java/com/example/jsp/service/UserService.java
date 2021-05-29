@@ -13,4 +13,6 @@ import java.lang.reflect.InvocationTargetException;
 public interface UserService {
 	String login (User user, String type) throws UsernameNotExistExceptionOld, ErrorPassWordExceptionOld,NoSuchMethodException,IllegalAccessException, InvocationTargetException;
 	void create (User user) throws ProjectException;
+	void delete(User user);
+	void delete(int userId);
 }

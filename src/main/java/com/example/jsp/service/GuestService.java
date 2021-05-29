@@ -14,19 +14,12 @@ import java.util.List;
 public interface GuestService {
 	void create(Guest target)throws ProjectException;
 	void enroll(Guest guest, User user)throws ProjectException;
-
 	static List<Address> apart(String addresses) {
-		List<Address>  addressList= new ArrayList<Address>();
+		List<Address>  addressList= new ArrayList<>();
 		String[] address=addresses.split("_");
-		for(int i=0;i<address.length;i+=3){
-			Address temp=new Address();
-			temp.setAddressString(address[i]);
-			temp.setGuestId(Integer.parseInt(address[i+1]));
-			temp.setId(Integer.parseInt(address[i+2]));
-
-			addressList.add(temp);
+		for (String s : address) {
+			addressList.add(new Address().setAddressString(s));
 		}
-
 		return addressList;
 	}
 }

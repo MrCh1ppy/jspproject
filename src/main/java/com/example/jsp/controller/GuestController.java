@@ -25,15 +25,16 @@ public class GuestController {
     public Transporter enroll(@PathVariable("username")String username,
                               @PathVariable("password")String password,
                               @PathVariable("name")String name,
-                              @PathVariable("address")List<Address> addresses,
+                              @PathVariable("address")String addresses,
                               @PathVariable("telephone")String telephone)throws ProjectException {
         final var user = new User()
                 .setUsername(username)
                 .setPassword(password);
+        List<Address> address= GuestService.apart(addresses);
         final var guest = new Guest()
                 .setName(name)
                 .setTelephone(telephone)
-                .setAddresses(addresses)
+                .setAddresses(address)
                 .setLoginUser(user);
         guestService.enroll(guest,user);
         return new Transporter().setMsg("注册成功");

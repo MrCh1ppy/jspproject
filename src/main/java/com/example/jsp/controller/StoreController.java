@@ -6,6 +6,7 @@ import com.example.jsp.pojo.Store;
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class StoreController {
     }
 
     @GetMapping("/enroll/{username}/{password}/{name}/{address}/{telephone}")
+    @Transactional(rollbackFor = Exception.class)
     public Transporter enroll(@PathVariable("username")String username,
                               @PathVariable("password")String password,
                               @PathVariable("name")String name,

@@ -4,12 +4,16 @@ import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.manager.toservice.AddressManager;
 import com.example.jsp.manager.toservice.GuestManager;
+import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Guest;
+import com.example.jsp.pojo.User;
 import com.example.jsp.service.GuestService;
+import com.example.jsp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author 橙鼠鼠
@@ -17,17 +21,19 @@ import java.util.Arrays;
 @Service
 public class GuestServiceImpl implements GuestService {
 	GuestManager guestManager;
-	AddressManager addressManager;
+	private UserService userService;
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	@Autowired
 	public void setGuestManager (GuestManager guestManager) {
 		this.guestManager = guestManager;
 	}
 
-	@Autowired
-	public void setAddressManager (AddressManager addressManager) {
-		this.addressManager = addressManager;
-	}
+
 
 	@Override
 	public void create (Guest target) throws ProjectException {
@@ -37,4 +43,11 @@ public class GuestServiceImpl implements GuestService {
 			throw new ProjectException(Arrays.toString(sonElementNotExistExceptionOld.getStackTrace()),304);
 		}
 	}
+
+	@Override
+	public void enroll (Guest guest, User user) throws ProjectException {
+		userService.create(user);
+		create(guest);
+	}
+
 }

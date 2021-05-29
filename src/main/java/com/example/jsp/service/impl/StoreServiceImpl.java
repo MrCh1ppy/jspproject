@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 public class StoreServiceImpl implements StoreService {
 	private StoreManager storeManager;
 	private UserService userService;
-	private ProductManager productManager;
 
 	@Autowired
 	public void setStoreManager (StoreManager storeManager) {
@@ -28,11 +27,6 @@ public class StoreServiceImpl implements StoreService {
 	@Autowired
 	public void setUserService (UserService userService) {
 		this.userService = userService;
-	}
-
-	@Autowired
-	public void setProductManager (ProductManager productManager) {
-		this.productManager = productManager;
 	}
 
 	@Override

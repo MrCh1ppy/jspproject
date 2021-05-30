@@ -5,7 +5,6 @@ import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Guest;
 import com.example.jsp.pojo.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,12 +13,5 @@ import java.util.List;
 public interface GuestService {
 	void create(Guest target)throws ProjectException;
 	void enroll(Guest guest, User user)throws ProjectException;
-	static List<Address> apart(String addresses) {
-		List<Address>  addressList= new ArrayList<>();
-		String[] address=addresses.split("_");
-		for (String s : address) {
-			addressList.add(new Address().setAddressString(s));
-		}
-		return addressList;
-	}
+	List<Address> apart(String addresses);
 }

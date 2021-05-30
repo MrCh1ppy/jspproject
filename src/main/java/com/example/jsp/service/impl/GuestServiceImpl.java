@@ -9,6 +9,10 @@ import com.example.jsp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.ArrayList;
+
+
 /**
  * @author 橙鼠鼠
  */
@@ -41,5 +45,13 @@ public class GuestServiceImpl implements GuestService {
 		userService.create(user);
 		create(guest);
 	}
-
+	@Override
+	public  List<Address> apart(String addresses) {
+		List<Address>  addressList= new ArrayList<>();
+		String[] address=addresses.split("_");
+		for (String s : address) {
+			addressList.add(new Address().setAddressString(s));
+		}
+		return addressList;
+	}
 }

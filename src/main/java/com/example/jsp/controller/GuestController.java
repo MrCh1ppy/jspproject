@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author 完颜
+ */
 @RestController
 public class GuestController {
     private GuestService guestService;
@@ -31,7 +34,7 @@ public class GuestController {
         final var user = new User()
                 .setUsername(username)
                 .setPassword(password);
-        List<Address> address= GuestService.apart(addresses);
+        List<Address> address= guestService.apart(addresses);
         final var guest = new Guest()
                 .setName(name)
                 .setTelephone(telephone)

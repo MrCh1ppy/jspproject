@@ -34,13 +34,11 @@
     <update id="update" parameterType="com.example.jsp.pojo.Address">
         update address
         set address=#{target.addressString},
-            a_g_id=#{target.guestId}
+        a_g_id=#{target.guestId}
         where a_id = #{target.id}
     </update>
     <delete id="dropByGuestId" parameterType="integer">
-        delete
-        from address
-        where a_g_id = #{id}
+        delete from address where a_g_id=#{id,jdbcType=INTEGER}
     </delete>
     <select id="getId" resultType="integer" parameterType="com.example.jsp.pojo.Address">
         select a_id

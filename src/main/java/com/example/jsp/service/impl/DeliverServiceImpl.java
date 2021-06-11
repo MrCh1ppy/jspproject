@@ -4,6 +4,7 @@ import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.manager.toservice.DeliverManager;
 import com.example.jsp.pojo.Deliver;
+import com.example.jsp.pojo.Guest;
 import com.example.jsp.service.DeliverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,30 @@ public class DeliverServiceImpl implements DeliverService {
 		} catch (SonElementNotExistExceptionOld e) {
 			throw new ProjectException(e.toString(),302);
 		}
+	}
+
+	@Override
+	public void delete(Deliver deliver) throws ProjectException {
+		deliverManager.destroy(deliver);
+	}
+
+	@Override
+	public void delete(Integer deliverId) throws ProjectException {
+		deliverManager.destroy(deliverId);
+	}
+
+	@Override
+	public void update(Deliver old,Deliver latest) throws ProjectException {
+		try {
+			deliverManager.destroy(old);
+			deliverManager.insert(latest);
+		} catch (SonElementNotExistExceptionOld e) {
+			throw new ProjectException(e.toString(),302);
+		}
+	}
+
+	@Override
+	public Deliver select(Integer id) throws ProjectException {
+		return deliverManager.select(id);
 	}
 }

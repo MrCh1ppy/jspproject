@@ -8,8 +8,14 @@ import com.example.jsp.pojo.User;
  */
 public interface StoreService {
 	void create(Store store)throws ProjectException;
-	void enroll(Store store, User user)throws ProjectException;
+
 	void delete(Store store)throws ProjectException;
-	void delete(int id)throws ProjectException;
+	void delete(Integer id)throws ProjectException;
+
+	void update(Store old,Store latest)throws ProjectException;
+
+	Store select(Integer storeId)throws ProjectException;
+
+	void enroll(Store store, User user)throws ProjectException;
 	StoreService addProduct(Store target, int productId)throws ProjectException;
 }

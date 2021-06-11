@@ -38,23 +38,37 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public void enroll (Store store, User user) throws ProjectException {
-		userService.create(user);
-		create(store);
-	}
-
-	@Override
 	public void delete (Store store) throws ProjectException {
 		storeManager.destroy(store);
 	}
 
 	@Override
-	public void delete (int id) throws ProjectException {
+	public void delete (Integer id) throws ProjectException {
 		storeManager.destroy(id);
 	}
 
 	@Override
+	public void update(Store old, Store latest) throws ProjectException {
+		try {
+			storeManager.destroy(old);
+			storeManager.insert(latest);
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(),303);
+		}
+	}
+
+	@Override
+	public Store select(Integer storeId) throws ProjectException {
+		return storeManager.select(storeId);
+	}
+
+	@Override
+	public void enroll (Store store, User user) throws ProjectException {
+		userService.create(user);
+		create(store);
+	}
+	@Override
 	public StoreService addProduct (Store target, int productId){
-		return this;
+		return  this;
 	}
 }

@@ -30,8 +30,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void delete (int productId) throws ProjectException {
+	public void delete(Integer productId) throws ProjectException {
 		productManager.destroy(productId);
+	}
+
+	@Override
+	public void update(Product old, Product latest) throws ProjectException {
+		try {
+			productManager.destroy(old);
+			productManager.insert(latest);
+		}catch (SonElementNotExistExceptionOld e) {
+			throw new ProjectException(e.toString(),302);
+		}
+	}
+	@Override
+	public Product select(Integer productId) throws ProjectException {
+		return productManager.select(productId);
 	}
 
 	@Override

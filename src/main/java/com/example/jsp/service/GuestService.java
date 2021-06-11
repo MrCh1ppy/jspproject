@@ -12,6 +12,15 @@ import java.util.List;
  */
 public interface GuestService {
 	void create(Guest target)throws ProjectException;
+
+	void delete(Guest target)throws ProjectException;
+	void delete(Integer id)throws ProjectException;
+
+	void update(Guest old,Guest latest)throws ProjectException;
+
+	Guest select(Integer guestId)throws ProjectException;
+
+
 	void enroll(Guest guest, User user)throws ProjectException;
 	List<Address> apart(String addresses);
 }

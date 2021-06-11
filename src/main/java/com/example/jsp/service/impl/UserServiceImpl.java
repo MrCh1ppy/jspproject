@@ -88,13 +88,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete (User user){
+	public void delete (User user) throws ProjectException{
 		userManager.destroy(user);
 	}
 
 	@Override
-	public void delete (int userId){
+	public void delete (Integer userId) throws ProjectException{
 		userManager.destroy(userId);
 	}
 
+	@Override
+	public void update(User old, User latest) throws ProjectException{
+		try {
+			userManager.insert(old);
+			userManager.insert(latest);
+		} catch (ElementAlreadyExistExceptionOld e) {
+			throw new ProjectException(Arrays.toString(e.getStackTrace()),301);
+		}
+	}
+
+	@Override
+	public User select(Integer userId) {
+		return userManager.select(userId);
+	}
 }

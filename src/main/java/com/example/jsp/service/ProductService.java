@@ -1,6 +1,7 @@
 package com.example.jsp.service;
 
 import com.example.jsp.commons.exception.ProjectException;
+import com.example.jsp.pojo.Guest;
 import com.example.jsp.pojo.Product;
 
 /**
@@ -8,6 +9,11 @@ import com.example.jsp.pojo.Product;
  */
 public interface ProductService {
 	void create(Product target)throws ProjectException;
-	void delete(int productId)throws ProjectException;
+
+	void delete(Integer productId)throws ProjectException;
 	void delete(Product product)throws ProjectException;
+
+	void update(Product old, Product latest)throws ProjectException;
+
+	Product select(Integer productId)throws  ProjectException;
 }

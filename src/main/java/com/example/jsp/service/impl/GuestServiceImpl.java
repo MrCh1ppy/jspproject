@@ -2,6 +2,7 @@ package com.example.jsp.service.impl;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.manager.toservice.GuestManager;
+import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Guest;
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.GuestService;
@@ -38,6 +39,33 @@ public class GuestServiceImpl implements GuestService {
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
 			throw new ProjectException(sonElementNotExistExceptionOld.toString(),304);
 		}
+	}
+
+	@Override
+	public void delete (Guest target) throws ProjectException {
+		guestManager.destroy(target);
+	}
+
+	@Override
+	public void delete (Integer guestId) throws ProjectException {
+		guestManager.destroy(guestId);
+	}
+
+	@Override
+	public void update (Guest old,Guest latest) throws ProjectException {
+		try {
+			guestManager.destroy(old);
+			guestManager.insert(latest);
+
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(),304);
+		}
+
+	}
+
+	@Override
+	public Guest select (Integer guestId) throws ProjectException {
+		return guestManager.select(guestId);
 	}
 
 	@Override

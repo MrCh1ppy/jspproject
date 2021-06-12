@@ -30,10 +30,11 @@
         select *
         from `order`
     </select>
-    <insert id="save" parameterType="com.example.jsp.pojo.Order" keyColumn="o_id" keyProperty="id" useGeneratedKeys="true">
+    <insert id="save" parameterType="com.example.jsp.pojo.Order" keyColumn="o_id" keyProperty="id"
+            useGeneratedKeys="true">
         insert into `order`(o_msg, o_status, o_d_id, o_g_id, o_s_id, o_a_id, o_time)
         VALUES (#{target.message}, #{target.status}, #{target.deliver.id}, #{target.guest.id}, #{target.store.id},
-                #{target.address.id}, #{target.time})
+        #{target.address.id}, #{target.time})
     </insert>
     <delete id="delete" parameterType="integer">
         delete
@@ -43,22 +44,22 @@
     <update id="update" parameterType="com.example.jsp.pojo.Order">
         update `order`
         set o_a_id=#{target.address.id},
-            o_msg=#{target.message},
-            o_d_id=#{target.deliver.id},
-            o_s_id=#{target.store.id},
-            o_status=#{target.status},
-            o_g_id=#{target.guest.id},
-            o_time=#{target.time}
+        o_msg=#{target.message},
+        o_d_id=#{target.deliver.id},
+        o_s_id=#{target.store.id},
+        o_status=#{target.status},
+        o_g_id=#{target.guest.id},
+        o_time=#{target.time}
         where o_id = #{target}
     </update>
     <select id="getId" resultType="integer" parameterType="com.example.jsp.pojo.Order">
         select o_id
         from `order`
         where o_a_id = #{target.address.id}
-          and o_msg = #{target.message}
-          and o_d_id = #{target.deliver.id}
-          and o_status = #{target.status}
-          and o_g_id = #{target.guest.id}
-          and o_time = #{target.time}
+        and o_msg = #{target.message}
+        and o_d_id = #{target.deliver.id}
+        and o_status = #{target.status}
+        and o_g_id = #{target.guest.id}
+        and o_time = #{target.time}
     </select>
 </mapper>

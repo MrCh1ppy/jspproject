@@ -21,15 +21,16 @@
         from order_product
         where op_id = #{id}
     </select>
-    <insert id="save" parameterType="com.example.jsp.pojo.ProductPackage" useGeneratedKeys="true" keyProperty="id" keyColumn="op_id">
+    <insert id="save" parameterType="com.example.jsp.pojo.ProductPackage" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="op_id">
         insert into order_product(op_p_id, op_o_id, op_num)
         VALUES (#{target.product.id}, #{target.order.id}, #{target.num})
     </insert>
     <update id="update" parameterType="com.example.jsp.pojo.ProductPackage">
         update order_product
         set op_num=#{target.num},
-            op_p_id=#{target.product.id},
-            op_o_id=#{target.order.id}
+        op_p_id=#{target.product.id},
+        op_o_id=#{target.order.id}
         where op_id = #{target.id}
     </update>
     <delete id="delete" parameterType="integer">
@@ -46,7 +47,7 @@
         select op_id
         from order_product
         where op_num = #{target.num}
-          and op_p_id = #{target.product.id}
-          and op_o_id = #{target.order.id}
+        and op_p_id = #{target.product.id}
+        and op_o_id = #{target.order.id}
     </select>
 </mapper>

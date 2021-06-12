@@ -8,19 +8,19 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface OrderInfoManagerToDao {
-    Integer save(OrderInfo target);
+	Integer save (OrderInfo target);
 
-    void delete(Integer id);
+	void delete (Integer id);
 
-    OrderInfo select(Integer id);
+	OrderInfo select (Integer id);
 
-    void update(OrderInfo target);
+	void update (OrderInfo target);
 
-    List<OrderInfo> selectByOrderId(Integer id);
+	List<OrderInfo> selectByOrderId (Integer id);
 
-    Integer getId(OrderInfo orderInfo);
+	Integer getId (OrderInfo orderInfo);
 
-    Boolean isNotExist(Integer id);
+	Boolean isNotExist (Integer id);
 
-    void deleteByOrderId(Integer id);
+	void deleteByOrderId (Integer id);
 }

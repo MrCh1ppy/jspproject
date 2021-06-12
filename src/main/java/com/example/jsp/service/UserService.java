@@ -14,10 +14,11 @@ public interface UserService {
 
 	void create (User user) throws ProjectException;
 
-	void delete(User user)throws ProjectException;
-	void delete(Integer userId)throws ProjectException;
+	void delete (User user) throws ProjectException;
 
-	void update(User old,User latest)throws ProjectException;
+	void delete (Integer userId) throws ProjectException;
+
+	void update (User latest) throws ProjectException;
 
 	String login (User user, String type) throws
 			UsernameNotExistExceptionOld,
@@ -26,5 +27,5 @@ public interface UserService {
 			IllegalAccessException,
 			InvocationTargetException;
 
-	User select(Integer userId);
+	User select (Integer userId);
 }

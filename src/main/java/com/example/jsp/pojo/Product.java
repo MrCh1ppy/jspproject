@@ -17,8 +17,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class Product implements Serializable {
-    private Integer id;
-    private String name;
-    private BigDecimal price;
-    private Store store;
+	private Integer id;
+	private String name;
+	private BigDecimal price;
+	private Store store;
 }

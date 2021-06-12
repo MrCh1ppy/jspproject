@@ -28,7 +28,7 @@ public class CheckRightClass implements StpInterface {
 			roleList = Arrays.asList(split);
 		} catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
 			e.printStackTrace();
-			roleList=new ArrayList<>();
+			roleList = new ArrayList<>();
 		}
 		return roleList;
 	}

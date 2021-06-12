@@ -8,19 +8,19 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface UserManagerToDao {
-    Integer save(User targetUser);
+	Integer save (User targetUser);
 
-    void del(Integer id);
+	void del (Integer id);
 
-    void update(User user);
+	void update (User user);
 
-    User select(Integer id);
+	User select (Integer id);
 
-    List<User> select();
+	List<User> select ();
 
-    User getId(User target);
+	User getId (User target);
 
-    Integer findByUsername(String username);
+	Integer findByUsername (String username);
 
-    User findUserByUsername(String username);
+	User findUserByUsername (String username);
 }

@@ -10,23 +10,23 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface GuestManager {
-    Integer insert(Guest target) throws SonElementNotExistExceptionOld;
+	Integer insert (Guest target) throws SonElementNotExistExceptionOld;
 
-    void destroy(Integer id);
+	void destroy (Integer id);
 
-    void destroy(Guest guest);
+	void destroy (Guest guest);
 
-    Guest select(Integer id);
+	Guest select (Integer id);
 
-    List<Guest> select();
+	List<Guest> select ();
 
-    Integer restore(Guest target) throws SonElementNotExistExceptionOld;
+	Integer restore (Guest target) throws SonElementNotExistExceptionOld;
 
-    Integer getId(Guest target);
+	Integer getId (Guest target);
 
-    Boolean isNotExist(Integer id);
+	Boolean isNotExist (Integer id);
 
-    Boolean isGuest(int userId);
+	Boolean isGuest (int userId);
 
-    User findUserByUserName(String username);
+	User findUserByUserName (String username);
 }

@@ -8,17 +8,17 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface AddressManagerToDao {
-    List<Address> select();
+	List<Address> select ();
 
-    Address select(Integer id);
+	Address select (Integer id);
 
-    Integer save(Address address);
+	Integer save (Address address);
 
-    void delete(Integer id);
+	void delete (Integer id);
 
-    void update(Address address);
+	void update (Address address);
 
-    List<Address> selectByGuestId(Integer id);
+	List<Address> selectByGuestId (Integer id);
 
-    void dropByGuestId(Integer id);
+	void dropByGuestId (Integer id);
 }

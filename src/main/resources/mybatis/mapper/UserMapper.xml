@@ -16,7 +16,8 @@
         <result property="username" column="username"/>
         <result property="enabled" column="enabled"/>
     </resultMap>
-    <insert id="save" parameterType="com.example.jsp.pojo.User" useGeneratedKeys = "true" keyProperty = "user.id" keyColumn = "u_id">
+    <insert id="save" parameterType="com.example.jsp.pojo.User" useGeneratedKeys="true" keyProperty="user.id"
+            keyColumn="u_id">
         insert into user(username, password, enabled)
         VALUES (#{user.username}, #{user.password}, #{user.enabled})
     </insert>
@@ -37,15 +38,15 @@
     <update id="update" parameterType="com.example.jsp.pojo.User">
         update user
         set username=#{user.username},
-            password=#{user.password},
-            enabled=#{user.enabled}
+        password=#{user.password},
+        enabled=#{user.enabled}
         where id = #{user.id}
     </update>
     <select id="getId" parameterType="com.example.jsp.pojo.User" resultMap="userMap">
         select id
         from user
         where username = #{user.username}
-          and password = #{user.password}
+        and password = #{user.password}
     </select>
     <select id="findByUsername" parameterType="string" resultType="integer">
         select id from user where username=#{username}

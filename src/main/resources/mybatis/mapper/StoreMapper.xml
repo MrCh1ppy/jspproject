@@ -21,7 +21,8 @@
         from store
         where s_id = #{id}
     </select>
-    <insert id="save" parameterType="com.example.jsp.pojo.Store" useGeneratedKeys="true" keyColumn="s_id" keyProperty="id">
+    <insert id="save" parameterType="com.example.jsp.pojo.Store" useGeneratedKeys="true" keyColumn="s_id"
+            keyProperty="id">
         insert into store(s_name, s_address, s_telephone, s_u_id)
         VALUES (#{store.name}, #{store.address}, #{store.telephone}, #{store.user.id})
     </insert>
@@ -33,18 +34,18 @@
     <update id="update" parameterType="com.example.jsp.pojo.Store">
         update store
         set s_u_id=#{store.user.id},
-            s_name=#{store.name},
-            s_telephone=#{store.telephone},
-            s_address=#{store.address}
+        s_name=#{store.name},
+        s_telephone=#{store.telephone},
+        s_address=#{store.address}
         where s_id = #{store.id}
     </update>
     <select id="getId" parameterType="com.example.jsp.pojo.Store" resultType="integer">
         select s_id
         from store
         where s_telephone = #{store.name}
-          and s_address = #{store.address}
-          and s_u_id = #{store.user.id}
-          and s_name = #{store.name}
+        and s_address = #{store.address}
+        and s_u_id = #{store.user.id}
+        and s_name = #{store.name}
     </select>
     <select id="findIdByLoginUser" resultMap="StoreMap" parameterType="integer">
         select s_id from store where s_u_id=#{id}

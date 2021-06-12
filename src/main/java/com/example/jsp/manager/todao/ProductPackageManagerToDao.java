@@ -8,17 +8,17 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface ProductPackageManagerToDao {
-    Integer save(ProductPackage target);
+	Integer save (ProductPackage target);
 
-    void delete(Integer id);
+	void delete (Integer id);
 
-    void deleteByOrderId(Integer id);
+	void deleteByOrderId (Integer id);
 
-    ProductPackage select(Integer id);
+	ProductPackage select (Integer id);
 
-    void update(ProductPackage target);
+	void update (ProductPackage target);
 
-    List<ProductPackage> selectByOrderId(Integer id);
+	List<ProductPackage> selectByOrderId (Integer id);
 
-    Integer getId(ProductPackage productPackage);
+	Integer getId (ProductPackage productPackage);
 }

@@ -25,31 +25,31 @@ public class ProductServiceImpl implements ProductService {
 		try {
 			productManager.insert(target);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-			throw new ProjectException(sonElementNotExistExceptionOld.toString(),305);
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 305);
 		}
 	}
 
 	@Override
-	public void delete(Integer productId) throws ProjectException {
+	public void delete (Integer productId) throws ProjectException {
 		productManager.destroy(productId);
-	}
-
-	@Override
-	public void update(Product old, Product latest) throws ProjectException {
-		try {
-			productManager.destroy(old);
-			productManager.insert(latest);
-		}catch (SonElementNotExistExceptionOld e) {
-			throw new ProjectException(e.toString(),302);
-		}
-	}
-	@Override
-	public Product select(Integer productId) throws ProjectException {
-		return productManager.select(productId);
 	}
 
 	@Override
 	public void delete (Product product) throws ProjectException {
 		productManager.destroy(product);
+	}
+
+	@Override
+	public void update (Product latest) throws ProjectException {
+		try {
+			productManager.restore(latest);
+		} catch (SonElementNotExistExceptionOld e) {
+			throw new ProjectException(e.toString(), 302);
+		}
+	}
+
+	@Override
+	public Product select (Integer productId) throws ProjectException {
+		return productManager.select(productId);
 	}
 }

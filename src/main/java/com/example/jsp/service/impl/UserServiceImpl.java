@@ -1,8 +1,8 @@
 package com.example.jsp.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.example.jsp.commons.oldexception.login.ErrorPassWordExceptionOld;
 import com.example.jsp.commons.exception.ProjectException;
+import com.example.jsp.commons.oldexception.login.ErrorPassWordExceptionOld;
 import com.example.jsp.commons.oldexception.login.UsernameNotExistExceptionOld;
 import com.example.jsp.commons.oldexception.manager.ElementAlreadyExistExceptionOld;
 import com.example.jsp.manager.toservice.DeliverManager;
@@ -49,29 +49,53 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String login (User user,String type) throws UsernameNotExistExceptionOld, ErrorPassWordExceptionOld,NoSuchMethodException,IllegalAccessException, InvocationTargetException {
+	public void create (User user) throws ProjectException {
+		try {
+			userManager.insert(user);
+		} catch (ElementAlreadyExistExceptionOld e) {
+			throw new ProjectException(Arrays.toString(e.getStackTrace()), 301);
+		}
+	}
+
+	@Override
+	public void delete (User user) throws ProjectException {
+		userManager.destroy(user);
+	}
+
+	@Override
+	public void delete (Integer userId) throws ProjectException {
+		userManager.destroy(userId);
+	}
+
+	@Override
+	public void update (User latest) throws ProjectException {
+		userManager.restore(latest);
+	}
+
+	@Override
+	public String login (User user, String type) throws UsernameNotExistExceptionOld, ErrorPassWordExceptionOld, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		User loginUser;
-		switch (type){
+		switch (type) {
 			case "guest":
-				loginUser=guestManager.findUserByUserName(user.getUsername());
+				loginUser = guestManager.findUserByUserName(user.getUsername());
 				break;
 			case "store":
-				loginUser= storeManager.findUserByUserName(user.getUsername());
+				loginUser = storeManager.findUserByUserName(user.getUsername());
 				break;
 			case "deliver":
-				loginUser= deliverManager.findUserByUserName(user.getUsername());
+				loginUser = deliverManager.findUserByUserName(user.getUsername());
 				break;
 			case "admin":
-				loginUser= userManager.findUserByUsername(user.getUsername());
+				loginUser = userManager.findUserByUsername(user.getUsername());
 				break;
 			default:
 				throw new UsernameNotExistExceptionOld();
 		}
-		if(loginUser==null){
+		if (loginUser == null) {
 			throw new UsernameNotExistExceptionOld();
 		}
-		if(!loginUser.getPassword().equals(user.getPassword())){
-			throw new ErrorPassWordExceptionOld(loginUser.getPassword()+" "+user.getPassword());
+		if (!loginUser.getPassword().equals(user.getPassword())) {
+			throw new ErrorPassWordExceptionOld(loginUser.getPassword() + " " + user.getPassword());
 		}
 		var id = new LoginId(type).toStringByReflect();
 		StpUtil.setLoginId(id);
@@ -79,36 +103,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void create (User user) throws ProjectException {
-		try {
-			userManager.insert(user);
-		} catch (ElementAlreadyExistExceptionOld e) {
-			throw new ProjectException(Arrays.toString(e.getStackTrace()),301);
-		}
-	}
-
-	@Override
-	public void delete (User user) throws ProjectException{
-		userManager.destroy(user);
-	}
-
-	@Override
-	public void delete (Integer userId) throws ProjectException{
-		userManager.destroy(userId);
-	}
-
-	@Override
-	public void update(User old, User latest) throws ProjectException{
-		try {
-			userManager.insert(old);
-			userManager.insert(latest);
-		} catch (ElementAlreadyExistExceptionOld e) {
-			throw new ProjectException(Arrays.toString(e.getStackTrace()),301);
-		}
-	}
-
-	@Override
-	public User select(Integer userId) {
+	public User select (Integer userId) {
 		return userManager.select(userId);
 	}
 }

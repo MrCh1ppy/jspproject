@@ -8,21 +8,21 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface AddressManager {
-    List<Address> select();
+	List<Address> select ();
 
-    Address select(Integer id);
+	Address select (Integer id);
 
-    Integer insert(Address address);
+	Integer insert (Address address);
 
-    void destroy(Integer id);
+	void destroy (Integer id);
 
-    void destroy(Address address);
+	void destroy (Address address);
 
-    Integer restore(Address address);
+	Integer restore (Address address);
 
-    List<Address> selectByGuestId(Integer id);
+	List<Address> selectByGuestId (Integer id);
 
-    void dropByGuestId(Integer id);
+	void dropByGuestId (Integer id);
 
-    Boolean isNotExist(Integer id);
+	Boolean isNotExist (Integer id);
 }

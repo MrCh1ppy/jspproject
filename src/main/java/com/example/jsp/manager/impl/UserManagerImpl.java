@@ -15,101 +15,101 @@ import java.util.List;
  */
 @Service
 public class UserManagerImpl implements UserManager, UserManagerToDao {
-    private UserDao userDao;
+	private UserDao userDao;
 
-    @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
+	@Autowired
+	public void setUserDao (UserDao userDao) {
+		this.userDao = userDao;
+	}
 
-    @Override
-    public Integer save(User targetUser) {
-        userDao.save(targetUser);
-        return targetUser.getId();
-    }
+	@Override
+	public void destroy (Integer id) {
+		del(id);
+	}
 
-    @Override
-    public void del(Integer id) {
-        userDao.delete(id);
-    }
+	@Override
+	public void destroy (User user) {
+		del(user.getId());
+	}
 
-    @Override
-    public void destroy(Integer id) {
-        del(id);
-    }
+	@Override
+	public Integer restore (User user) {
+		User temp = getId(user);
+		if (temp == null) {
+			update(user);
+			return 0;
+		}
+		user.setId(temp.getId());
+		return temp.getId();
+	}
 
-    @Override
-    public void destroy(User user) {
-        del(user.getId());
-    }
+	@Override
+	public User select (Integer id) {
+		return userDao.selectById(id);
+	}
 
-    @Override
-    public void update(User user) {
-        userDao.update(user);
-    }
+	@Override
+	public List<User> select () {
+		return userDao.selectAll();
+	}
 
-    @Override
-    public Integer restore(User user) {
-        User temp = getId(user);
-        if (temp == null) {
-            update(user);
-            return 0;
-        }
-        user.setId(temp.getId());
-        return temp.getId();
-    }
+	@Override
+	public Integer insert (User targetUser) throws ElementAlreadyExistExceptionOld {
+		if (findByUsername(targetUser.getUsername()) != null) {
+			throw new ElementAlreadyExistExceptionOld();
+		}
+		var tempUser = userDao.getId(targetUser);
+		if (tempUser != null) {
+			targetUser.setId(tempUser.getId());
+			userDao.update(targetUser);
+			/*没必要专门写一个更新update字段的函数,因为mysql的底层是delete/insert 所以没有意义*/
+			return tempUser.getId();
+		}
+		if (targetUser.getEnabled() == null) {
+			targetUser.setEnabled(1);
+		}
+		save(targetUser);
+		return targetUser.getId();
+	}
 
-    @Override
-    public User select(Integer id) {
-        return userDao.selectById(id);
-    }
+	@Override
+	public Integer save (User targetUser) {
+		userDao.save(targetUser);
+		return targetUser.getId();
+	}
 
-    @Override
-    public List<User> select() {
-        return userDao.selectAll();
-    }
+	@Override
+	public void del (Integer id) {
+		userDao.delete(id);
+	}
 
-    @Override
-    public User getId(User target) {
-        return userDao.getId(target);
-    }
+	@Override
+	public void update (User user) {
+		userDao.update(user);
+	}
 
-    @Override
-    public Integer findByUsername (String username) {
-        return userDao.findByUsername(username);
-    }
+	@Override
+	public User getId (User target) {
+		return userDao.getId(target);
+	}
 
-    @Override
-    public User findUserByUsername (String username) {
-        return userDao.findUserByUsername(username);
-    }
+	@Override
+	public Boolean isNotExist (Integer id) {
+		return userDao.selectById(id) == null;
+	}
 
-    @Override
-    public Boolean isNotExist (String username) {
-        return userDao.findByUsername(username)==null;
-    }
+	@Override
+	public Integer findByUsername (String username) {
+		return userDao.findByUsername(username);
+	}
 
-    @Override
-    public Integer insert(User targetUser)throws ElementAlreadyExistExceptionOld {
-        if(findByUsername(targetUser.getUsername())!=null){
-            throw new ElementAlreadyExistExceptionOld();
-        }
-        var tempUser = userDao.getId(targetUser);
-        if (tempUser != null) {
-            targetUser.setId(tempUser.getId());
-            userDao.update(targetUser);
-            /*没必要专门写一个更新update字段的函数,因为mysql的底层是delete/insert 所以没有意义*/
-            return tempUser.getId();
-        }
-        if(targetUser.getEnabled()==null){
-            targetUser.setEnabled(1);
-        }
-        save(targetUser);
-        return targetUser.getId();
-    }
+	@Override
+	public User findUserByUsername (String username) {
+		return userDao.findUserByUsername(username);
+	}
 
-    @Override
-    public Boolean isNotExist(Integer id) {
-        return userDao.selectById(id) == null;
-    }
+	@Override
+	public Boolean isNotExist (String username) {
+		return userDao.findByUsername(username) == null;
+	}
 }

@@ -22,7 +22,8 @@
         select *
         from deliver
     </select>
-    <insert id="save" parameterType="com.example.jsp.pojo.Deliver" useGeneratedKeys = "true" keyColumn = "d_id" keyProperty = "id">
+    <insert id="save" parameterType="com.example.jsp.pojo.Deliver" useGeneratedKeys="true" keyColumn="d_id"
+            keyProperty="id">
         insert into deliver(d_name, d_telephone, d_u_id)
         VALUES (#{deliver.name}, #{deliver.telephone}, #{deliver.loginUser.id})
     </insert>
@@ -34,16 +35,16 @@
     <update id="update" parameterType="com.example.jsp.pojo.Deliver">
         update deliver
         set d_name=#{deliver.name},
-            d_telephone=#{deliver.telephone},
-            d_u_id=#{deliver.loginUser.id}
+        d_telephone=#{deliver.telephone},
+        d_u_id=#{deliver.loginUser.id}
         where d_id = #{deliver.id}
     </update>
     <select id="getId" resultType="integer" parameterType="com.example.jsp.pojo.Deliver">
         select d_id
         from deliver
         where d_name = #{deliver.name}
-          and d_telephone = #{deliver.telephone}
-          and d_u_id = #{deliver.loginUser.id}
+        and d_telephone = #{deliver.telephone}
+        and d_u_id = #{deliver.loginUser.id}
     </select>
     <select id="findIdByLoginUser" resultMap="deliverMap" parameterType="integer">
         select d_id from deliver where d_u_id=#{id}

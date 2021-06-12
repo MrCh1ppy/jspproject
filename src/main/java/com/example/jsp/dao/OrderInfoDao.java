@@ -11,17 +11,17 @@ import java.util.List;
  */
 @Mapper
 public interface OrderInfoDao {
-    void save(@Param("target") OrderInfo target);
+	void save (@Param("target") OrderInfo target);
 
-    void delete(@Param("target") Integer id);
+	void delete (@Param("target") Integer id);
 
-    OrderInfo selectById(@Param("target") Integer id);
+	OrderInfo selectById (@Param("target") Integer id);
 
-    void update(@Param("target") OrderInfo target);
+	void update (@Param("target") OrderInfo target);
 
-    List<OrderInfo> selectByOrderId(@Param("id") Integer id);
+	List<OrderInfo> selectByOrderId (@Param("id") Integer id);
 
-    Integer getId(@Param("target") OrderInfo orderInfo);
+	Integer getId (@Param("target") OrderInfo orderInfo);
 
-    void deleteByOrder(@Param("id") int id);
+	void deleteByOrder (@Param("id") int id);
 }

@@ -32,10 +32,10 @@ public class DeliverController {
 	}
 
 	@GetMapping("/enroll/{username}/{password}/{deliverName}/{telephone}")
-	public Transporter enroll(@PathVariable("username")String username,
-	                            @PathVariable("password")String password,
-	                            @PathVariable("deliverName")String deliverName,
-	                            @PathVariable("telephone")String telephone)throws ProjectException {
+	public Transporter enroll (@PathVariable("username") String username,
+	                           @PathVariable("password") String password,
+	                           @PathVariable("deliverName") String deliverName,
+	                           @PathVariable("telephone") String telephone) throws ProjectException {
 		var user = new User().setUsername(username).setPassword(password).setEnabled(1);
 		userService.create(user);
 		var deliver = new Deliver().setLoginUser(user).setTelephone(telephone).setName(deliverName);

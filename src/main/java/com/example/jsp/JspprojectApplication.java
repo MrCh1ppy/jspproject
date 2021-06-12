@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableConfigurationProperties
 public class JspprojectApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(JspprojectApplication.class, args);
-    }
+	public static void main (String[] args) {
+		SpringApplication.run(JspprojectApplication.class, args);
+	}
 
 }

@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ProjectException extends Exception{
+public class ProjectException extends Exception {
 	private Integer errorCode;
 
 	/**

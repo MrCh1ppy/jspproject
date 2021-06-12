@@ -1,4 +1,5 @@
 package com.example.jsp.service.impl;
+
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.manager.toservice.GuestManager;
@@ -10,8 +11,8 @@ import com.example.jsp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -23,7 +24,7 @@ public class GuestServiceImpl implements GuestService {
 	private UserService userService;
 
 	@Autowired
-	public void setUserService(UserService userService) {
+	public void setUserService (UserService userService) {
 		this.userService = userService;
 	}
 
@@ -37,7 +38,7 @@ public class GuestServiceImpl implements GuestService {
 		try {
 			guestManager.insert(target);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-			throw new ProjectException(sonElementNotExistExceptionOld.toString(),304);
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);
 		}
 	}
 
@@ -52,13 +53,11 @@ public class GuestServiceImpl implements GuestService {
 	}
 
 	@Override
-	public void update (Guest old,Guest latest) throws ProjectException {
+	public void update (Guest latest) throws ProjectException {
 		try {
-			guestManager.destroy(old);
-			guestManager.insert(latest);
-
+			guestManager.restore(latest);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-			throw new ProjectException(sonElementNotExistExceptionOld.toString(),304);
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);
 		}
 
 	}
@@ -73,10 +72,11 @@ public class GuestServiceImpl implements GuestService {
 		userService.create(user);
 		create(guest);
 	}
+
 	@Override
-	public  List<Address> apart(String addresses) {
-		List<Address>  addressList= new ArrayList<>();
-		String[] address=addresses.split("_");
+	public List<Address> apart (String addresses) {
+		List<Address> addressList = new ArrayList<>();
+		String[] address = addresses.split("_");
 		for (String s : address) {
 			addressList.add(new Address().setAddressString(s));
 		}

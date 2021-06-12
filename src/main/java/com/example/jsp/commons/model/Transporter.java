@@ -21,16 +21,16 @@ public class Transporter {
 
 	public Transporter () {
 		this.setCode(0);
-		this.data=new HashMap<>();
+		this.data = new HashMap<>();
 	}
 
-	public void fail(int errorCode, String msg){
-		this.code=errorCode;
-		this.msg=msg;
+	public void fail (int errorCode, String msg) {
+		this.code = errorCode;
+		this.msg = msg;
 	}
 
-	public Transporter addData(String key,Object value){
-		this.getData().put(key,value);
+	public Transporter addData (String key, Object value) {
+		this.getData().put(key, value);
 		return this;
 	}
 	/*0 is success otherwise boom!!!!!*/

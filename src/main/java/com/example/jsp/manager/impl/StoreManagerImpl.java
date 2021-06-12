@@ -18,107 +18,106 @@ import java.util.List;
  */
 @Service
 public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
-    private UserManager userManager;
-    private StoreDao storeDao;
+	private UserManager userManager;
+	private StoreDao storeDao;
 
-    @Autowired
-    public void setUserManager(UserManager userManager) {
-        this.userManager = userManager;
-    }
+	@Autowired
+	public void setUserManager (UserManager userManager) {
+		this.userManager = userManager;
+	}
 
-    @Autowired
-    public void setStoreDao(StoreDao storeDao) {
-        this.storeDao = storeDao;
-    }
+	@Autowired
+	public void setStoreDao (StoreDao storeDao) {
+		this.storeDao = storeDao;
+	}
 
-    @Override
-    public Integer save(Store store) {
-        storeDao.save(store);
-        return store.getId();
-    }
+	@Override
+	public Integer insert (Store store) throws SonElementNotExistExceptionOld {
+		Boolean notExist = userManager.isNotExist(store.getUser().getId());
+		if (Boolean.TRUE.equals(notExist)) {
+			throw new SonElementNotExistExceptionOld("Store.user");
+		}
 
-    @Override
-    public void delete(Integer id) {
-        storeDao.delete(id);
-    }
+		Integer id = storeDao.getId(store);
+		if (id == null) {
+			save(store);
+			return store.getId();
+		}
+		store.setId(id);
+		return store.getId();
+	}
 
-    @Override
-    public Integer insert(Store store) throws SonElementNotExistExceptionOld {
-        Boolean notExist = userManager.isNotExist(store.getUser().getId());
-        if (Boolean.TRUE.equals(notExist)) {
-            throw new SonElementNotExistExceptionOld("Store.user");
-        }
+	@Override
+	public Integer save (Store store) {
+		storeDao.save(store);
+		return store.getId();
+	}
 
-        Integer id = storeDao.getId(store);
-        if (id == null) {
-            save(store);
-            return store.getId();
-        }
-        store.setId(id);
-        return store.getId();
-    }
+	@Override
+	public void delete (Integer id) {
+		storeDao.delete(id);
+	}
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void destroy(Integer id) {
-        destroy(select(id));
-    }
+	@Override
+	public Store select (Integer id) {
+		return storeDao.selectById(id);
+	}
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void destroy(Store store) {
-        delete(store.getId());
-        userManager.destroy(store.getUser().getId());
-    }
+	@Override
+	public List<Store> select () {
+		return storeDao.selectAll();
+	}
 
+	@Override
+	public void update (Store store) {
+		storeDao.update(store);
+	}
 
-    @Override
-    public Store select(Integer id) {
-        return storeDao.selectById(id);
-    }
+	@Override
+	public Integer getId (Store store) {
+		return storeDao.getId(store);
+	}
 
-    @Override
-    public List<Store> select() {
-        return storeDao.selectAll();
-    }
+	@Override
+	public Boolean isStore (int userId) {
+		return storeDao.findIdByLoginUser(userId) != null;
+	}
 
-    @Override
-    public Integer restore(Store store) throws SonElementNotExistExceptionOld {
-        Integer id = getId(store);
-        if (id == null) {
-            Boolean notExist = userManager.isNotExist(store.getUser().getId());
-            if (Boolean.TRUE.equals(notExist)) {
-                throw new SonElementNotExistExceptionOld();
-            }
-            storeDao.update(store);
-            return 0;
-        }
-        store.setId(id);
-        return store.getId();
-    }
+	@Override
+	public User findUserByUserName (String username) {
+		return storeDao.findUserByUserName(username);
+	}
 
-    @Override
-    public void update(Store store) {
-        storeDao.update(store);
-    }
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void destroy (Integer id) {
+		destroy(select(id));
+	}
 
-    @Override
-    public Integer getId(Store store) {
-        return storeDao.getId(store);
-    }
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void destroy (Store store) {
+		delete(store.getId());
+		userManager.destroy(store.getUser().getId());
+	}
 
-    @Override
-    public Boolean isStore (int userId) {
-        return storeDao.findIdByLoginUser(userId) != null;
-    }
+	@Override
+	public Integer restore (Store store) throws SonElementNotExistExceptionOld {
+		Integer id = getId(store);
+		if (id == null) {
+			Boolean notExist = userManager.isNotExist(store.getUser().getId());
+			if (Boolean.TRUE.equals(notExist)) {
+				throw new SonElementNotExistExceptionOld();
+			}
+			storeDao.update(store);
+			return 0;
+		}
+		store.setId(id);
+		return store.getId();
+	}
 
-    @Override
-    public User findUserByUserName (String username) {
-        return storeDao.findUserByUserName(username);
-    }
-
-    @Override
-    public Boolean isNotExist(Integer id) {
-        return storeDao.selectById(id) == null;
-    }
+	@Override
+	public Boolean isNotExist (Integer id) {
+		return storeDao.selectById(id) == null;
+	}
 }

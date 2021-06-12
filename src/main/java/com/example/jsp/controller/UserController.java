@@ -29,16 +29,16 @@ public class UserController {
 	}
 
 	@GetMapping("/login/{type}/{username}/{password}")
-	public Transporter login(@PathVariable("username")String username,
-	                                 @PathVariable("password")String password,
-	                                 @PathVariable("type")String type) throws UsernameNotExistExceptionOld, ErrorPassWordExceptionOld,NoSuchMethodException,IllegalAccessException, InvocationTargetException {
+	public Transporter login (@PathVariable("username") String username,
+	                          @PathVariable("password") String password,
+	                          @PathVariable("type") String type) throws UsernameNotExistExceptionOld, ErrorPassWordExceptionOld, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		var transporter = new Transporter();
 		var user = new User().setPassword(password).setUsername(username);
 		String login = userService.login(user, type);
 		transporter.setCode(0)
-				.addData("id",login)
+				.addData("id", login)
 				.addData("tokenValue", StpUtil.getTokenValue())
-				.addData("tokenName",StpUtil.getTokenName())
+				.addData("tokenName", StpUtil.getTokenName())
 				.setMsg("登录成功");
 		return transporter;
 	}

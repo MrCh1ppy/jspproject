@@ -13,29 +13,29 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Deliver extends User implements Serializable {
-    private Integer id;
-    private String name;
-    private String telephone;
-    private User loginUser;
+	private Integer id;
+	private String name;
+	private String telephone;
+	private User loginUser;
 
-    @Override
-    public Deliver setId (Integer id) {
-        this.id = id;
-        return this;
-    }
+	@Override
+	public Deliver setId (Integer id) {
+		this.id = id;
+		return this;
+	}
 
-    public Deliver setName (String name) {
-        this.name = name;
-        return this;
-    }
+	public Deliver setName (String name) {
+		this.name = name;
+		return this;
+	}
 
-    public Deliver setTelephone (String telephone) {
-        this.telephone = telephone;
-        return this;
-    }
+	public Deliver setTelephone (String telephone) {
+		this.telephone = telephone;
+		return this;
+	}
 
-    public Deliver setLoginUser (User loginUser) {
-        this.loginUser = loginUser;
-        return this;
-    }
+	public Deliver setLoginUser (User loginUser) {
+		this.loginUser = loginUser;
+		return this;
+	}
 }

@@ -29,11 +29,11 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public void create (Store store)throws ProjectException {
+	public void create (Store store) throws ProjectException {
 		try {
 			storeManager.insert(store);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-			throw new ProjectException(sonElementNotExistExceptionOld.toString(),303);
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 303);
 		}
 	}
 
@@ -48,17 +48,16 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public void update(Store old, Store latest) throws ProjectException {
+	public void update (Store latest) throws ProjectException {
 		try {
-			storeManager.destroy(old);
-			storeManager.insert(latest);
+			storeManager.restore(latest);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-			throw new ProjectException(sonElementNotExistExceptionOld.toString(),303);
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 303);
 		}
 	}
 
 	@Override
-	public Store select(Integer storeId) throws ProjectException {
+	public Store select (Integer storeId) throws ProjectException {
 		return storeManager.select(storeId);
 	}
 
@@ -67,8 +66,9 @@ public class StoreServiceImpl implements StoreService {
 		userService.create(user);
 		create(store);
 	}
+
 	@Override
-	public StoreService addProduct (Store target, int productId){
-		return  this;
+	public StoreService addProduct (Store target, int productId) {
+		return this;
 	}
 }

@@ -1,5 +1,7 @@
 package com.example.jsp.controller;
 
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.commons.oldexception.login.ErrorPassWordExceptionOld;
@@ -50,6 +52,22 @@ public class ProjectController {
 		e.printStackTrace();
 		var transporter = new Transporter();
 		transporter.fail(21, "用户名不存在");
+		return transporter;
+	}
+
+	@ExceptionHandler(NotLoginException.class)
+	Transporter handleNotLoginException(NotLoginException e){
+		e.printStackTrace();
+		var transporter = new Transporter();
+		transporter.fail(5,e.getType());
+		return transporter;
+	}
+
+	@ExceptionHandler(NotPermissionException.class)
+	Transporter handleNotPermissionException(NotPermissionException e){
+		e.printStackTrace();
+		var transporter = new Transporter();
+		transporter.fail(6,"权限不足");
 		return transporter;
 	}
 }

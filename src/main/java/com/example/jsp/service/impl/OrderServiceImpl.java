@@ -5,7 +5,8 @@ import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.manager.toservice.OrderManager;
 import com.example.jsp.pojo.Order;
-import com.example.jsp.pojo.ProductPackage;
+import com.example.jsp.pojo.OrderInfo;
+import com.example.jsp.pojo.Product;
 import com.example.jsp.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,8 +54,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderService addProduct(Order order, ProductPackage productPackage) throws ProjectException {
-        order.getProductPackages().add(productPackage);
+    public OrderService addProduct(Order order, Product product, Integer num) throws ProjectException {
+        try {
+            orderManager.addProduct(order,product,num);
+        } catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+            sonElementNotExistExceptionOld.printStackTrace();
+        }
+        restore(order);
+        return this;
+    }
+
+    @Override
+    public OrderService addException(Order order, OrderInfo orderInfo) throws ProjectException {
+        orderManager.addOrderInfo(order,orderInfo);
         restore(order);
         return this;
     }

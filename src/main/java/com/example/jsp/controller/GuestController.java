@@ -1,6 +1,8 @@
 package com.example.jsp.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.pojo.Address;
@@ -26,6 +28,7 @@ public class GuestController {
 		this.guestService = guestService;
 	}
 
+
 	@GetMapping("/enroll/{username}/{password}/{name}/{address}/{telephone}")
 	public Transporter enroll (@PathVariable("username") String username,
 	                           @PathVariable("password") String password,
@@ -44,5 +47,7 @@ public class GuestController {
 		guestService.enroll(guest, user);
 		return new Transporter().setMsg("注册成功");
 	}
+
+
 }
 

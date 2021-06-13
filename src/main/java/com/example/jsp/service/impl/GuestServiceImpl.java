@@ -53,9 +53,9 @@ public class GuestServiceImpl implements GuestService {
 	}
 
 	@Override
-	public void update (Guest latest) throws ProjectException {
+	public void restore (Guest guest) throws ProjectException {
 		try {
-			guestManager.restore(latest);
+			guestManager.restore(guest);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
 			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);
 		}

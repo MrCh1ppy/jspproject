@@ -40,9 +40,9 @@ public class DeliverServiceImpl implements DeliverService {
 	}
 
 	@Override
-	public void update (Deliver latest) throws ProjectException {
+	public void restore (Deliver deliver) throws ProjectException {
 		try {
-			deliverManager.restore(latest);
+			deliverManager.restore(deliver);
 		} catch (SonElementNotExistExceptionOld e) {
 			throw new ProjectException(e.toString(), 302);
 		}

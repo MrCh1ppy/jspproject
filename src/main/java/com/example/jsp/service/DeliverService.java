@@ -13,7 +13,7 @@ public interface DeliverService {
 
 	void delete (Deliver deliver) throws ProjectException;
 
-	void update (Deliver latest) throws ProjectException;
+	void restore (Deliver deliver) throws ProjectException;
 
 	Deliver select (Integer deliverId) throws ProjectException;
 

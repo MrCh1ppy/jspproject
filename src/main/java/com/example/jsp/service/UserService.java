@@ -18,7 +18,7 @@ public interface UserService {
 
 	void delete (Integer userId) throws ProjectException;
 
-	void update (User latest) throws ProjectException;
+	void restore (User user) throws ProjectException;
 
 	String login (User user, String type) throws
 			UsernameNotExistExceptionOld,

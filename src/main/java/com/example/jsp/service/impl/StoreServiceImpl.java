@@ -48,9 +48,9 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public void update (Store latest) throws ProjectException {
+	public void restore (Store store) throws ProjectException {
 		try {
-			storeManager.restore(latest);
+			storeManager.restore(store);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
 			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 303);
 		}

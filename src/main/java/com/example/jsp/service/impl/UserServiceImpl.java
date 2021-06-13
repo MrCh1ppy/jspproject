@@ -1,5 +1,6 @@
 package com.example.jsp.service.impl;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.login.ErrorPassWordExceptionOld;
@@ -48,6 +49,7 @@ public class UserServiceImpl implements UserService {
 		this.deliverManager = deliverManager;
 	}
 
+	@SaCheckLogin
 	@Override
 	public void create (User user) throws ProjectException {
 		try {
@@ -57,16 +59,19 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@SaCheckLogin
 	@Override
 	public void delete (User user) throws ProjectException {
 		userManager.destroy(user);
 	}
 
+	@SaCheckLogin
 	@Override
 	public void delete (Integer userId) throws ProjectException {
 		userManager.destroy(userId);
 	}
 
+	@SaCheckLogin
 	@Override
 	public void restore (User user) throws ProjectException {
 		userManager.restore(user);
@@ -101,6 +106,7 @@ public class UserServiceImpl implements UserService {
 		StpUtil.setLoginId(id);
 		return id;
 	}
+
 
 	@Override
 	public User select (Integer userId) {

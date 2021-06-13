@@ -1,6 +1,7 @@
 package com.example.jsp.service;
 
 import com.example.jsp.commons.exception.ProjectException;
+import com.example.jsp.pojo.Product;
 import com.example.jsp.pojo.Store;
 import com.example.jsp.pojo.User;
 
@@ -20,5 +21,5 @@ public interface StoreService {
 
 	void enroll (Store store, User user) throws ProjectException;
 
-	StoreService addProduct (Store target, int productId) throws ProjectException;
+	StoreService addProduct (Store target, Product product) throws ProjectException;
 }

@@ -2,7 +2,9 @@ package com.example.jsp.service.impl;
 
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
+import com.example.jsp.manager.toservice.ProductManager;
 import com.example.jsp.manager.toservice.StoreManager;
+import com.example.jsp.pojo.Product;
 import com.example.jsp.pojo.Store;
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.StoreService;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class StoreServiceImpl implements StoreService {
 	private StoreManager storeManager;
+	private ProductManager productManager;
+
 	private UserService userService;
 
 	@Autowired
@@ -68,7 +72,13 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public StoreService addProduct (Store target, int productId) {
+	public StoreService addProduct (Store target, Product product) {
+		product.setStore(target);
+		try{
+			productManager.restore(product);
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			sonElementNotExistExceptionOld.printStackTrace();
+		}
 		return this;
 	}
 }

@@ -40,9 +40,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void update (Product latest) throws ProjectException {
+	public void restore (Product product) throws ProjectException {
 		try {
-			productManager.restore(latest);
+			productManager.restore(product);
 		} catch (SonElementNotExistExceptionOld e) {
 			throw new ProjectException(e.toString(), 302);
 		}

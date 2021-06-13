@@ -17,7 +17,7 @@ public interface GuestService {
 
 	void delete (Integer id) throws ProjectException;
 
-	void update (Guest latest) throws ProjectException;
+	void restore (Guest guest) throws ProjectException;
 
 	Guest select (Integer guestId) throws ProjectException;
 

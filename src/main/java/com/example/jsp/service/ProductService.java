@@ -13,7 +13,7 @@ public interface ProductService {
 
 	void delete (Product product) throws ProjectException;
 
-	void update (Product latest) throws ProjectException;
+	void restore (Product product) throws ProjectException;
 
 	Product select (Integer productId) throws ProjectException;
 }

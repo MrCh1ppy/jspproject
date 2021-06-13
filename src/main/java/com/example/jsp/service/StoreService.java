@@ -14,7 +14,7 @@ public interface StoreService {
 
 	void delete (Integer id) throws ProjectException;
 
-	void update (Store latest) throws ProjectException;
+	void restore (Store store) throws ProjectException;
 
 	Store select (Integer storeId) throws ProjectException;
 

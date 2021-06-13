@@ -68,8 +68,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update (User latest) throws ProjectException {
-		userManager.restore(latest);
+	public void restore (User user) throws ProjectException {
+		userManager.restore(user);
 	}
 
 	@Override

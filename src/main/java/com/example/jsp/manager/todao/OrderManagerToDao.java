@@ -19,4 +19,6 @@ public interface OrderManagerToDao {
 	void update (Order target);
 
 	Integer getId (Order target);
+
+	List<Order> selectByStatus(Integer status);
 }

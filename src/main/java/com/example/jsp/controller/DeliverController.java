@@ -9,8 +9,10 @@ import com.example.jsp.service.DeliverService;
 import com.example.jsp.service.UserService;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -51,9 +53,8 @@ public class DeliverController {
 	 */
 	@SaCheckLogin
 	@GetMapping("/show")
-lbackFor = Exception.class)
 	public Transporter showProduct() throws ProjectException{
-		Transporter transporter = new Transporter();
+		var transporter = new Transporter();
 		val select = deliverService.select();
 		return transporter.addData("deliver",select).setMsg("查询成功");
 	}

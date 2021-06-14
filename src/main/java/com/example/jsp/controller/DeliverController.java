@@ -1,5 +1,6 @@
 package com.example.jsp.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.pojo.Deliver;
@@ -7,10 +8,7 @@ import com.example.jsp.pojo.User;
 import com.example.jsp.service.DeliverService;
 import com.example.jsp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 橙鼠鼠
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DeliverController {
 	DeliverService deliverService;
 	UserService userService;
+
 
 	@Autowired
 	public void setDeliverService (DeliverService deliverService) {
@@ -42,4 +41,7 @@ public class DeliverController {
 		deliverService.create(deliver);
 		return new Transporter();
 	}
+
+
+
 }

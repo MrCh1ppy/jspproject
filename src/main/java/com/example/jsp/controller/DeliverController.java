@@ -50,7 +50,7 @@ public class DeliverController {
 	 * 骑手信息显示
 	 */
 	@SaCheckLogin
-	@GetMapping("/showdeliver/")
+	@GetMapping("/show")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter showProduct() throws ProjectException{
 		Transporter transporter = new Transporter();

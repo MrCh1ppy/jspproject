@@ -53,11 +53,9 @@ public class DeliverController {
 	 */
 	@SaCheckLogin
 	@GetMapping("/show")
-	public Transporter showProduct() throws ProjectException{
+	public Transporter showDeliver() throws ProjectException{
 		var transporter = new Transporter();
 		val select = deliverService.select();
 		return transporter.addData("deliver",select).setMsg("查询成功");
 	}
-
-
 }

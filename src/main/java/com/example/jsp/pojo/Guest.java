@@ -1,5 +1,6 @@
 package com.example.jsp.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @ToString
 @Getter
+@JsonIgnoreProperties(value = {"handler"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Guest implements Serializable {

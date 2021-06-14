@@ -1,5 +1,6 @@
 package com.example.jsp.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @Getter
 @ToString
 @Setter
+@JsonIgnoreProperties(value = {"handler"})
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor

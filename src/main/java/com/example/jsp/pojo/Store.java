@@ -1,5 +1,6 @@
 package com.example.jsp.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  */
 @ToString
 @Getter
+@JsonIgnoreProperties(value = {"handler"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Store implements Serializable {

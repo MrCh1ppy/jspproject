@@ -5,6 +5,8 @@ import com.example.jsp.pojo.Product;
 import com.example.jsp.pojo.Store;
 import com.example.jsp.pojo.User;
 
+import java.util.List;
+
 /**
  * @author 橙鼠鼠
  */
@@ -18,6 +20,8 @@ public interface StoreService {
 	void restore (Store store) throws ProjectException;
 
 	Store select (Integer storeId) throws ProjectException;
+
+	List<Store> select () throws ProjectException;
 
 	void enroll (Store store, User user) throws ProjectException;
 

@@ -2,6 +2,7 @@ package com.example.jsp.controller;
 
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.commons.oldexception.login.ErrorPassWordExceptionOld;
 import com.example.jsp.commons.oldexception.login.UsernameNotExistExceptionOld;
@@ -43,5 +44,12 @@ public class UserController {
 		return transporter;
 	}
 
+	@GetMapping("/enroll/{username}/{password}")
+	public Transporter enroll (@PathVariable("username") String username,
+							   @PathVariable("password") String password) throws ProjectException {
+		var user = new User().setUsername(username).setPassword(password);
+		userService.create(user);
+		return new Transporter().setMsg("管理员注册成功");
+	}
 
 }

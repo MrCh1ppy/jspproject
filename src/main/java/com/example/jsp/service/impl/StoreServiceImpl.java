@@ -12,6 +12,8 @@ import com.example.jsp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 橙鼠鼠
  */
@@ -63,6 +65,12 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public Store select (Integer storeId) throws ProjectException {
 		return storeManager.select(storeId);
+
+	}
+
+	@Override
+	public List<Store> select () throws ProjectException {
+		return storeManager.select();
 	}
 
 	@Override

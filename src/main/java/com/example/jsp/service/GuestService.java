@@ -21,6 +21,8 @@ public interface GuestService {
 
 	Guest select (Integer guestId) throws ProjectException;
 
+	List<Guest> select () throws ProjectException;
+
 
 	void enroll (Guest guest, User user) throws ProjectException;
 

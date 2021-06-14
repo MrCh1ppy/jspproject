@@ -68,6 +68,11 @@ public class GuestServiceImpl implements GuestService {
 	}
 
 	@Override
+	public List<Guest> select() throws ProjectException {
+		return guestManager.select();
+	}
+
+	@Override
 	public void enroll (Guest guest, User user) throws ProjectException {
 		userService.create(user);
 		create(guest);

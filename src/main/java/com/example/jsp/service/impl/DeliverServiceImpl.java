@@ -8,6 +8,8 @@ import com.example.jsp.service.DeliverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 橙鼠鼠
  */
@@ -51,5 +53,10 @@ public class DeliverServiceImpl implements DeliverService {
 	@Override
 	public Deliver select (Integer id) throws ProjectException {
 		return deliverManager.select(id);
+	}
+
+	@Override
+	public List<Deliver> select() throws ProjectException {
+		return deliverManager.select();
 	}
 }

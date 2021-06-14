@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
  * @author 完颜
  */
 @RestController
+@RequestMapping("/guest")
 public class GuestController {
 	private GuestService guestService;
 
@@ -55,10 +57,10 @@ public class GuestController {
 	 * 顾客列表显示
 	 */
 	@SaCheckLogin
-	@GetMapping("/showguest/")
+	@GetMapping("/show")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter showProduct() throws ProjectException{
-		Transporter transporter = new Transporter();
+		var transporter = new Transporter();
 		val select = guestService.select();
 		return transporter.addData("guest",select).setMsg("查询成功");
 	}

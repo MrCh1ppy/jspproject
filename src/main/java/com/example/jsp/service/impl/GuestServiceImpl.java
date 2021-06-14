@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Service
 public class GuestServiceImpl implements GuestService {
-	GuestManager guestManager;
+	private GuestManager guestManager;
 	private UserService userService;
 
 	@Autowired

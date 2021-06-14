@@ -50,8 +50,8 @@ public class DeliverController {
 	 * 骑手信息显示
 	 */
 	@SaCheckLogin
-	@GetMapping("/showdeliver/")
-	@Transactional(rollbackFor = Exception.class)
+	@GetMapping("/show")
+lbackFor = Exception.class)
 	public Transporter showProduct() throws ProjectException{
 		Transporter transporter = new Transporter();
 		val select = deliverService.select();

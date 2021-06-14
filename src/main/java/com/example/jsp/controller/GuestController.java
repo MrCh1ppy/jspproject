@@ -6,12 +6,10 @@ import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Guest;
-
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.GuestService;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +56,6 @@ public class GuestController {
 	 */
 	@SaCheckLogin
 	@GetMapping("/show")
-	@Transactional(rollbackFor = Exception.class)
 	public Transporter showProduct() throws ProjectException{
 		var transporter = new Transporter();
 		val select = guestService.select();

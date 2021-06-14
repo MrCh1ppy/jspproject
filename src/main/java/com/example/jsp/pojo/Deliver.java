@@ -1,5 +1,6 @@
 package com.example.jsp.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.io.Serializable;
  * @author 橙鼠鼠
  */
 @Getter
+@JsonIgnoreProperties(value = {"handler"})
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @AllArgsConstructor

@@ -7,8 +7,11 @@ import com.example.jsp.pojo.Deliver;
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.DeliverService;
 import com.example.jsp.service.UserService;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
 
 /**
  * @author 橙鼠鼠
@@ -35,13 +38,25 @@ public class DeliverController {
 	                           @PathVariable("password") String password,
 	                           @PathVariable("deliverName") String deliverName,
 	                           @PathVariable("telephone") String telephone) throws ProjectException {
-		var user = new User().setUsername(username).setPassword(password).setEnabled(1);
+		var user = new User().setUsername(username).setPassword(password);
 		userService.create(user);
 		var deliver = new Deliver().setLoginUser(user).setTelephone(telephone).setName(deliverName);
 		deliverService.create(deliver);
-		return new Transporter();
+		return new Transporter().setMsg("注册成功");
 	}
 
+	/**
+	 * 管理骑手页面
+	 * 骑手信息显示
+	 */
+	@SaCheckLogin
+	@GetMapping("/showdeliver/")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter showProduct() throws ProjectException{
+		Transporter transporter = new Transporter();
+		val select = deliverService.select();
+		return transporter.addData("deliver",select).setMsg("查询成功");
+	}
 
 
 }

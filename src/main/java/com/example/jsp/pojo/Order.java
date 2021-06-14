@@ -1,5 +1,6 @@
 package com.example.jsp.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 @Data
+@JsonIgnoreProperties(value = {"handler"})
 @Accessors(chain = true)
 @AllArgsConstructor
 public class Order implements Serializable {

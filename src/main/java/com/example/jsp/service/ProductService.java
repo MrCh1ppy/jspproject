@@ -3,6 +3,8 @@ package com.example.jsp.service;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.pojo.Product;
 
+import java.util.List;
+
 /**
  * @author 橙鼠鼠
  */
@@ -16,4 +18,6 @@ public interface ProductService {
 	void restore (Product product) throws ProjectException;
 
 	Product select (Integer productId) throws ProjectException;
+
+	List<Product> select () throws ProjectException;
 }

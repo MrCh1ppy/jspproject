@@ -21,6 +21,11 @@ public class Deliver implements Serializable {
 	private User loginUser;
 
 
+	public Deliver setId (Integer id) {
+		this.id = id;
+		return this;
+	}
+
 	public Deliver setName (String name) {
 		this.name = name;
 		return this;

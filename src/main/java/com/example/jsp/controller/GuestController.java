@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * @author 完颜
  */
-@RequestMapping("/guest")
+
 @RestController
 public class GuestController {
 	private GuestService guestService;
@@ -113,13 +113,44 @@ public class GuestController {
 	 * 删除
 	 */
 	@SaCheckRole("guest")
-	@GetMapping("/user/{userid}")
+	@GetMapping("/delete/{userid}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter delete (@PathVariable("userid") String userIdString) throws ProjectException {
 		var userId = Integer.parseInt(userIdString);
 		guestService.delete(userId);
 		return new Transporter().setMsg("删除成功");
 	}
-
+	/**
+	 * 顾客信息页
+	 * 顾客信息显示
+	 */
+	@SaCheckRole("guest")
+	@GetMapping("/info/{guestId}")
+	public Transporter showInfo(@PathVariable("guestId") Integer guestId) throws ProjectException{
+		val select=  guestService.select(guestId);
+		Transporter transporter = new Transporter();
+		transporter.addData("guest",select)
+					.setMsg("查询成功");
+		return transporter;
+	}
+	/**
+	 * 顾客信息页
+	 * 顾客信息修改
+	 */
+	@SaCheckRole("guest")
+	@GetMapping("/enroll/{guestId}/{guestName}{guestTelephone}/{guestAddress}/")
+	public Transporter edit (@PathVariable("guestId") Integer guestId,
+							 @PathVariable("guestName") String guestName,
+							 @PathVariable("guestTelephone") String guestTelephone,
+							 @PathVariable("guestAddress") String guestAddress) throws ProjectException {
+		val select = guestService.select(guestId);
+		val address = new Address();
+		address.setAddressString(guestAddress);
+		select.setName(guestName)
+				.setTelephone(guestTelephone)
+				.getAddresses().add(address);;
+		guestService.restore(select);
+		return new Transporter().setMsg("修改成功");
+	}
 }
 

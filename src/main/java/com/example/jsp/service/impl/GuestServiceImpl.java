@@ -2,6 +2,7 @@ package com.example.jsp.service.impl;
 
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
+import com.example.jsp.manager.toservice.AddressManager;
 import com.example.jsp.manager.toservice.GuestManager;
 import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Guest;
@@ -22,6 +23,7 @@ import java.util.List;
 public class GuestServiceImpl implements GuestService {
 	private GuestManager guestManager;
 	private UserService userService;
+	private AddressManager addressManager;
 
 	@Autowired
 	public void setUserService (UserService userService) {
@@ -78,6 +80,7 @@ public class GuestServiceImpl implements GuestService {
 		create(guest);
 	}
 
+
 	@Override
 	public List<Address> apart (String addresses) {
 		List<Address> addressList = new ArrayList<>();
@@ -87,4 +90,5 @@ public class GuestServiceImpl implements GuestService {
 		}
 		return addressList;
 	}
+
 }

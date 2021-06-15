@@ -133,5 +133,24 @@ public class StoreController {
 		return new Transporter().setMsg("删除成功");
 	}
 
+	/**
+	 * 商家信息页
+	 * 商家信息显示
+	 */
+	@SaCheckRole("guest")
+	@GetMapping("/info/{storeId}")
+	public Transporter showInfo(@PathVariable("storeId") Integer storeId) throws ProjectException{
+		val select=  storeService.select(storeId);
+		Transporter transporter = new Transporter();
+		transporter.addData("store",select)
+				.setMsg("查询成功");
+		return transporter;
+	}
+	/**
+	 * 商家信息页
+	 * 商家信息修改
+	 * 与edit相同
+	 */
+
 }
 

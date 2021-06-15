@@ -79,23 +79,31 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String login (User user, String type) throws UsernameNotExistExceptionOld, ErrorPassWordExceptionOld, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		User loginUser;
-		int targetId;
+		Integer targetId = null;
 		switch (type) {
 			case "guest":
 				loginUser = guestManager.findUserByUserName(user.getUsername());
-				targetId = guestManager.selectByUserId(user.getId());
+				if(loginUser!=null){
+					targetId = guestManager.selectByUserId(loginUser.getId());
+				}
 				break;
 			case "store":
 				loginUser = storeManager.findUserByUserName(user.getUsername());
-				targetId = storeManager.selectByUserId(user.getId());
+				if(loginUser!=null){
+				targetId = storeManager.selectByUserId(loginUser.getId());
+				}
 				break;
 			case "deliver":
 				loginUser = deliverManager.findUserByUserName(user.getUsername());
-				targetId = deliverManager.selectByUserId(user.getId());
+				if(loginUser!=null){
+				targetId = deliverManager.selectByUserId(loginUser.getId());
+				}
 				break;
 			case "admin":
 				loginUser = userManager.findUserByUsername(user.getUsername());
-				targetId = user.getId();
+				if(loginUser!=null){
+					targetId = deliverManager.selectByUserId(loginUser.getId());
+				}
 				break;
 			default:
 				throw new UsernameNotExistExceptionOld();

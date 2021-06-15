@@ -22,4 +22,6 @@ public interface ProductDao {
 	void update (@Param("target") Product target);
 
 	Integer getId (@Param("target") Product product);
+
+	List<Product> selectByStoreId(@Param("storeId")Integer storeId);
 }

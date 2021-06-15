@@ -76,6 +76,11 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
 	}
 
 	@Override
+	public List<Product> selectByStore (int storeId) {
+		return productDao.selectByStoreId(storeId);
+	}
+
+	@Override
 	public void destroy (Integer id) {
 		delete(id);
 	}

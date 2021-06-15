@@ -62,4 +62,7 @@
         and o_g_id = #{target.guest.id}
         and o_time = #{target.time}
     </select>
+    <select id="selectByStatus" resultMap="orderMap" parameterType="integer">
+        select * from `order` where o_status=#{status}
+    </select>
 </mapper>

@@ -56,7 +56,7 @@ public class DeliverServiceImpl implements DeliverService {
 	}
 
 	@Override
-	public List<Deliver> select() throws ProjectException {
+	public List<Deliver> select () throws ProjectException {
 		return deliverManager.select();
 	}
 }

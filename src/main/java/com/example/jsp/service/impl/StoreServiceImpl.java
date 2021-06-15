@@ -82,7 +82,7 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public StoreService addProduct (Store target, Product product) {
 		product.setStore(target);
-		try{
+		try {
 			productManager.restore(product);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
 			sonElementNotExistExceptionOld.printStackTrace();

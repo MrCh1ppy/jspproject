@@ -24,7 +24,7 @@ public interface StoreDao {
 
 	Integer getId (@Param("store") Store store);
 
-	Store findIdByLoginUser (@Param("id") Integer userId);
+	Integer findIdByLoginUser (@Param("id") int userId);
 
 	User findUserByUserName (@Param("username") String username);
 }

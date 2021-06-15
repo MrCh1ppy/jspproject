@@ -28,8 +28,8 @@ public interface GuestService {
 
 	List<Address> apart (String addresses);
 
-	void addAddress(Guest guest,Address address) throws ProjectException;
+	void addAddress (Guest guest, Address address) throws ProjectException;
 
-	Address getAddress(Integer addressId)throws ProjectException;
+	Address getAddress (Integer addressId) throws ProjectException;
 
 }

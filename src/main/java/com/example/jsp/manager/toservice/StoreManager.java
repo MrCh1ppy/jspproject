@@ -34,4 +34,6 @@ public interface StoreManager {
 	List<Product> selectHavingProduct (Store store);
 
 	List<Product> selectHavingProduct (Integer storeId);
+
+	Integer selectByUserId (Integer userId);
 }

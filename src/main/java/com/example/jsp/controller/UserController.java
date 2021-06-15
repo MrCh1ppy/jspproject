@@ -12,6 +12,7 @@ import com.example.jsp.manager.toservice.AddressManager;
 import com.example.jsp.pojo.OrderInfo;
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.*;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,10 +73,12 @@ public class UserController {
 		var transporter = new Transporter();
 		var user = new User().setPassword(password).setUsername(username);
 		String login = userService.login(user, type);
+		final var ids = login.split("_");
 		transporter.setCode(0)
-				.addData("id", login)
+				.addData("id", ids[0])
 				.addData("tokenValue", StpUtil.getTokenValue())
 				.addData("tokenName", StpUtil.getTokenName())
+				.addData("targetId", ids[1])
 				.setMsg("登录成功");
 		return transporter;
 	}
@@ -113,9 +116,8 @@ public class UserController {
 	}
 
 
-
 	/**
-	 *编辑功能（限管理员）
+	 * 编辑功能（限管理员）
 	 */
 	@SaCheckRole("admin")
 	@GetMapping("/edit/{orderId}/{deliverId}/{storeId}/{guestId}/{addressId}")
@@ -124,7 +126,7 @@ public class UserController {
 	                            @PathVariable("deliverId") Integer deliverId,
 	                            @PathVariable("storeId") Integer storeId,
 	                            @PathVariable("guestId") Integer guestId,
-	                            @PathVariable("address") Integer addressId) throws ProjectException {
+	                            @PathVariable("addressId") Integer addressId) throws ProjectException {
 		var transporter = new Transporter();
 		val order = orderService.select(orderId);
 		val deliver = deliverService.select(deliverId);
@@ -170,10 +172,10 @@ public class UserController {
 	 * 订单异常报告
 	 */
 	@SaCheckRole("admin")
-	@GetMapping("/expection/{orderId}/{msg}")
+	@GetMapping("/exception/{orderId}/{msg}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter setMsg(@PathVariable("orderId") Integer orderId,
-							  @PathVariable("msg") String msg) throws ProjectException{
+	public Transporter setMsg (@PathVariable("orderId") Integer orderId,
+	                           @PathVariable("msg") String msg) throws ProjectException {
 		var transporter = new Transporter();
 		var order = orderService.select(orderId);
 		var orderInfo = new OrderInfo();

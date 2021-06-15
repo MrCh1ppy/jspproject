@@ -92,7 +92,7 @@ public class GuestServiceImpl implements GuestService {
 	}
 
 	@Override
-	public void addAddress(Guest guest, Address address) throws ProjectException {
+	public void addAddress (Guest guest, Address address) throws ProjectException {
 
 		try {
 			address.setGuestId(guest.getId());
@@ -105,7 +105,7 @@ public class GuestServiceImpl implements GuestService {
 	}
 
 	@Override
-	public Address getAddress(Integer addressId) {
-		return  addressManager.select(addressId);
+	public Address getAddress (Integer addressId) {
+		return addressManager.select(addressId);
 	}
 }

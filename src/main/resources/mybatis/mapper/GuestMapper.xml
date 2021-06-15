@@ -46,7 +46,7 @@
         and g_telephone = #{target.telephone}
         and g_u_id = #{target.loginUser.id}
     </select>
-    <select id="findIdByLoginUser" parameterType="integer" resultMap="guestMap">
+    <select id="findIdByLoginUser" parameterType="integer" resultType="integer">
         select g_id from guest where g_u_id=#{id}
     </select>
     <select id="findUserByUserName" resultMap="com.example.jsp.dao.UserDao.userMap" parameterType="string">

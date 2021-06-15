@@ -9,6 +9,7 @@ import com.example.jsp.pojo.User;
 import com.example.jsp.service.OrderService;
 import com.example.jsp.service.ProductService;
 import com.example.jsp.service.StoreService;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -156,11 +157,11 @@ public class StoreController {
 	@SaCheckRole("store")
 	@GetMapping("/showproduct/{storeId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter showProduct(@PathVariable("storeId") Integer storeId) throws ProjectException{
+	public Transporter showProduct (@PathVariable("storeId") Integer storeId) throws ProjectException {
 		var transporter = new Transporter();
 		var store = storeService.select(storeId);
-		var product=productService.select(store);
-		transporter.addData("product",product);
+		var product = productService.select(store);
+		transporter.addData("product", product);
 		return transporter;
 	}
 
@@ -171,15 +172,16 @@ public class StoreController {
 	@SaCheckRole("store")
 	@GetMapping("/edit/{productId}/{productName}/{productPrice}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter editProduct(@PathVariable("productId") Integer productId,
-									@PathVariable("productName") String productName,
-								   @PathVariable("productPrice") BigDecimal productPrice) throws ProjectException{
+	public Transporter editProduct (@PathVariable("productId") Integer productId,
+	                                @PathVariable("productName") String productName,
+	                                @PathVariable("productPrice") BigDecimal productPrice) throws ProjectException {
 		var transporter = new Transporter();
 		var select = productService.select(productId);
 		select.setName(productName)
 				.setPrice(productPrice);
 		return transporter.setMsg("修改成功");
 	}
+
 	/**
 	 * 商品列表显示：
 	 * 删除商品信息
@@ -187,8 +189,8 @@ public class StoreController {
 	@SaCheckRole("store")
 	@GetMapping("/delete/{storeId}/{productId}/")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter deleteProduct(@PathVariable("storeId") Integer storeId,
-								   @PathVariable("productId") Integer productId ) throws ProjectException{
+	public Transporter deleteProduct (@PathVariable("storeId") Integer storeId,
+	                                  @PathVariable("productId") Integer productId) throws ProjectException {
 		var transporter = new Transporter();
 		productService.delete(productId);
 		return transporter.setMsg("成功删除");

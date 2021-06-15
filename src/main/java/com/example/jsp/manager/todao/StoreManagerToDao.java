@@ -24,4 +24,6 @@ public interface StoreManagerToDao {
 	Boolean isStore (int userId);
 
 	User findUserByUserName (String username);
+
+	Integer selectByUserId (Integer userId);
 }

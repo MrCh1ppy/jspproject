@@ -1,7 +1,7 @@
 package com.example.jsp.controller;
 
-import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaMode;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.pojo.Store;
@@ -35,13 +35,13 @@ public class StoreController {
 	}
 
 	@Autowired
-	private  void setOrderService(OrderService orderService){
-		this.orderService=orderService;
+	private void setOrderService (OrderService orderService) {
+		this.orderService = orderService;
 	}
 
 	@Autowired
-	private void setProductService(ProductService productService){
-		this.productService=productService;
+	private void setProductService (ProductService productService) {
+		this.productService = productService;
 	}
 
 	@GetMapping("/enroll/{username}/{password}/{name}/{address}/{telephone}")
@@ -64,19 +64,20 @@ public class StoreController {
 	}
 
 	/**
-	 *商家接单
+	 * 商家接单
 	 */
 
-	@SaCheckRole("store")
+	@SaCheckRole(value = {"store", "admin"}, mode = SaMode.OR)
 	@GetMapping("/take/{orderId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter takeOrder (@PathVariable("orderId") Integer orderId) throws ProjectException{
-		Transporter transporter = new Transporter();
-		val select=orderService.select(orderId);
-		val status =select.getStatus();
-		select.setStatus(status+1);
+	public Transporter takeOrder (@PathVariable("orderId") String orderIdString) throws ProjectException {
+		var orderId = Integer.parseInt(orderIdString);
+		var transporter = new Transporter();
+		val select = orderService.select(orderId);
+		val status = select.getStatus();
+		select.setStatus(status + 1);
 
-		transporter.addData("status",status+1)
+		transporter.addData("status", status + 1)
 				.setMsg("接单成功");
 		return transporter;
 	}
@@ -86,15 +87,16 @@ public class StoreController {
 	 * 商品列表显示：
 	 * 显示商品信息
 	 */
-	@SaCheckRole("store")
-	@GetMapping("/showproduct/{storeId}")
+	@SaCheckRole(value = {"store", "admin"}, mode = SaMode.OR)
+	@GetMapping("/show/{storeId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter showProduct(@PathVariable("storeId") Integer storeId) throws ProjectException{
-		Transporter transporter = new Transporter();
-		val select = storeService.select();
-		val product=productService.select();
-		transporter.addData("store",select);
-		transporter.addData("product",product);
+	public Transporter showProduct (@PathVariable("storeId") String storeIdString) throws ProjectException {
+		var storeId = Integer.parseInt(storeIdString);
+		var transporter = new Transporter();
+		val select = storeService.select(storeId);
+		val product = productService.select(storeId);
+		transporter.addData("store", select);
+		transporter.addData("product", product);
 		return transporter;
 	}
 
@@ -103,12 +105,13 @@ public class StoreController {
 	 * 编辑
 	 */
 	@SaCheckRole("store")
-	@GetMapping("/edit/{storeid}/{storename}/{storetel}/{storeaddress}")
+	@GetMapping("/edit/{storeId}/{storeName}/{storeTel}/{storeAddress}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter edit(@PathVariable("storeid") Integer storeId,
-							@PathVariable("storename") String storeName,
-							@PathVariable("storetel") String storeTel,
-							@PathVariable("storeaddress") String storeAddress) throws ProjectException{
+	public Transporter edit (@PathVariable("storeId") String storeIdString,
+	                         @PathVariable("storeName") String storeName,
+	                         @PathVariable("storeTel") String storeTel,
+	                         @PathVariable("storeAddress") String storeAddress) throws ProjectException {
+		var storeId = Integer.parseInt(storeIdString);
 		val select = storeService.select(storeId);
 		select.setName(storeName)
 				.setTelephone(storeTel)
@@ -122,9 +125,10 @@ public class StoreController {
 	 * 删除
 	 */
 	@SaCheckRole("guest")
-	@GetMapping("/delete/{storeid}")
+	@GetMapping("/delete/{storeId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter delete(@PathVariable("storeid") Integer storeId) throws ProjectException{
+	public Transporter delete (@PathVariable("storeId") String storeIdString) throws ProjectException {
+		var storeId = Integer.parseInt(storeIdString);
 		storeService.delete(storeId);
 		return new Transporter().setMsg("删除成功");
 	}

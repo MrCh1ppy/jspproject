@@ -3,6 +3,7 @@ package com.example.jsp.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaMode;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.pojo.Address;
@@ -12,6 +13,7 @@ import com.example.jsp.service.GuestService;
 import com.example.jsp.service.OrderService;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +26,6 @@ import java.util.List;
  */
 @RequestMapping("/guest")
 @RestController
-@RequestMapping("/guest")
 public class GuestController {
 	private GuestService guestService;
 	private OrderService orderService;
@@ -35,8 +36,8 @@ public class GuestController {
 	}
 
 	@Autowired
-	private  void setOrderService(OrderService orderService){
-		this.orderService=orderService;
+	private void setOrderService (OrderService orderService) {
+		this.orderService = orderService;
 	}
 
 
@@ -65,25 +66,26 @@ public class GuestController {
 	 */
 	@SaCheckLogin
 	@GetMapping("/show")
-	public Transporter showProduct() throws ProjectException{
+	public Transporter showProduct () throws ProjectException {
 		var transporter = new Transporter();
 		val select = guestService.select();
-		return transporter.addData("guest",select).setMsg("查询成功");
+		return transporter.addData("guest", select).setMsg("查询成功");
 	}
 
 	/**
 	 * 订单列表页
 	 * 顾客确认收货
 	 */
-	@SaCheckRole("guest")
+	@SaCheckRole(value = {"admin", "guest"}, mode = SaMode.OR)
 	@GetMapping("/take/{orderId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter takeOrder (@PathVariable("orderId") Integer orderId) throws ProjectException{
-		Transporter transporter = new Transporter();
+	public Transporter takeOrder (@PathVariable("orderId") String orderIdString) throws ProjectException {
+		var orderId = Integer.parseInt(orderIdString);
+		var transporter = new Transporter();
 		val select = orderService.select(orderId);
-		val status =select.getStatus();
-		select.setStatus(status+1);
-		transporter.addData("status",status+1)
+		val status = select.getStatus();
+		select.setStatus(status + 1);
+		transporter.addData("status", status + 1)
 				.setMsg("查询成功");
 		return transporter;
 	}
@@ -92,12 +94,13 @@ public class GuestController {
 	 * 管理顾客页
 	 * 编辑
 	 */
-	@SaCheckRole("guest")
+	@SaCheckRole(value = {"admin", "guest"}, mode = SaMode.OR)
 	@GetMapping("/user/{userid}/{username}/{usertel}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter edit(@PathVariable("userid") Integer userId,
-							@PathVariable("username") String userName,
-							@PathVariable("usertel") String userTel) throws ProjectException{
+	public Transporter edit (@PathVariable("userid") String userIdString,
+	                         @PathVariable("username") String userName,
+	                         @PathVariable("usertel") String userTel) throws ProjectException {
+		var userId = Integer.parseInt(userIdString);
 		val select = guestService.select(userId);
 		select.setName(userName)
 				.setTelephone(userTel);
@@ -112,7 +115,8 @@ public class GuestController {
 	@SaCheckRole("guest")
 	@GetMapping("/user/{userid}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter delete(@PathVariable("userid") Integer userId) throws ProjectException{
+	public Transporter delete (@PathVariable("userid") String userIdString) throws ProjectException {
+		var userId = Integer.parseInt(userIdString);
 		guestService.delete(userId);
 		return new Transporter().setMsg("删除成功");
 	}

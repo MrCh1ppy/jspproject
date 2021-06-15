@@ -92,16 +92,6 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
 	}
 
 	@Override
-	public List<Product> selectHavingProduct (Store store) {
-		return productManager.selectByStore(store.getId());
-	}
-
-	@Override
-	public List<Product> selectHavingProduct (Integer storeId) {
-		return productManager.selectByStore(storeId);
-	}
-
-	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void destroy (Integer id) {
 		destroy(select(id));
@@ -132,5 +122,15 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
 	@Override
 	public Boolean isNotExist (Integer id) {
 		return storeDao.selectById(id) == null;
+	}
+
+	@Override
+	public List<Product> selectHavingProduct (Store store) {
+		return productManager.selectByStore(store.getId());
+	}
+
+	@Override
+	public List<Product> selectHavingProduct (Integer storeId) {
+		return productManager.selectByStore(storeId);
 	}
 }

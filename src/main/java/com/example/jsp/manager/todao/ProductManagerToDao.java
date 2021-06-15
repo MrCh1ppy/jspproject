@@ -21,5 +21,5 @@ public interface ProductManagerToDao {
 
 	Integer getId (Product product);
 
-	List<Product> selectByStore(int storeId);
+	List<Product> selectByStore (int storeId);
 }

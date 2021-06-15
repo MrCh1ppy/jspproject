@@ -2,6 +2,7 @@ package com.example.jsp.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaMode;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.pojo.Deliver;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 
 /**
@@ -58,10 +58,10 @@ public class DeliverController {
 
 	@SaCheckLogin
 	@GetMapping("/show")
-	public Transporter showDeliver() throws ProjectException{
+	public Transporter showDeliver () throws ProjectException {
 		var transporter = new Transporter();
 		val select = deliverService.select();
-		return transporter.addData("deliver",select).setMsg("查询成功");
+		return transporter.addData("deliver", select).setMsg("查询成功");
 	}
 
 
@@ -69,14 +69,15 @@ public class DeliverController {
 	 * 订单列表页
 	 * 骑手接单
 	 */
-	@SaCheckRole("deliver")
+	@SaCheckRole(value = {"admin", "deliver"}, mode = SaMode.OR)
 	@GetMapping("/take/{orderId}")
-	public Transporter takeOrder (@PathVariable("orderId") Integer orderId) throws ProjectException{
-		Transporter transporter = new Transporter();
+	public Transporter takeOrder (@PathVariable("orderId") String orderIdString) throws ProjectException {
+		var orderId = Integer.parseInt(orderIdString);
+		var transporter = new Transporter();
 		val select = orderService.select(orderId);
-		val status =select.getStatus();
-		select.setStatus(status+1);
-		transporter.addData("status",status+1)
+		val status = select.getStatus();
+		select.setStatus(status + 1);
+		transporter.addData("status", status + 1)
 				.setMsg("查询成功");
 		return transporter;
 	}

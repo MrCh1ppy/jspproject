@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> select() throws ProjectException {
+	public List<Product> select () throws ProjectException {
 		return productManager.select();
 	}
 }

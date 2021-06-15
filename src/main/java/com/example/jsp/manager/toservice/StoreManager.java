@@ -31,7 +31,7 @@ public interface StoreManager {
 
 	User findUserByUserName (String username);
 
-	List<Product> selectHavingProduct(Store store);
+	List<Product> selectHavingProduct (Store store);
 
-	List<Product> selectHavingProduct(Integer storeId);
+	List<Product> selectHavingProduct (Integer storeId);
 }

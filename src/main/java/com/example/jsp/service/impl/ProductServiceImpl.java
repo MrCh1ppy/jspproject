@@ -68,6 +68,9 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		return select;
+  
+	public List<Product> select () throws ProjectException {
+		return productManager.select();
 	}
 
 }

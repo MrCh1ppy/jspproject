@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    private OrderManager orderManager;
+	private OrderManager orderManager;
 
 
     @Autowired
@@ -30,29 +30,31 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    @Override
-    public void delete(Order order) throws ProjectException {
-        orderManager.destroy(order);
-    }
 
-    @Override
-    public void delete(Integer id) throws ProjectException {
-        orderManager.destroy(id);
-    }
+	@Override
+	public void delete (Order order) throws ProjectException {
+		orderManager.destroy(order);
+	}
 
-    @Override
-    public void restore(Order order) throws ProjectException {
-        try {
-            orderManager.restore(order);
-        } catch (SonElementNotExistExceptionOld e){
-            throw new ProjectException(e.toString(), 302);
-        }
-    }
+	@Override
+	public void delete (Integer id) throws ProjectException {
+		orderManager.destroy(id);
+	}
 
-    @Override
-    public Order select(Integer orderId) throws ProjectException {
-        return orderManager.select(orderId);
-    }
+	@Override
+	public void restore (Order order) throws ProjectException {
+		try {
+			orderManager.restore(order);
+		} catch (SonElementNotExistExceptionOld e) {
+			throw new ProjectException(e.toString(), 302);
+		}
+	}
+
+	@Override
+	public Order select (Integer orderId) throws ProjectException {
+		return orderManager.select(orderId);
+	}
+
 
     @Override
     public OrderService addProduct(Order order, Integer productId, Integer num) throws ProjectException {
@@ -66,10 +68,22 @@ public class OrderServiceImpl implements OrderService {
         return this;
     }
 
-    @Override
-    public OrderService addException(Order order, OrderInfo orderInfo) throws ProjectException {
-        orderManager.addOrderInfo(order,orderInfo);
-        restore(order);
-        return this;
-    }
+	@Override
+	public OrderService addProduct (Order order, Product product, Integer num) throws ProjectException {
+		try {
+			orderManager.addProduct(order, product, num);
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			sonElementNotExistExceptionOld.printStackTrace();
+		}
+		restore(order);
+		return this;
+	}
+
+
+	@Override
+	public OrderService addException (Order order, OrderInfo orderInfo) throws ProjectException {
+		orderManager.addOrderInfo(order, orderInfo);
+		restore(order);
+		return this;
+	}
 }

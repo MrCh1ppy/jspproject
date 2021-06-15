@@ -9,6 +9,7 @@ import com.example.jsp.pojo.Store;
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.StoreService;
 import com.example.jsp.service.UserService;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,4 +90,5 @@ public class StoreServiceImpl implements StoreService {
 		}
 		return this;
 	}
+
 }

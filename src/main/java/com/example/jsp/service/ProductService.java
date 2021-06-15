@@ -2,6 +2,7 @@ package com.example.jsp.service;
 
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.pojo.Product;
+import com.example.jsp.pojo.Store;
 
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface ProductService {
 
 	Product select (Integer productId) throws ProjectException;
 
-	List<Product> select () throws ProjectException;
+	List<Product> select(Store store) throws ProjectException;
 }

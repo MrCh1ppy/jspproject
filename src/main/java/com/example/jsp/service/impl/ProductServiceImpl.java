@@ -8,6 +8,8 @@ import com.example.jsp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 橙鼠鼠
  */
@@ -51,5 +53,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product select (Integer productId) throws ProjectException {
 		return productManager.select(productId);
+	}
+
+	@Override
+	public List<Product> select() throws ProjectException {
+		return productManager.select();
 	}
 }

@@ -1,14 +1,18 @@
 package com.example.jsp.controller;
 
 
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.commons.oldexception.login.ErrorPassWordExceptionOld;
 import com.example.jsp.commons.oldexception.login.UsernameNotExistExceptionOld;
 import com.example.jsp.pojo.User;
+import com.example.jsp.service.OrderService;
 import com.example.jsp.service.UserService;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +27,7 @@ import java.lang.reflect.InvocationTargetException;
 @RequestMapping("/user")
 public class UserController {
 	private UserService userService;
+	private OrderService orderService;
 
 	@Autowired
 	public void setUserService (UserService userService) {
@@ -50,6 +55,47 @@ public class UserController {
 		var user = new User().setUsername(username).setPassword(password);
 		userService.create(user);
 		return new Transporter().setMsg("管理员注册成功");
+	}
+
+	/**
+	 *编辑功能（限管理员）
+	 */
+	@SaCheckRole("admin")
+	@GetMapping("/edit/{orderId}/{deliverId}/{storeId}/{guestId}/{address}")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter restore (@PathVariable("orderId") Integer orderId,
+								@PathVariable("deliverId") Integer deliverId,
+								@PathVariable("storeId") Integer storeId,
+								@PathVariable("guestId") Integer guestId,
+								@PathVariable("address") Integer adressId) throws ProjectException{
+		Transporter transporter= new Transporter();
+
+		return transporter;
+	}
+	/**
+	 *删除功能（限管理员）
+	 */
+	@SaCheckRole("admin")
+	@GetMapping("/delete/{orderId}")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter delete (@PathVariable("orderId") Integer orderId) throws ProjectException{
+		orderService.delete(orderId);
+		return new Transporter().setMsg("删除成功");
+	}
+	/**
+	 *回退功能（限管理员）
+	 */
+	@SaCheckRole("admin")
+	@GetMapping("/rollback/{orderId}/{status}")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter rollback (@PathVariable("orderId") Integer orderId,
+								 @PathVariable("status") Integer status) throws ProjectException{
+
+		Transporter transporter = new Transporter();
+		val select=orderService.select(orderId);
+		select.setStatus(status);
+		transporter.setMsg("回退成功");
+		return transporter;
 	}
 
 }

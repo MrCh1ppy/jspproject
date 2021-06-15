@@ -14,13 +14,13 @@ import java.io.Serializable;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Deliver extends User implements Serializable {
+public class Deliver implements Serializable {
 	private Integer id;
 	private String name;
 	private String telephone;
 	private User loginUser;
 
-	@Override
+
 	public Deliver setId (Integer id) {
 		this.id = id;
 		return this;

@@ -8,6 +8,7 @@ import com.example.jsp.commons.oldexception.login.ErrorPassWordExceptionOld;
 import com.example.jsp.commons.oldexception.login.UsernameNotExistExceptionOld;
 import com.example.jsp.utils.execption.ErrorInfo;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @apiNote :全局异常处理
  */
 @RestControllerAdvice
+@RequestMapping("/project")
 public class ProjectController {
 	@ExceptionHandler(ProjectException.class)
 	Transporter handleEnrollException (ProjectException e) {

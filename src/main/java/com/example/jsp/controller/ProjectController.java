@@ -58,18 +58,18 @@ public class ProjectController {
 	}
 
 	@ExceptionHandler(NotLoginException.class)
-	Transporter handleNotLoginException(NotLoginException e){
+	Transporter handleNotLoginException (NotLoginException e) {
 		e.printStackTrace();
 		var transporter = new Transporter();
-		transporter.fail(5,e.getType());
+		transporter.fail(5, e.getType());
 		return transporter;
 	}
 
 	@ExceptionHandler(NotPermissionException.class)
-	Transporter handleNotPermissionException(NotPermissionException e){
+	Transporter handleNotPermissionException (NotPermissionException e) {
 		e.printStackTrace();
 		var transporter = new Transporter();
-		transporter.fail(6,"权限不足");
+		transporter.fail(6, "权限不足");
 		return transporter;
 	}
 }

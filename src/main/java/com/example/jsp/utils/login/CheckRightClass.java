@@ -21,7 +21,7 @@ public class CheckRightClass implements StpInterface {
 
 	@Override
 	public List<String> getRoleList (Object o, String s) {
-		var loginId = (LoginId) o;
+		var loginId = new LoginId((String) o);
 		List<String> roleList;
 		try {
 			String[] split = loginId.toStringByReflect().split(",");

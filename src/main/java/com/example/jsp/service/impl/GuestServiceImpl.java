@@ -70,7 +70,7 @@ public class GuestServiceImpl implements GuestService {
 	}
 
 	@Override
-	public List<Guest> select() throws ProjectException {
+	public List<Guest> select () throws ProjectException {
 		return guestManager.select();
 	}
 

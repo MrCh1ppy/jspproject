@@ -1,7 +1,6 @@
 package com.example.jsp.manager.todao;
 
 import com.example.jsp.pojo.Product;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,15 +9,17 @@ import java.util.List;
  */
 
 public interface ProductManagerToDao {
-	Integer save (@Param("target") Product target);
+	Integer save (Product target);
 
-	void delete (@Param("id") Integer id);
+	void delete (Integer id);
 
-	Product select (@Param("id") Integer id);
+	Product select (Integer id);
 
 	List<Product> select ();
 
-	void update (@Param("target") Product target);
+	void update (Product target);
 
-	Integer getId (@Param("target") Product product);
+	Integer getId (Product product);
+
+	List<Product> selectByStore (int storeId);
 }

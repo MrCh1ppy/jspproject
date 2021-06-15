@@ -42,6 +42,11 @@ public class UserController {
 	@Autowired
 	public void setStoreService(StoreService storeService){this.storeService = storeService;}
 
+	@Autowired
+	public void setOrderService (OrderService orderService) {
+		this.orderService = orderService;
+	}
+
 	@GetMapping("/login/{type}/{username}/{password}")
 	public Transporter login (@PathVariable("username") String username,
 	                          @PathVariable("password") String password,
@@ -59,7 +64,7 @@ public class UserController {
 
 	@GetMapping("/enroll/{username}/{password}")
 	public Transporter enroll (@PathVariable("username") String username,
-							   @PathVariable("password") String password) throws ProjectException {
+	                           @PathVariable("password") String password) throws ProjectException {
 		var user = new User().setUsername(username).setPassword(password);
 		userService.create(user);
 		return new Transporter().setMsg("管理员注册成功");
@@ -89,6 +94,7 @@ public class UserController {
 		return transporter;
 	}
 
+
 	/**
 	 *编辑功能（限管理员）
 	 */
@@ -112,27 +118,31 @@ public class UserController {
 
 		return transporter;
 	}
+
 	/**
-	 *删除功能（限管理员）
+	 * 删除功能（限管理员）
 	 */
 	@SaCheckRole("admin")
 	@GetMapping("/delete/{orderId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter delete (@PathVariable("orderId") Integer orderId) throws ProjectException{
+	public Transporter delete (@PathVariable("orderId") String orderIdString) throws ProjectException {
+		var orderId = Integer.parseInt(orderIdString);
 		orderService.delete(orderId);
 		return new Transporter().setMsg("删除成功");
 	}
+
 	/**
-	 *回退功能（限管理员）
+	 * 回退功能（限管理员）
 	 */
 	@SaCheckRole("admin")
 	@GetMapping("/rollback/{orderId}/{status}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter rollback (@PathVariable("orderId") Integer orderId,
-								 @PathVariable("status") Integer status) throws ProjectException{
-
+	public Transporter rollback (@PathVariable("orderId") String orderIdString,
+	                             @PathVariable("status") String statusString) throws ProjectException {
+		var status = Integer.parseInt(statusString);
+		var orderId = Integer.parseInt(orderIdString);
 		var transporter = new Transporter();
-		var select=orderService.select(orderId);
+		val select = orderService.select(orderId);
 		select.setStatus(status);
 		transporter.setMsg("回退成功");
 		return transporter;

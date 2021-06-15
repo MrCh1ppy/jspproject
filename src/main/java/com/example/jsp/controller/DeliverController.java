@@ -11,7 +11,11 @@ import com.example.jsp.service.OrderService;
 import com.example.jsp.service.UserService;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 
 /**
@@ -51,13 +55,15 @@ public class DeliverController {
 	 * 管理骑手页面
 	 * 骑手信息显示
 	 */
-	//@SaCheckLogin
+
+	@SaCheckLogin
 	@GetMapping("/show")
-	public Transporter show() throws ProjectException{
-		Transporter transporter = new Transporter();
+	public Transporter showDeliver() throws ProjectException{
+		var transporter = new Transporter();
 		val select = deliverService.select();
 		return transporter.addData("deliver",select).setMsg("查询成功");
 	}
+
 
 	/**
 	 * 订单列表页
@@ -74,5 +80,6 @@ public class DeliverController {
 				.setMsg("查询成功");
 		return transporter;
 	}
+
 
 }

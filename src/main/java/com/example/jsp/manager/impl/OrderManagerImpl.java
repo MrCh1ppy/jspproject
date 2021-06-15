@@ -171,6 +171,11 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
 	}
 
 	@Override
+	public List<Order> selectByStatus (Integer status) {
+		return orderDao.selectByStatus(status);
+	}
+
+	@Override
 	public Boolean isNotExist (Integer id) {
 		return select(id) == null;
 	}
@@ -239,17 +244,6 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
 			orderInfo.setEnabled(1);
 		}
 		target.getOrderInfos().add(orderInfo);
-		return this;
-	}
-
-	/**
-	 * @deprecated :这个方法相当不安全,不推荐
-	 */
-	@Override
-	@Deprecated
-	public OrderManager addOrderInfo (Order target, int orderInfoId) {
-		var select = orderInfoManager.select(orderInfoId);
-		addOrderInfo(target, select);
 		return this;
 	}
 

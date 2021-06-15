@@ -7,13 +7,11 @@ import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Guest;
-
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.GuestService;
 import com.example.jsp.service.OrderService;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +24,7 @@ import java.util.List;
  */
 @RequestMapping("/guest")
 @RestController
+@RequestMapping("/guest")
 public class GuestController {
 	private GuestService guestService;
 	private OrderService orderService;
@@ -65,9 +64,9 @@ public class GuestController {
 	 * 顾客列表显示
 	 */
 	@SaCheckLogin
-	@GetMapping("/showguest/")
+	@GetMapping("/show")
 	public Transporter showProduct() throws ProjectException{
-		Transporter transporter = new Transporter();
+		var transporter = new Transporter();
 		val select = guestService.select();
 		return transporter.addData("guest",select).setMsg("查询成功");
 	}

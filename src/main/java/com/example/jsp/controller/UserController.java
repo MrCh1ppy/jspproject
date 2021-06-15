@@ -11,7 +11,6 @@ import com.example.jsp.commons.oldexception.login.UsernameNotExistExceptionOld;
 import com.example.jsp.pojo.OrderInfo;
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.*;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -78,13 +77,13 @@ public class UserController {
 	@SaCheckLogin
 	@GetMapping("/show/{orderId}")
 	public Transporter show(@PathVariable("orderId") Integer orderId) throws ProjectException{
-		Transporter transporter = new Transporter();
-		val order = orderService.select(orderId);
-		val deliver = order.getDeliver();
-		val store = order.getStore();
-		val guest = order.getGuest();
-		val address = order.getAddress();
-		val productPackages = order.getProductPackages();
+		var transporter = new Transporter();
+		var order = orderService.select(orderId);
+		var deliver = order.getDeliver();
+		var store = order.getStore();
+		var guest = order.getGuest();
+		var address = order.getAddress();
+		var productPackages = order.getProductPackages();
 		transporter.addData("order",order)
 				.addData("deliver",deliver)
 				.addData("store",store)
@@ -95,21 +94,23 @@ public class UserController {
 		return transporter;
 	}
 
-	
-  
+
+	/**
+	 *编辑功能（限管理员）
+	 */
 	@SaCheckRole("admin")
-	@GetMapping("/edit/{orderId}/{deliverId}/{storeId}/{guestId}/{address}")
+	@GetMapping("/edit/{orderId}/{deliverId}/{storeId}/{guestId}/{addressId}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter restore (@PathVariable("orderId") Integer orderId,
 								@PathVariable("deliverId") Integer deliverId,
 								@PathVariable("storeId") Integer storeId,
 								@PathVariable("guestId") Integer guestId,
-								@PathVariable("address") Integer adressId) throws ProjectException{
-		Transporter transporter= new Transporter();
-		val order = orderService.select(orderId);
-		val deliver = deliverService.select(deliverId);
-		val store = storeService.select(storeId);
-		val guest = guestService.select(guestId);
+								@PathVariable("addressId") Integer addressId) throws ProjectException{
+		var transporter= new Transporter();
+		var order = orderService.select(orderId);
+		var deliver = deliverService.select(deliverId);
+		var store = storeService.select(storeId);
+		var guest = guestService.select(guestId);
 
 		order.setDeliver(deliver)
 				.setStore(store)
@@ -154,9 +155,9 @@ public class UserController {
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter setMsg(@PathVariable("orderId") Integer orderId,
 							  @PathVariable("msg") String msg) throws ProjectException{
-		Transporter transporter = new Transporter();
-		val order = orderService.select(orderId);
-		val orderInfo = new OrderInfo();
+		var transporter = new Transporter();
+		var order = orderService.select(orderId);
+		var orderInfo = new OrderInfo();
 		orderInfo.setMessage(msg);
 		orderService.addException(order,orderInfo);
 		return transporter.setMsg("异常报告成功");

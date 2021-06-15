@@ -140,10 +140,10 @@ public class StoreController {
 	 */
 	@SaCheckRole("guest")
 	@GetMapping("/info/{storeId}")
-	public Transporter showInfo(@PathVariable("storeId") Integer storeId) throws ProjectException{
-		var select=  storeService.select(storeId);
-		var transporter = new Transporter();
-		transporter.addData("store",select)
+	public Transporter showInfo (@PathVariable("storeId") Integer storeId) throws ProjectException {
+		val select = storeService.select(storeId);
+		Transporter transporter = new Transporter();
+		transporter.addData("store", select)
 				.setMsg("查询成功");
 		return transporter;
 	}

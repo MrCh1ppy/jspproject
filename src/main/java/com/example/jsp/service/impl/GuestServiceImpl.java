@@ -91,4 +91,21 @@ public class GuestServiceImpl implements GuestService {
 		return addressList;
 	}
 
+	@Override
+	public void addAddress(Guest guest, Address address) throws ProjectException {
+
+		try {
+			address.setGuestId(guest.getId());
+			guest.getAddresses().add(address);
+			addressManager.restore(address);
+			guestManager.restore(guest);
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);
+		}
+	}
+
+	@Override
+	public Address getAddress(Integer addressId) {
+		return  addressManager.select(addressId);
+	}
 }

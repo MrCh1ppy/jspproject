@@ -26,4 +26,6 @@ public interface StoreService {
 	void enroll (Store store, User user) throws ProjectException;
 
 	StoreService addProduct (Store target, Product product) throws ProjectException;
+
+
 }

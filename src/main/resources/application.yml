@@ -14,7 +14,6 @@ mybatis:
   type-aliases-package: com.example.jsp.pojo
   mapper-locations: classpath:mybatis/mapper/*.xml
   configuration:
-    lazy-loading-enabled: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: true
 

@@ -4,6 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
+import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Deliver;
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.DeliverService;
@@ -11,6 +12,7 @@ import com.example.jsp.service.OrderService;
 import com.example.jsp.service.UserService;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,20 +54,6 @@ public class DeliverController {
 	}
 
 	/**
-	 * 管理骑手页面
-	 * 骑手信息显示
-	 */
-
-	@SaCheckLogin
-	@GetMapping("/show")
-	public Transporter showDeliver() throws ProjectException{
-		var transporter = new Transporter();
-		val select = deliverService.select();
-		return transporter.addData("deliver",select).setMsg("查询成功");
-	}
-
-
-	/**
 	 * 订单列表页
 	 * 骑手接单
 	 */
@@ -80,6 +68,65 @@ public class DeliverController {
 				.setMsg("查询成功");
 		return transporter;
 	}
+
+	/**
+	 * 管理骑手页面
+	 * 骑手列表显示
+	 */
+	@SaCheckLogin
+	@GetMapping("/show")
+	public Transporter showDeliver() throws ProjectException{
+		var transporter = new Transporter();
+		val select = deliverService.select();
+		return transporter.addData("deliver",select).setMsg("查询成功");
+	}
+
+	/**
+	 * 管理骑手页
+	 * 编辑
+	 */
+	@SaCheckRole("deliver")
+	@GetMapping("/edit/{deliverId}/{deliverName}/{deliverTel}")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter edit(@PathVariable("deliverId") Integer deliverId,
+							@PathVariable("deliverName") String deliverName,
+							@PathVariable("deliverTel") String deliverTel) throws ProjectException{
+		val select = deliverService.select(deliverId);
+		select.setName(deliverName)
+				.setTelephone(deliverTel);
+		deliverService.restore(select);
+		return new Transporter().setMsg("编辑成功");
+	}
+
+	/**
+	 * 管理骑手页
+	 * 删除
+	 */
+	@SaCheckRole("deliver")
+	@GetMapping("/delete/{deliverId}")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter delete(@PathVariable("deliverId") Integer deliverId) throws ProjectException{
+		deliverService.delete(deliverId);
+		return new Transporter().setMsg("删除成功");
+	}
+	/**
+	 * 骑手信息页：
+	 * 骑手信息显示
+	 */
+	@SaCheckRole("deliver")
+	@GetMapping("/show/{storeId}")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter showProduct(@PathVariable("storeId") Integer storeId) throws ProjectException{
+		Transporter transporter = new Transporter();
+		val select = deliverService.select();
+		transporter.addData("deliver",select);
+		return transporter.setMsg("查询成功");
+	}
+	/**
+	 * 骑手信息页
+	 * 骑手信息修改
+	 * 与edit相同
+	 */
 
 
 }

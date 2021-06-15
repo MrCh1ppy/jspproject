@@ -27,4 +27,6 @@ public interface GuestService {
 	void enroll (Guest guest, User user) throws ProjectException;
 
 	List<Address> apart (String addresses);
+
+
 }

@@ -5,7 +5,6 @@ import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaMode;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
-import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Deliver;
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.DeliverService;
@@ -73,9 +72,9 @@ public class DeliverController {
 	@SaCheckRole("deliver")
 	@GetMapping("/edit/{deliverId}/{deliverName}/{deliverTel}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter edit(@PathVariable("deliverId") Integer deliverId,
-							@PathVariable("deliverName") String deliverName,
-							@PathVariable("deliverTel") String deliverTel) throws ProjectException{
+	public Transporter edit (@PathVariable("deliverId") Integer deliverId,
+	                         @PathVariable("deliverName") String deliverName,
+	                         @PathVariable("deliverTel") String deliverTel) throws ProjectException {
 		val select = deliverService.select(deliverId);
 		select.setName(deliverName)
 				.setTelephone(deliverTel);
@@ -98,33 +97,33 @@ public class DeliverController {
 		transporter.addData("status", status + 1)
 				.setMsg("查询成功");
 		return transporter;
-
-    
-	@SaCheckRole("deliver")
-	@GetMapping("/delete/{deliverId}")
-	@Transactional(rollbackFor = Exception.class)
-	public Transporter delete(@PathVariable("deliverId") Integer deliverId) throws ProjectException{
-		deliverService.delete(deliverId);
-		return new Transporter().setMsg("删除成功");
 	}
-	/**
-	 * 骑手信息页：
-	 * 骑手信息显示
-	 */
-	@SaCheckRole("deliver")
-	@GetMapping("/show/{storeId}")
-	@Transactional(rollbackFor = Exception.class)
-	public Transporter showProduct(@PathVariable("storeId") Integer storeId) throws ProjectException{
-		Transporter transporter = new Transporter();
-		val select = deliverService.select();
-		transporter.addData("deliver",select);
-		return transporter.setMsg("查询成功");
+
+		@SaCheckRole("deliver")
+		@GetMapping("/delete/{deliverId}")
+		@Transactional(rollbackFor = Exception.class)
+		public Transporter delete (@PathVariable("deliverId") Integer deliverId) throws ProjectException {
+			deliverService.delete(deliverId);
+			return new Transporter().setMsg("删除成功");
+		}
+		/**
+		 * 骑手信息页：
+		 * 骑手信息显示
+		 */
+		@SaCheckRole("deliver")
+		@GetMapping("/show/{storeId}")
+		@Transactional(rollbackFor = Exception.class)
+		public Transporter showProduct (@PathVariable("storeId") Integer storeId) throws ProjectException {
+			Transporter transporter = new Transporter();
+			val select = deliverService.select();
+			transporter.addData("deliver", select);
+			return transporter.setMsg("查询成功");
+		}
+		/**
+		 * 骑手信息页
+		 * 骑手信息修改
+		 * 与edit相同
+		 */
+
+
 	}
-	/**
-	 * 骑手信息页
-	 * 骑手信息修改
-	 * 与edit相同
-	 */
-
-
-}

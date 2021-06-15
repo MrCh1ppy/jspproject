@@ -12,6 +12,7 @@ import com.example.jsp.service.GuestService;
 import com.example.jsp.service.OrderService;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * @author 完颜
  */
-@RequestMapping("/guest")
+
 @RestController
 @RequestMapping("/guest")
 public class GuestController {
@@ -93,7 +94,7 @@ public class GuestController {
 	 * 编辑
 	 */
 	@SaCheckRole("guest")
-	@GetMapping("/user/{userid}/{username}/{usertel}")
+	@GetMapping("/edit/{userid}/{username}/{usertel}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter edit(@PathVariable("userid") Integer userId,
 							@PathVariable("username") String userName,
@@ -110,12 +111,43 @@ public class GuestController {
 	 * 删除
 	 */
 	@SaCheckRole("guest")
-	@GetMapping("/user/{userid}")
+	@GetMapping("/delete/{userid}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter delete(@PathVariable("userid") Integer userId) throws ProjectException{
 		guestService.delete(userId);
 		return new Transporter().setMsg("删除成功");
 	}
-
+	/**
+	 * 顾客信息页
+	 * 顾客信息显示
+	 */
+	@SaCheckRole("guest")
+	@GetMapping("/info/{guestId}")
+	public Transporter showInfo(@PathVariable("guestId") Integer guestId) throws ProjectException{
+		val select=  guestService.select(guestId);
+		Transporter transporter = new Transporter();
+		transporter.addData("guest",select)
+					.setMsg("查询成功");
+		return transporter;
+	}
+	/**
+	 * 顾客信息页
+	 * 顾客信息修改
+	 */
+	@SaCheckRole("guest")
+	@GetMapping("/enroll/{guestId}/{guestName}{guestTelephone}/{guestAddress}/")
+	public Transporter edit (@PathVariable("guestId") Integer guestId,
+							 @PathVariable("guestName") String guestName,
+							 @PathVariable("guestTelephone") String guestTelephone,
+							 @PathVariable("guestAddress") String guestAddress) throws ProjectException {
+		val select = guestService.select(guestId);
+		val address = new Address();
+		address.setAddressString(guestAddress);
+		select.setName(guestName)
+				.setTelephone(guestTelephone)
+				.getAddresses().add(address);;
+		guestService.restore(select);
+		return new Transporter().setMsg("修改成功");
+	}
 }
 

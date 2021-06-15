@@ -3,8 +3,10 @@ package com.example.jsp.manager.impl;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.dao.StoreDao;
 import com.example.jsp.manager.todao.StoreManagerToDao;
+import com.example.jsp.manager.toservice.ProductManager;
 import com.example.jsp.manager.toservice.StoreManager;
 import com.example.jsp.manager.toservice.UserManager;
+import com.example.jsp.pojo.Product;
 import com.example.jsp.pojo.Store;
 import com.example.jsp.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import java.util.List;
 public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
 	private UserManager userManager;
 	private StoreDao storeDao;
+	private ProductManager productManager;
 
 	@Autowired
 	public void setUserManager (UserManager userManager) {
@@ -86,6 +89,16 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
 	@Override
 	public User findUserByUserName (String username) {
 		return storeDao.findUserByUserName(username);
+	}
+
+	@Override
+	public List<Product> selectHavingProduct (Store store) {
+		return productManager.selectByStore(store.getId());
+	}
+
+	@Override
+	public List<Product> selectHavingProduct (Integer storeId) {
+		return productManager.selectByStore(storeId);
 	}
 
 	@Override

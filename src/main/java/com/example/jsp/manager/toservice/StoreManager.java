@@ -1,6 +1,7 @@
 package com.example.jsp.manager.toservice;
 
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
+import com.example.jsp.pojo.Product;
 import com.example.jsp.pojo.Store;
 import com.example.jsp.pojo.User;
 
@@ -29,4 +30,8 @@ public interface StoreManager {
 	Boolean isStore (int userId);
 
 	User findUserByUserName (String username);
+
+	List<Product> selectHavingProduct(Store store);
+
+	List<Product> selectHavingProduct(Integer storeId);
 }

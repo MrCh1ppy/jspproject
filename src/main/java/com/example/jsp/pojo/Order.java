@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,7 +29,9 @@ public class Order implements Serializable {
 	private List<ProductPackage> productPackages;
 	private String time;
 
-	public Order () {
-		String time = LocalDateTime.now().toString();
-	}
+    public Order() {
+        time=LocalDateTime.now().toString();
+        productPackages=new LinkedList<>();
+        orderInfos=new LinkedList<>();
+    }
 }

@@ -61,7 +61,7 @@ public class OrderController {
 	/**
 	 * 创建订单
 	 */
-	@SaCheckRole("admin")
+	@SaCheckRole(value = {"admin", "guest"}, mode = SaMode.OR)
 	@GetMapping("/create/{storeId}/{productId}/{productNum}/{guestId}/{addressId}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter create (@PathVariable("storeId") String storeIdString,
@@ -82,8 +82,8 @@ public class OrderController {
 
 		order.setStore(store)
 				.setGuest(guest)
-				.setAddress(guestService.getAddress(addressId));
-		orderService.create(order, nums, ids);
+				.setAddress(guestService.getAddress(addressId)).setStatus(0).setMessage("创建成功，等待接单");
+		orderService.create(order,nums,ids);
 		return transporter.setMsg("创建成功");
 	}
 

@@ -144,7 +144,7 @@ public class GuestController {
 	 * 顾客信息修改
 	 */
 	@SaCheckRole(value = {"admin", "guest"}, mode = SaMode.OR)
-	@GetMapping("/enroll/{guestId}/{guestName}{guestTelephone}/{guestAddress}/")
+	@GetMapping("/enroll/{guestId}/{guestName}/{guestTelephone}/{guestAddress}/")
 	public Transporter edit (@PathVariable("guestId") String guestIdString,
 	                         @PathVariable("guestName") String guestName,
 	                         @PathVariable("guestTelephone") String guestTelephone,

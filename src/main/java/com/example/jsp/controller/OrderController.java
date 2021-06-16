@@ -112,7 +112,7 @@ public class OrderController {
 	/**
 	 * 订单异常报告
 	 */
-	@SaCheckRole("admin")
+	@SaCheckRole(value = {"admin","guest", "deliver", "store"}, mode = SaMode.OR)
 	@GetMapping("/exception/{orderId}/{msg}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter setMsg (@PathVariable("orderId") String orderIdString,

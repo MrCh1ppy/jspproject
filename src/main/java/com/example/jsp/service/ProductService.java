@@ -10,19 +10,19 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface ProductService {
-    void create(Product target) throws ProjectException;
+	void create (Product target) throws ProjectException;
 
-    void delete(Integer productId) throws ProjectException;
+	void delete (Integer productId) throws ProjectException;
 
-    void delete(Product product) throws ProjectException;
+	void delete (Product product) throws ProjectException;
 
-    void restore(Product product) throws ProjectException;
+	void restore (Product product) throws ProjectException;
 
-	Product select (Integer productId) ;
+	Product select (Integer productId);
 
-	List<Product> select();
+	List<Product> select ();
 
 	List<Product> selectByStore (Store store);
 
-	List<Product> selectByStore(Integer storeId);
+	List<Product> selectByStore (Integer storeId);
 }

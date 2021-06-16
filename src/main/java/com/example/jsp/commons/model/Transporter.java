@@ -15,23 +15,23 @@ import java.util.HashMap;
 @Accessors(chain = true)
 @Component
 public class Transporter {
-    private HashMap<String, Object> data;
-    private String msg;
-    private int code;
+	private HashMap<String, Object> data;
+	private String msg;
+	private int code;
 
-    public Transporter() {
-        this.setCode(0);
-        this.data = new HashMap<>();
-    }
+	public Transporter () {
+		this.setCode(0);
+		this.data = new HashMap<>();
+	}
 
-    public void fail(int errorCode, String msg) {
-        this.code = errorCode;
-        this.msg = msg;
-    }
+	public void fail (int errorCode, String msg) {
+		this.code = errorCode;
+		this.msg = msg;
+	}
 
-    public Transporter addData(String key, Object value) {
-        this.getData().put(key, value);
-        return this;
-    }
-    /*0 is success otherwise boom!!!!!*/
+	public Transporter addData (String key, Object value) {
+		this.getData().put(key, value);
+		return this;
+	}
+	/*0 is success otherwise boom!!!!!*/
 }

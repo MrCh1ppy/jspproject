@@ -12,21 +12,21 @@ import java.util.List;
  */
 @Mapper
 public interface GuestDao {
-    void save(@Param("target") Guest target);
+	void save (@Param("target") Guest target);
 
-    void delete(@Param("id") Integer id);
+	void delete (@Param("id") Integer id);
 
-    Guest selectById(@Param("id") Integer id);
+	Guest selectById (@Param("id") Integer id);
 
-    List<Guest> selectAll();
+	List<Guest> selectAll ();
 
-    void update(@Param("target") Guest target);
+	void update (@Param("target") Guest target);
 
-    Integer getId(@Param("target") Guest guest);
+	Integer getId (@Param("target") Guest guest);
 
-    Integer findIdByLoginUser(@Param("id") int userId);
+	Integer findIdByLoginUser (@Param("id") int userId);
 
-    User findUserByUserName(@Param("username") String username);
+	User findUserByUserName (@Param("username") String username);
 
 
 }

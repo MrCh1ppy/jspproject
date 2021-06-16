@@ -14,19 +14,19 @@ import java.lang.reflect.InvocationTargetException;
 @Setter
 @AllArgsConstructor
 public class LoginId {
-    String identity;
+	String identity;
 
 
-    public String toStringByReflect() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        var stringBuilder = new StringBuilder();
-        Field[] fields = this.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            String name = field.getName();
-            name = name.substring(0, 1).toUpperCase() + name.substring(1);
-            var getMe = this.getClass().getMethod("get" + name);
-            String value = (String) getMe.invoke(this);
-            stringBuilder.append(value).append(",");
-        }
-        return stringBuilder.toString();
-    }
+	public String toStringByReflect () throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+		var stringBuilder = new StringBuilder();
+		Field[] fields = this.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			String name = field.getName();
+			name = name.substring(0, 1).toUpperCase() + name.substring(1);
+			var getMe = this.getClass().getMethod("get" + name);
+			String value = (String) getMe.invoke(this);
+			stringBuilder.append(value).append(",");
+		}
+		return stringBuilder.toString();
+	}
 }

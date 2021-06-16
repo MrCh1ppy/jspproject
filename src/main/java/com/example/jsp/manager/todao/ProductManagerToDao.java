@@ -9,17 +9,17 @@ import java.util.List;
  */
 
 public interface ProductManagerToDao {
-    Integer save(Product target);
+	Integer save (Product target);
 
-    void delete(Integer id);
+	void delete (Integer id);
 
-    Product select(Integer id);
+	Product select (Integer id);
 
-    List<Product> select();
+	List<Product> select ();
 
-    void update(Product target);
+	void update (Product target);
 
-    Integer getId(Product product);
+	Integer getId (Product product);
 
-    List<Product> selectByStore(int storeId);
+	List<Product> selectByStore (int storeId);
 }

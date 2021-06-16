@@ -195,6 +195,5 @@ public class StoreController {
         productService.delete(productId);
         return transporter.setMsg("成功删除");
     }
-
 }
 

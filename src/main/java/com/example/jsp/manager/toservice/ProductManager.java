@@ -9,21 +9,21 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface ProductManager {
-    Integer insert(Product target) throws SonElementNotExistExceptionOld;
+	Integer insert (Product target) throws SonElementNotExistExceptionOld;
 
-    void destroy(Integer id);
+	void destroy (Integer id);
 
-    void destroy(Product target);
+	void destroy (Product target);
 
-    Product select(Integer id);
+	Product select (Integer id);
 
-    List<Product> select();
+	List<Product> select ();
 
-    Integer restore(Product target) throws SonElementNotExistExceptionOld;
+	Integer restore (Product target) throws SonElementNotExistExceptionOld;
 
-    Integer getId(Product product);
+	Integer getId (Product product);
 
-    Boolean isNotExist(Integer id);
+	Boolean isNotExist (Integer id);
 
-    List<Product> selectByStore(int storeId);
+	List<Product> selectByStore (int storeId);
 }

@@ -11,25 +11,25 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface GuestService {
-    void create(Guest target) throws ProjectException;
+	void create (Guest target) throws ProjectException;
 
-    void delete(Guest target) throws ProjectException;
+	void delete (Guest target) throws ProjectException;
 
-    void delete(Integer id) throws ProjectException;
+	void delete (Integer id) throws ProjectException;
 
-    void restore(Guest guest) throws ProjectException;
+	void restore (Guest guest) throws ProjectException;
 
-    Guest select(Integer guestId) throws ProjectException;
+	Guest select (Integer guestId) throws ProjectException;
 
-    List<Guest> select() throws ProjectException;
+	List<Guest> select () throws ProjectException;
 
 
-    void enroll(Guest guest, User user) throws ProjectException;
+	void enroll (Guest guest, User user) throws ProjectException;
 
-    List<Address> apart(String addresses);
+	List<Address> apart (String addresses);
 
-    void addAddress(Guest guest, Address address) throws ProjectException;
+	void addAddress (Guest guest, Address address) throws ProjectException;
 
-    Address getAddress(Integer addressId) throws ProjectException;
+	Address getAddress (Integer addressId) throws ProjectException;
 
 }

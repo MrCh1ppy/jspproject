@@ -12,19 +12,19 @@ import java.util.List;
 @Mapper
 public interface UserDao {
 
-    void save(@Param("user") User user);
+	void save (@Param("user") User user);
 
-    void delete(@Param("tid") Integer tid);
+	void delete (@Param("tid") Integer tid);
 
-    User selectById(@Param("tid") Integer tid);
+	User selectById (@Param("tid") Integer tid);
 
-    List<User> selectAll();
+	List<User> selectAll ();
 
-    void update(@Param("user") User user);
+	void update (@Param("user") User user);
 
-    User getId(@Param("user") User user);
+	User getId (@Param("user") User user);
 
-    Integer findByUsername(@Param("username") String username);
+	Integer findByUsername (@Param("username") String username);
 
-    User findUserByUsername(@Param("username") String username);
+	User findUserByUsername (@Param("username") String username);
 }

@@ -10,25 +10,25 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface DeliverManager {
-    Integer insert(Deliver deliver) throws SonElementNotExistExceptionOld;
+	Integer insert (Deliver deliver) throws SonElementNotExistExceptionOld;
 
-    List<Deliver> select();
+	List<Deliver> select ();
 
-    Deliver select(Integer id);
+	Deliver select (Integer id);
 
-    Integer getId(Deliver deliver);
+	Integer getId (Deliver deliver);
 
-    Integer restore(Deliver deliver) throws SonElementNotExistExceptionOld;
+	Integer restore (Deliver deliver) throws SonElementNotExistExceptionOld;
 
-    void destroy(Integer id);
+	void destroy (Integer id);
 
-    void destroy(Deliver deliver);
+	void destroy (Deliver deliver);
 
-    Boolean isNotExist(Integer id);
+	Boolean isNotExist (Integer id);
 
-    Boolean isDeliver(int userId);
+	Boolean isDeliver (int userId);
 
-    User findUserByUserName(String username);
+	User findUserByUserName (String username);
 
-    Integer selectByUserId(Integer userId);
+	Integer selectByUserId (Integer userId);
 }

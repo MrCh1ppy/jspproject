@@ -12,19 +12,19 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class SatokenConfig {
 
-    @Primary
-    @Bean(name = "SaTokenConfigure")
-    public SaTokenConfig getSaTokenConfig() {
-        SaTokenConfig config = new SaTokenConfig();
-        config.setTokenName("satoken");
-        config.setTimeout(30 * 24 * 60 * 60);
-        config.setActivityTimeout(-1);
-        config.setAllowConcurrentLogin(true);
-        config.setIsShare(false);
-        config.setTokenStyle("uuid");
-        config.setIsLog(true);
-        config.setTokenStyle("uuid");
-        config.setAllowConcurrentLogin(false);
-        return config;
-    }
+	@Primary
+	@Bean(name = "SaTokenConfigure")
+	public SaTokenConfig getSaTokenConfig () {
+		SaTokenConfig config = new SaTokenConfig();
+		config.setTokenName("satoken");
+		config.setTimeout(30 * 24 * 60 * 60);
+		config.setActivityTimeout(-1);
+		config.setAllowConcurrentLogin(true);
+		config.setIsShare(false);
+		config.setTokenStyle("uuid");
+		config.setIsLog(true);
+		config.setTokenStyle("uuid");
+		config.setAllowConcurrentLogin(false);
+		return config;
+	}
 }

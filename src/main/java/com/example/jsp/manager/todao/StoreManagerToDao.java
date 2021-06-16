@@ -9,21 +9,21 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface StoreManagerToDao {
-    Integer save(Store store);
+	Integer save (Store store);
 
-    void delete(Integer id);
+	void delete (Integer id);
 
-    Store select(Integer id);
+	Store select (Integer id);
 
-    List<Store> select();
+	List<Store> select ();
 
-    void update(Store store);
+	void update (Store store);
 
-    Integer getId(Store store);
+	Integer getId (Store store);
 
-    Boolean isStore(int userId);
+	Boolean isStore (int userId);
 
-    User findUserByUserName(String username);
+	User findUserByUserName (String username);
 
-    Integer selectByUserId(Integer userId);
+	Integer selectByUserId (Integer userId);
 }

@@ -18,36 +18,36 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Guest implements Serializable {
-    private Integer id;
-    private String name;
-    private String telephone;
-    private User loginUser;
-    private List<Address> addresses;
+	private Integer id;
+	private String name;
+	private String telephone;
+	private User loginUser;
+	private List<Address> addresses;
 
-    public Guest setId(Integer id) {
-        this.id = id;
-        return this;
-    }
+	public Guest setId (Integer id) {
+		this.id = id;
+		return this;
+	}
 
-    public Guest setName(String name) {
-        this.name = name;
-        return this;
-    }
+	public Guest setName (String name) {
+		this.name = name;
+		return this;
+	}
 
-    public Guest setTelephone(String telephone) {
-        this.telephone = telephone;
-        return this;
-    }
+	public Guest setTelephone (String telephone) {
+		this.telephone = telephone;
+		return this;
+	}
 
-    public Guest setLoginUser(User loginUser) {
-        this.loginUser = loginUser;
-        return this;
-    }
+	public Guest setLoginUser (User loginUser) {
+		this.loginUser = loginUser;
+		return this;
+	}
 
-    public Guest setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-        return this;
-    }
+	public Guest setAddresses (List<Address> addresses) {
+		this.addresses = addresses;
+		return this;
+	}
 }
 
 /*

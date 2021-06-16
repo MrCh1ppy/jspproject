@@ -15,38 +15,38 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderInfo implements Serializable {
-    private Integer id;
-    private Order order;
-    private Integer enabled;
-    private String message;
+	private Integer id;
+	private Order order;
+	private Integer enabled;
+	private String message;
 
-    public OrderInfo setId(Integer id) {
-        this.id = id;
-        return this;
-    }
+	public OrderInfo setId (Integer id) {
+		this.id = id;
+		return this;
+	}
 
-    public OrderInfo setOrder(Order order) {
-        this.order = order;
-        return this;
-    }
+	public OrderInfo setOrder (Order order) {
+		this.order = order;
+		return this;
+	}
 
-    public OrderInfo setEnabled(Integer enabled) {
-        this.enabled = enabled;
-        return this;
-    }
+	public OrderInfo setEnabled (Integer enabled) {
+		this.enabled = enabled;
+		return this;
+	}
 
-    public OrderInfo setMessage(String message) {
-        this.message = message;
-        return this;
-    }
+	public OrderInfo setMessage (String message) {
+		this.message = message;
+		return this;
+	}
 
-    @Override
-    public String toString() {
-        return "OrderInfo{" +
-                "id=" + id +
-                ", order=" + order.getId() +
-                ", enabled=" + enabled +
-                ", message='" + message + '\'' +
-                '}';
-    }
+	@Override
+	public String toString () {
+		return "OrderInfo{" +
+				"id=" + id +
+				", order=" + order.getId() +
+				", enabled=" + enabled +
+				", message='" + message + '\'' +
+				'}';
+	}
 }

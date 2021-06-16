@@ -36,8 +36,8 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Autowired
-	public void setProductManager(ProductManager productManager){
-		this.productManager=productManager;
+	public void setProductManager (ProductManager productManager) {
+		this.productManager = productManager;
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public List<Store> select ()  {
+	public List<Store> select () {
 
 		return storeManager.select();
 	}

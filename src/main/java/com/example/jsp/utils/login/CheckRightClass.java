@@ -14,22 +14,22 @@ import java.util.List;
  */
 @Component
 public class CheckRightClass implements StpInterface {
-    @Override
-    public List<String> getPermissionList(Object o, String s) {
-        return new ArrayList<>();
-    }
+	@Override
+	public List<String> getPermissionList (Object o, String s) {
+		return new ArrayList<>();
+	}
 
-    @Override
-    public List<String> getRoleList(Object o, String s) {
-        var loginId = new LoginId((String) o);
-        List<String> roleList;
-        try {
-            String[] split = loginId.toStringByReflect().split(",");
-            roleList = Arrays.asList(split);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            e.printStackTrace();
-            roleList = new ArrayList<>();
-        }
-        return roleList;
-    }
+	@Override
+	public List<String> getRoleList (Object o, String s) {
+		var loginId = new LoginId((String) o);
+		List<String> roleList;
+		try {
+			String[] split = loginId.toStringByReflect().split(",");
+			roleList = Arrays.asList(split);
+		} catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+			e.printStackTrace();
+			roleList = new ArrayList<>();
+		}
+		return roleList;
+	}
 }

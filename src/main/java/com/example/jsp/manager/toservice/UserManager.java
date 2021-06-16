@@ -10,23 +10,23 @@ import java.util.List;
  */
 public interface UserManager {
 
-    void destroy(Integer id);
+	void destroy (Integer id);
 
-    void destroy(User user);
+	void destroy (User user);
 
-    Integer restore(User user);
+	Integer restore (User user);
 
-    User select(Integer id);
+	User select (Integer id);
 
-    List<User> select();
+	List<User> select ();
 
-    Integer insert(User targetUser) throws ElementAlreadyExistExceptionOld;
+	Integer insert (User targetUser) throws ElementAlreadyExistExceptionOld;
 
-    Boolean isNotExist(Integer id);
+	Boolean isNotExist (Integer id);
 
-    Integer findByUsername(String username);
+	Integer findByUsername (String username);
 
-    User findUserByUsername(String username);
+	User findUserByUsername (String username);
 
-    Boolean isNotExist(String username);
+	Boolean isNotExist (String username);
 }

@@ -11,21 +11,21 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface StoreService {
-    void create(Store store) throws ProjectException;
+	void create (Store store) throws ProjectException;
 
-    void delete(Store store) throws ProjectException;
+	void delete (Store store) throws ProjectException;
 
-    void delete(Integer id) throws ProjectException;
+	void delete (Integer id) throws ProjectException;
 
-    void restore(Store store) throws ProjectException;
+	void restore (Store store) throws ProjectException;
 
-    Store select(Integer storeId) throws ProjectException;
+	Store select (Integer storeId) throws ProjectException;
 
-    List<Store> select();
+	List<Store> select ();
 
-    void enroll(Store store, User user) throws ProjectException;
+	void enroll (Store store, User user) throws ProjectException;
 
-    StoreService addProduct(Store target, Product product) throws ProjectException;
+	StoreService addProduct (Store target, Product product) throws ProjectException;
 
 
 }

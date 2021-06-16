@@ -27,28 +27,28 @@ import java.util.List;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-    private GuestService guestService;
-    private OrderService orderService;
-    private StoreService storeService;
-    private DeliverService deliverService;
-    private AddressManager addressManager;
+	private GuestService guestService;
+	private OrderService orderService;
+	private StoreService storeService;
+	private DeliverService deliverService;
+	private AddressManager addressManager;
 
-    @Autowired
-    public void setGuestService(GuestService guestService) {
-        this.guestService = guestService;
-    }
+	@Autowired
+	public void setGuestService (GuestService guestService) {
+		this.guestService = guestService;
+	}
 
-    @Autowired
-    private void setOrderService(OrderService orderService) {
-        this.orderService = orderService;
-    }
+	@Autowired
+	private void setOrderService (OrderService orderService) {
+		this.orderService = orderService;
+	}
 
-    @Autowired
-    public void setStoreService(StoreService storeService) {
-        this.storeService = storeService;
-    }
+	@Autowired
+	public void setStoreService (StoreService storeService) {
+		this.storeService = storeService;
+	}
 
-    @Autowired
+	@Autowired
 	public void setDeliverService (DeliverService deliverService) {
 		this.deliverService = deliverService;
 	}
@@ -83,19 +83,19 @@ public class OrderController {
 		order.setStore(store)
 				.setGuest(guest)
 				.setAddress(guestService.getAddress(addressId));
-		orderService.create(order,nums,ids);
+		orderService.create(order, nums, ids);
 		return transporter.setMsg("创建成功");
 	}
 
 
-    @SaCheckRole(value = {"admin", "guest", "deliver", "store"}, mode = SaMode.OR)
-    @GetMapping("/show")
-    public Transporter selectAll() {
-        final List<Order> orderList = orderService.select();
-        final var transporter = new Transporter();
-        transporter.addData("orderList", orderList).setMsg("success");
-        return transporter;
-    }
+	@SaCheckRole(value = {"admin", "guest", "deliver", "store"}, mode = SaMode.OR)
+	@GetMapping("/show")
+	public Transporter selectAll () {
+		final List<Order> orderList = orderService.select();
+		final var transporter = new Transporter();
+		transporter.addData("orderList", orderList).setMsg("success");
+		return transporter;
+	}
 
 	/**
 	 * 删除功能（限管理员）
@@ -103,7 +103,7 @@ public class OrderController {
 	@SaCheckRole("admin")
 	@GetMapping("/delete/{orderId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter delete(@PathVariable("orderId") String orderIdString) throws ProjectException {
+	public Transporter delete (@PathVariable("orderId") String orderIdString) throws ProjectException {
 		var orderId = Integer.parseInt(orderIdString);
 		orderService.delete(orderId);
 		return new Transporter().setMsg("删除成功");
@@ -115,9 +115,9 @@ public class OrderController {
 	@SaCheckRole("admin")
 	@GetMapping("/exception/{orderId}/{msg}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter setMsg(@PathVariable("orderId") String orderIdString,
-	                          @PathVariable("msg") String msg) throws ProjectException {
-		var orderId=Integer.parseInt(orderIdString);
+	public Transporter setMsg (@PathVariable("orderId") String orderIdString,
+	                           @PathVariable("msg") String msg) throws ProjectException {
+		var orderId = Integer.parseInt(orderIdString);
 		var transporter = new Transporter();
 		var order = orderService.select(orderId);
 		var orderInfo = new OrderInfo();
@@ -131,7 +131,7 @@ public class OrderController {
 	 */
 	@SaCheckLogin
 	@GetMapping("/show/{orderId}")
-	public Transporter show(@PathVariable("orderId") String orderIdString) throws ProjectException {
+	public Transporter show (@PathVariable("orderId") String orderIdString) throws ProjectException {
 		var transporter = new Transporter();
 		var orderId = Integer.parseInt(orderIdString);
 		val order = orderService.select(orderId);
@@ -157,11 +157,11 @@ public class OrderController {
 	@SaCheckRole("admin")
 	@GetMapping("/edit/{orderId}/{deliverId}/{storeId}/{guestId}/{addressId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter restore(@PathVariable("orderId") String orderIdString,
-	                           @PathVariable("deliverId") String deliverIdString,
-	                           @PathVariable("storeId") String storeIdString,
-	                           @PathVariable("guestId") String guestIdString,
-	                           @PathVariable("addressId") String addressIdString) throws ProjectException {
+	public Transporter restore (@PathVariable("orderId") String orderIdString,
+	                            @PathVariable("deliverId") String deliverIdString,
+	                            @PathVariable("storeId") String storeIdString,
+	                            @PathVariable("guestId") String guestIdString,
+	                            @PathVariable("addressId") String addressIdString) throws ProjectException {
 		var transporter = new Transporter();
 		var orderId = Integer.parseInt(orderIdString);
 		var deliverId = Integer.parseInt(deliverIdString);
@@ -185,8 +185,8 @@ public class OrderController {
 	@SaCheckRole("admin")
 	@GetMapping("/rollback/{orderId}/{status}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter rollback(@PathVariable("orderId") String orderIdString,
-	                            @PathVariable("status") String statusString) throws ProjectException {
+	public Transporter rollback (@PathVariable("orderId") String orderIdString,
+	                             @PathVariable("status") String statusString) throws ProjectException {
 		var status = Integer.parseInt(statusString);
 		var orderId = Integer.parseInt(orderIdString);
 		var transporter = new Transporter();

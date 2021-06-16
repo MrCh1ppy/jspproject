@@ -11,29 +11,29 @@ import java.util.List;
  * @author 橙鼠鼠
  */
 public interface StoreManager {
-    Integer insert(Store store) throws SonElementNotExistExceptionOld;
+	Integer insert (Store store) throws SonElementNotExistExceptionOld;
 
-    void destroy(Integer id);
+	void destroy (Integer id);
 
-    void destroy(Store store);
+	void destroy (Store store);
 
-    Store select(Integer id);
+	Store select (Integer id);
 
-    List<Store> select();
+	List<Store> select ();
 
-    Integer restore(Store store) throws SonElementNotExistExceptionOld;
+	Integer restore (Store store) throws SonElementNotExistExceptionOld;
 
-    Integer getId(Store store);
+	Integer getId (Store store);
 
-    Boolean isNotExist(Integer id);
+	Boolean isNotExist (Integer id);
 
-    Boolean isStore(int userId);
+	Boolean isStore (int userId);
 
-    User findUserByUserName(String username);
+	User findUserByUserName (String username);
 
-    List<Product> selectHavingProduct(Store store);
+	List<Product> selectHavingProduct (Store store);
 
-    List<Product> selectHavingProduct(Integer storeId);
+	List<Product> selectHavingProduct (Integer storeId);
 
-    Integer selectByUserId(Integer userId);
+	Integer selectByUserId (Integer userId);
 }

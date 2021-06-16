@@ -38,16 +38,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void create (Order order, String[] numList, String[] idList) throws ProjectException {
-		if(idList.length!=numList.length){
-			throw  new ProjectException("参数长度不匹配",701);
+		if (idList.length != numList.length) {
+			throw new ProjectException("参数长度不匹配", 701);
 		}
 		create(order);
-		try{
+		try {
 			for (int i = 0; i < numList.length; i++) {
-				orderManager.addProduct(order,Integer.parseInt(idList[i]),Integer.parseInt(numList[i]));
+				orderManager.addProduct(order, Integer.parseInt(idList[i]), Integer.parseInt(numList[i]));
 			}
-		}catch (SonElementNotExistExceptionOld elementNotExistExceptionOld){
-			throw new ProjectException("创建订单时,没有对应的商品",702);
+		} catch (SonElementNotExistExceptionOld elementNotExistExceptionOld) {
+			throw new ProjectException("创建订单时,没有对应的商品", 702);
 		}
 	}
 

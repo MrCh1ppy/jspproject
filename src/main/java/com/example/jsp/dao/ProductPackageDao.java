@@ -11,17 +11,17 @@ import java.util.List;
  */
 @Mapper
 public interface ProductPackageDao {
-    void save(@Param("target") ProductPackage target);
+	void save (@Param("target") ProductPackage target);
 
-    void delete(@Param("id") Integer id);
+	void delete (@Param("id") Integer id);
 
-    void deleteByOrderId(@Param("id") Integer id);
+	void deleteByOrderId (@Param("id") Integer id);
 
-    ProductPackage selectById(@Param("id") Integer id);
+	ProductPackage selectById (@Param("id") Integer id);
 
-    void update(@Param("target") ProductPackage target);
+	void update (@Param("target") ProductPackage target);
 
-    List<ProductPackage> selectByOrderId(@Param("id") Integer id);
+	List<ProductPackage> selectByOrderId (@Param("id") Integer id);
 
-    Integer getId(@Param("target") ProductPackage productPackage);
+	Integer getId (@Param("target") ProductPackage productPackage);
 }

@@ -12,7 +12,7 @@ import java.util.Map;
 @Component
 @Getter
 public class ErrorInfo {
-    private static final Map<String, String> INFO = new HashMap<>(16);
+	private static final Map<String, String> INFO = new HashMap<>(16);
 
 	static {
 		//注册
@@ -24,15 +24,15 @@ public class ErrorInfo {
 		//登录错误:5
 		//鉴权错误:6
 		//订单错误7
-		INFO.put("701","传入的商品参数长度不匹配");
-		INFO.put("702","创建订单时,没有对应的商品");
+		INFO.put("701", "传入的商品参数长度不匹配");
+		INFO.put("702", "创建订单时,没有对应的商品");
 	}
 
 
-    private ErrorInfo() {
-    }
+	private ErrorInfo () {
+	}
 
-    public static Map<String, String> getInfo() {
-        return INFO;
-    }
+	public static Map<String, String> getInfo () {
+		return INFO;
+	}
 }

@@ -12,19 +12,19 @@ import java.util.List;
  */
 @Mapper
 public interface DeliverDao {
-    void save(@Param("deliver") Deliver deliver);
+	void save (@Param("deliver") Deliver deliver);
 
-    void delete(@Param("id") int id);
+	void delete (@Param("id") int id);
 
-    Deliver selectById(@Param("id") int id);
+	Deliver selectById (@Param("id") int id);
 
-    List<Deliver> selectAll();
+	List<Deliver> selectAll ();
 
-    void update(@Param("deliver") Deliver deliver);
+	void update (@Param("deliver") Deliver deliver);
 
-    Integer getId(@Param("deliver") Deliver deliver);
+	Integer getId (@Param("deliver") Deliver deliver);
 
-    Integer findIdByLoginUser(@Param("id") Integer userId);
+	Integer findIdByLoginUser (@Param("id") Integer userId);
 
-    User findUserByUserName(@Param("username") String username);
+	User findUserByUserName (@Param("username") String username);
 }

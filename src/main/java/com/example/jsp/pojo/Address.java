@@ -17,7 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class Address implements Serializable {
-    private String addressString;
-    private Integer id;
-    private Integer guestId;
+	private String addressString;
+	private Integer id;
+	private Integer guestId;
 }

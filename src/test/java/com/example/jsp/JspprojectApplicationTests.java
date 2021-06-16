@@ -248,10 +248,10 @@ class JspprojectApplicationTests {
 	}
 
 	@Test
-	public void build2(){
+	public void build2 () {
 		Store store = storeManager.select(18);
 		try {
-			storeService.addProduct(store,new Product().setPrice(new BigDecimal(1.234)).setName("HXF"));
+			storeService.addProduct(store, new Product().setPrice(new BigDecimal(1.234)).setName("HXF"));
 		} catch (ProjectException e) {
 			e.printStackTrace();
 		}

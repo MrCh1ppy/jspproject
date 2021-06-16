@@ -12,20 +12,20 @@ import java.lang.reflect.InvocationTargetException;
  */
 public interface UserService {
 
-    void create(User user) throws ProjectException;
+	void create (User user) throws ProjectException;
 
-    void delete(User user) throws ProjectException;
+	void delete (User user) throws ProjectException;
 
-    void delete(Integer userId) throws ProjectException;
+	void delete (Integer userId) throws ProjectException;
 
-    void restore(User user) throws ProjectException;
+	void restore (User user) throws ProjectException;
 
-    String login(User user, String type) throws
-            UsernameNotExistExceptionOld,
-            ErrorPassWordExceptionOld,
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException;
+	String login (User user, String type) throws
+			UsernameNotExistExceptionOld,
+			ErrorPassWordExceptionOld,
+			NoSuchMethodException,
+			IllegalAccessException,
+			InvocationTargetException;
 
-    User select(Integer userId);
+	User select (Integer userId);
 }

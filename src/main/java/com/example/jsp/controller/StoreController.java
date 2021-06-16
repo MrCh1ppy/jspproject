@@ -139,7 +139,7 @@ public class StoreController {
 	 * 商家信息页
 	 * 商家信息显示
 	 */
-	@SaCheckRole("guest")
+	@SaCheckRole("store")
 	@GetMapping("/info/{storeId}")
 	public Transporter showInfo (@PathVariable("storeId") Integer storeId) throws ProjectException {
 		val select = storeService.select(storeId);

@@ -85,4 +85,5 @@ public class UserController {
         userService.create(user);
         return new Transporter().setMsg("管理员注册成功");
     }
+
 }

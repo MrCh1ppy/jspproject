@@ -97,7 +97,6 @@ public class GuestServiceImpl implements GuestService {
 		try {
 			address.setGuestId(guest.getId());
 			guest.getAddresses().add(address);
-			addressManager.restore(address);
 			guestManager.restore(guest);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
 			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);

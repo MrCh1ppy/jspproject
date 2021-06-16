@@ -72,9 +72,10 @@ public class DeliverController {
 	@SaCheckRole("deliver")
 	@GetMapping("/edit/{deliverId}/{deliverName}/{deliverTel}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter edit (@PathVariable("deliverId") Integer deliverId,
+	public Transporter edit (@PathVariable("deliverId") String deliverIdString,
 	                         @PathVariable("deliverName") String deliverName,
 	                         @PathVariable("deliverTel") String deliverTel) throws ProjectException {
+		var deliverId = Integer.parseInt(deliverIdString);
 		val select = deliverService.select(deliverId);
 		select.setName(deliverName)
 				.setTelephone(deliverTel);
@@ -99,31 +100,27 @@ public class DeliverController {
 		return transporter;
 	}
 
-		@SaCheckRole("deliver")
-		@GetMapping("/delete/{deliverId}")
-		@Transactional(rollbackFor = Exception.class)
-		public Transporter delete (@PathVariable("deliverId") Integer deliverId) throws ProjectException {
-			deliverService.delete(deliverId);
-			return new Transporter().setMsg("删除成功");
-		}
-		/**
-		 * 骑手信息页：
-		 * 骑手信息显示
-		 */
-		@SaCheckRole("deliver")
-		@GetMapping("/show/{storeId}")
-		@Transactional(rollbackFor = Exception.class)
-		public Transporter showProduct (@PathVariable("storeId") Integer storeId) throws ProjectException {
-			Transporter transporter = new Transporter();
-			val select = deliverService.select();
-			transporter.addData("deliver", select);
-			return transporter.setMsg("查询成功");
-		}
-		/**
-		 * 骑手信息页
-		 * 骑手信息修改
-		 * 与edit相同
-		 */
-
-
+	@SaCheckRole("deliver")
+	@GetMapping("/delete/{deliverId}")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter delete (@PathVariable("deliverId") String deliverIdString) throws ProjectException {
+		var deliverId= Integer.parseInt(deliverIdString);
+		deliverService.delete(deliverId);
+		return new Transporter().setMsg("删除成功");
 	}
+
+	/**
+	 * 骑手信息页：
+	 * 骑手信息显示
+	 */
+	@SaCheckRole("deliver")
+	@GetMapping("/show/{storeId}")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter showProduct (@PathVariable("storeId") String storeIdString) throws ProjectException {
+		var storeId=Integer.parseInt(storeIdString);
+		var transporter = new Transporter();
+		val select = deliverService.select(storeId);
+		transporter.addData("deliver", select);
+		return transporter.setMsg("查询成功");
+	}
+}

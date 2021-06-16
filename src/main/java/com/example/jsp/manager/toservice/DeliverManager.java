@@ -29,4 +29,6 @@ public interface DeliverManager {
 	Boolean isDeliver (int userId);
 
 	User findUserByUserName (String username);
+
+	Integer selectByUserId (Integer userId);
 }

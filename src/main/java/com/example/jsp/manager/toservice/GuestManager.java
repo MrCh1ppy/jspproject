@@ -29,4 +29,6 @@ public interface GuestManager {
 	Boolean isGuest (int userId);
 
 	User findUserByUserName (String username);
+
+	Integer selectByUserId (Integer userId);
 }

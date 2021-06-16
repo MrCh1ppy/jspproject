@@ -24,7 +24,7 @@ public interface GuestDao {
 
 	Integer getId (@Param("target") Guest guest);
 
-	Guest findIdByLoginUser (@Param("id") int userId);
+	Integer findIdByLoginUser (@Param("id") int userId);
 
 	User findUserByUserName (@Param("username") String username);
 

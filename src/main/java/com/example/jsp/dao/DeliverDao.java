@@ -24,7 +24,7 @@ public interface DeliverDao {
 
 	Integer getId (@Param("deliver") Deliver deliver);
 
-	Deliver findIdByLoginUser (@Param("id") Integer userId);
+	Integer findIdByLoginUser (@Param("id") Integer userId);
 
 	User findUserByUserName (@Param("username") String username);
 }

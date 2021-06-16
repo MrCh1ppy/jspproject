@@ -24,4 +24,6 @@ public interface DeliverManagerToDao {
 	Boolean isDeliver (int userId);
 
 	User findUserByUserName (String username);
+
+	Integer selectByUserId (Integer userId);
 }

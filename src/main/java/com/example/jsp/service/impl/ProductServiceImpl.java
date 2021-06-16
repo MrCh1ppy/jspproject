@@ -6,7 +6,6 @@ import com.example.jsp.manager.toservice.ProductManager;
 import com.example.jsp.pojo.Product;
 import com.example.jsp.pojo.Store;
 import com.example.jsp.service.ProductService;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,18 +58,20 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> select(Store store) throws ProjectException {
+	public List<Product> select (Store store) throws ProjectException {
 		List<Product> select = new ArrayList<>();
-		var productlist = productManager.select();
-		for(Product product : productlist){
-			if(product.getStore().getId().equals(store.getId())){
+		var productList = productManager.select();
+		for (Product product : productList) {
+			if (product.getStore().getId().equals(store.getId())) {
 				select.add(product);
 			}
 		}
 		return select;
-  
-	public List<Product> select () throws ProjectException {
+	}
+
+	public List<Product> select () {
 		return productManager.select();
 	}
 
 }
+

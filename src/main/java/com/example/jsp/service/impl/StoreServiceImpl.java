@@ -19,6 +19,7 @@ import java.util.List;
  */
 @Service
 public class StoreServiceImpl implements StoreService {
+
 	private StoreManager storeManager;
 	private ProductManager productManager;
 
@@ -95,5 +96,6 @@ public class StoreServiceImpl implements StoreService {
 		}
 		return this;
 	}
+
 
 }

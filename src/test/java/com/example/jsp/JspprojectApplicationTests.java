@@ -1,9 +1,11 @@
 package com.example.jsp;
 
 import cn.dev33.satoken.stp.StpInterface;
+import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.ProjectExceptionOld;
 import com.example.jsp.manager.toservice.*;
 import com.example.jsp.pojo.*;
+import com.example.jsp.service.StoreService;
 import com.example.jsp.utils.login.LoginId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ class JspprojectApplicationTests {
 
 	@Autowired
 	private StpInterface stpInterface;
+
+	@Autowired
+	private StoreService storeService;
 
 	@Test
 	@Transactional(rollbackFor = Exception.class)
@@ -242,4 +247,13 @@ class JspprojectApplicationTests {
 		}
 	}
 
+	@Test
+	public void build2(){
+		Store store = storeManager.select(18);
+		try {
+			storeService.addProduct(store,new Product().setPrice(new BigDecimal(1.234)).setName("HXF"));
+		} catch (ProjectException e) {
+			e.printStackTrace();
+		}
+	}
 }

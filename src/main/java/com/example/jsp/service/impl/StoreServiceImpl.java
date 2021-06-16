@@ -34,6 +34,11 @@ public class StoreServiceImpl implements StoreService {
 		this.userService = userService;
 	}
 
+	@Autowired
+	public void setProductManager(ProductManager productManager){
+		this.productManager=productManager;
+	}
+
 	@Override
 	public void create (Store store) throws ProjectException {
 		try {
@@ -84,7 +89,7 @@ public class StoreServiceImpl implements StoreService {
 	public StoreService addProduct (Store target, Product product) {
 		product.setStore(target);
 		try {
-			productManager.restore(product);
+			productManager.insert(product);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
 			sonElementNotExistExceptionOld.printStackTrace();
 		}

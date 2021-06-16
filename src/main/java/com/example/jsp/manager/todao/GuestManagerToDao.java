@@ -23,5 +23,5 @@ public interface GuestManagerToDao {
 
     User findUserByUserName(String username);
 
-	Integer selectByUserId (Integer userId);
+    Integer selectByUserId(Integer userId);
 }

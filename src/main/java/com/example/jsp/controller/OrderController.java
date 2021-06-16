@@ -22,23 +22,24 @@ import java.util.List;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-	private GuestService guestService;
-	private OrderService orderService;
-	private StoreService storeService;
+    private GuestService guestService;
+    private OrderService orderService;
+    private StoreService storeService;
 
-	@Autowired
-	public void setGuestService (GuestService guestService) {
-		this.guestService = guestService;
-	}
+    @Autowired
+    public void setGuestService(GuestService guestService) {
+        this.guestService = guestService;
+    }
 
-	@Autowired
-	private void setOrderService (OrderService orderService) {
-		this.orderService = orderService;
-	}
+    @Autowired
+    private void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
-	public void setStoreService (StoreService storeService) {
-		this.storeService = storeService;
-	}
+    public void setStoreService(StoreService storeService) {
+        this.storeService = storeService;
+    }
+
 
 	/**
 	 * 创建订单
@@ -69,12 +70,13 @@ public class OrderController {
 		return transporter.setMsg("创建成功");
 	}
 
-	@SaCheckRole(value = {"admin","guest","deliver","store"},mode = SaMode.OR)
-	@GetMapping("/show")
-	public Transporter selectAll(){
-		final List<Order> orderList = orderService.select();
-		final var transporter = new Transporter();
-		transporter.addData("orderList",orderList).setMsg("success");
-		return transporter;
-	}
+
+    @SaCheckRole(value = {"admin", "guest", "deliver", "store"}, mode = SaMode.OR)
+    @GetMapping("/show")
+    public Transporter selectAll() {
+        final List<Order> orderList = orderService.select();
+        final var transporter = new Transporter();
+        transporter.addData("orderList", orderList).setMsg("success");
+        return transporter;
+    }
 }

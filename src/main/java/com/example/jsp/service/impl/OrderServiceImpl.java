@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+
 	private OrderManager orderManager;
 
 
@@ -111,4 +112,5 @@ public class OrderServiceImpl implements OrderService {
 		restore(order);
 		return this;
 	}
+
 }

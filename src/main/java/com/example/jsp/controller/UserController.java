@@ -97,8 +97,9 @@ public class UserController {
      */
     @SaCheckLogin
     @GetMapping("/show/{orderId}")
-    public Transporter show(@PathVariable("orderId") Integer orderId) throws ProjectException {
+    public Transporter show(@PathVariable("orderId") String orderIdString) throws ProjectException {
         var transporter = new Transporter();
+        var orderId = Integer.parseInt(orderIdString);
         val order = orderService.select(orderId);
         val deliver = order.getDeliver();
         val store = order.getStore();
@@ -122,12 +123,17 @@ public class UserController {
     @SaCheckRole("admin")
     @GetMapping("/edit/{orderId}/{deliverId}/{storeId}/{guestId}/{addressId}")
     @Transactional(rollbackFor = Exception.class)
-    public Transporter restore(@PathVariable("orderId") Integer orderId,
-                               @PathVariable("deliverId") Integer deliverId,
-                               @PathVariable("storeId") Integer storeId,
-                               @PathVariable("guestId") Integer guestId,
-                               @PathVariable("addressId") Integer addressId) throws ProjectException {
+    public Transporter restore(@PathVariable("orderId") String orderIdString,
+                               @PathVariable("deliverId") String deliverIdString,
+                               @PathVariable("storeId") String storeIdString,
+                               @PathVariable("guestId") String guestIdString,
+                               @PathVariable("addressId") String addressIdString) throws ProjectException {
         var transporter = new Transporter();
+        var orderId = Integer.parseInt(orderIdString);
+        var deliverId = Integer.parseInt(deliverIdString);
+        var storeId = Integer.parseInt(storeIdString);
+        var guestId = Integer.parseInt(guestIdString);
+        var addressId  = Integer.parseInt(addressIdString);
         val order = orderService.select(orderId);
         val deliver = deliverService.select(deliverId);
         val store = storeService.select(storeId);
@@ -174,8 +180,9 @@ public class UserController {
     @SaCheckRole("admin")
     @GetMapping("/exception/{orderId}/{msg}")
     @Transactional(rollbackFor = Exception.class)
-    public Transporter setMsg(@PathVariable("orderId") Integer orderId,
+    public Transporter setMsg(@PathVariable("orderId") String orderIdString,
                               @PathVariable("msg") String msg) throws ProjectException {
+        var orderId = Integer.parseInt(orderIdString);
         var transporter = new Transporter();
         var order = orderService.select(orderId);
         var orderInfo = new OrderInfo();

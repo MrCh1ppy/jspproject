@@ -69,7 +69,7 @@ public class ProductServiceImpl implements ProductService {
 		return select;
 	}
 
-	public List<Product> select(){
+	public List<Product> select () {
 		return productManager.select();
 	}
 

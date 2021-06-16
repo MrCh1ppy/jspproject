@@ -19,75 +19,78 @@ import java.util.List;
  */
 @Service
 public class StoreServiceImpl implements StoreService {
-    private StoreManager storeManager;
-    private ProductManager productManager;
 
-    private UserService userService;
+	private StoreManager storeManager;
+	private ProductManager productManager;
 
-    @Autowired
-    public void setStoreManager(StoreManager storeManager) {
-        this.storeManager = storeManager;
-    }
+	private UserService userService;
 
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+	@Autowired
+	public void setStoreManager (StoreManager storeManager) {
+		this.storeManager = storeManager;
+	}
 
-    @Override
-    public void create(Store store) throws ProjectException {
-        try {
-            storeManager.insert(store);
-        } catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-            throw new ProjectException(sonElementNotExistExceptionOld.toString(), 303);
-        }
-    }
+	@Autowired
+	public void setUserService (UserService userService) {
+		this.userService = userService;
+	}
 
-    @Override
-    public void delete(Store store) throws ProjectException {
-        storeManager.destroy(store);
-    }
+	@Override
+	public void create (Store store) throws ProjectException {
+		try {
+			storeManager.insert(store);
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 303);
+		}
+	}
 
-    @Override
-    public void delete(Integer id) throws ProjectException {
-        storeManager.destroy(id);
-    }
+	@Override
+	public void delete (Store store) throws ProjectException {
+		storeManager.destroy(store);
+	}
 
-    @Override
-    public void restore(Store store) throws ProjectException {
-        try {
-            storeManager.restore(store);
-        } catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-            throw new ProjectException(sonElementNotExistExceptionOld.toString(), 303);
-        }
-    }
+	@Override
+	public void delete (Integer id) throws ProjectException {
+		storeManager.destroy(id);
+	}
 
-    @Override
-    public Store select(Integer storeId) throws ProjectException {
-        return storeManager.select(storeId);
+	@Override
+	public void restore (Store store) throws ProjectException {
+		try {
+			storeManager.restore(store);
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 303);
+		}
+	}
 
-    }
+	@Override
+	public Store select (Integer storeId) throws ProjectException {
+		return storeManager.select(storeId);
 
-    @Override
-    public List<Store> select() {
-        return storeManager.select();
-    }
+	}
 
-    @Override
-    public void enroll(Store store, User user) throws ProjectException {
-        userService.create(user);
-        create(store);
-    }
+	@Override
+	public List<Store> select ()  {
 
-    @Override
-    public StoreService addProduct(Store target, Product product) {
-        product.setStore(target);
-        try {
-            productManager.restore(product);
-        } catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-            sonElementNotExistExceptionOld.printStackTrace();
-        }
-        return this;
-    }
+		return storeManager.select();
+	}
+
+	@Override
+	public void enroll (Store store, User user) throws ProjectException {
+		userService.create(user);
+		create(store);
+	}
+
+	@Override
+	public StoreService addProduct (Store target, Product product) {
+		product.setStore(target);
+		try {
+			productManager.restore(product);
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			sonElementNotExistExceptionOld.printStackTrace();
+		}
+		return this;
+	}
+
 
 }

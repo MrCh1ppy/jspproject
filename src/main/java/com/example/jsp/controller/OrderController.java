@@ -40,33 +40,36 @@ public class OrderController {
         this.storeService = storeService;
     }
 
-    /**
-     * 创建订单
-     */
-    @SaCheckRole("admin")
-    @GetMapping("/create/{storeId}/{productId}/{productNum}/{guestId}/{addressId}")
-    @Transactional(rollbackFor = Exception.class)
-    public Transporter create(@PathVariable("storeId") String storeIdString,
-                              @PathVariable("productId") String productIdString,
-                              @PathVariable("productNum") String productNumString,
-                              @PathVariable("guestId") String guestIdString,
-                              @PathVariable("addressId") String addressIdString) throws ProjectException {
-        var storeId = Integer.parseInt(storeIdString);
-        var productId = Integer.parseInt(productIdString);
-        var productNum = Integer.parseInt(productNumString);
-        var guestId = Integer.parseInt(guestIdString);
-        var addressId = Integer.parseInt(addressIdString);
 
-        var transporter = new Transporter();
-        var order = new Order();
-        var store = storeService.select(storeId);
-        var guest = guestService.select(guestId);
-        orderService.addProduct(order, productId, productNum);
-        order.setStore(store)
-                .setGuest(guest)
-                .setAddress(guestService.getAddress(addressId));
-        return transporter.setMsg("创建成功");
-    }
+	/**
+	 * 创建订单
+	 */
+	@SaCheckRole("admin")
+	@GetMapping("/create/{storeId}/{productId}/{productNum}/{guestId}/{addressId}")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter create (@PathVariable("storeId") String storeIdString,
+	                           @PathVariable("productId") String productIdString,
+	                           @PathVariable("productNum") String productNumString,
+	                           @PathVariable("guestId") String guestIdString,
+	                           @PathVariable("addressId") String addressIdString) throws ProjectException {
+		var storeId = Integer.parseInt(storeIdString);
+		var guestId = Integer.parseInt(guestIdString);
+		var addressId = Integer.parseInt(addressIdString);
+		var transporter = new Transporter();
+		var order = new Order();
+		var store = storeService.select(storeId);
+		var guest = guestService.select(guestId);
+		final var ids = productIdString.split(" ");
+		final var nums = productNumString.split(" ");
+
+
+		order.setStore(store)
+				.setGuest(guest)
+				.setAddress(guestService.getAddress(addressId));
+		orderService.create(order,nums,ids);
+		return transporter.setMsg("创建成功");
+	}
+
 
     @SaCheckRole(value = {"admin", "guest", "deliver", "store"}, mode = SaMode.OR)
     @GetMapping("/show")

@@ -69,7 +69,7 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public List<Store> select () throws ProjectException {
+	public List<Store> select () {
 		return storeManager.select();
 	}
 

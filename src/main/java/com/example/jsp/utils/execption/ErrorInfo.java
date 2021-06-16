@@ -12,7 +12,7 @@ import java.util.Map;
 @Component
 @Getter
 public class ErrorInfo {
-	private static final Map<String, String> INFO = new HashMap<>(16);
+    private static final Map<String, String> INFO = new HashMap<>(16);
 
 	static {
 		//注册
@@ -28,10 +28,11 @@ public class ErrorInfo {
 		INFO.put("702","创建订单时,没有对应的商品");
 	}
 
-	private ErrorInfo () {
-	}
 
-	public static Map<String, String> getInfo () {
-		return INFO;
-	}
+    private ErrorInfo() {
+    }
+
+    public static Map<String, String> getInfo() {
+        return INFO;
+    }
 }

@@ -106,7 +106,7 @@ public class StoreController {
 	 * 管理商家页
 	 * 编辑
 	 */
-	@SaCheckRole("store")
+	@SaCheckRole(value = {"admin", "store"}, mode = SaMode.OR)
 	@GetMapping("/edit/{storeId}/{storeName}/{storeTel}/{storeAddress}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter edit (@PathVariable("storeId") String storeIdString,
@@ -126,7 +126,7 @@ public class StoreController {
 	 * 管理商家页
 	 * 删除
 	 */
-	@SaCheckRole("guest")
+	@SaCheckRole(value = {"admin", "store"}, mode = SaMode.OR)
 	@GetMapping("/delete/{storeId}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter delete (@PathVariable("storeId") String storeIdString) throws ProjectException {
@@ -139,7 +139,7 @@ public class StoreController {
 	 * 商家信息页
 	 * 商家信息显示
 	 */
-	@SaCheckRole("store")
+	@SaCheckRole(value = {"admin", "store"}, mode = SaMode.OR)
 	@GetMapping("/info/{storeId}")
 	public Transporter showInfo (@PathVariable("storeId") String storeIdString) throws ProjectException {
 		var storeId = Integer.parseInt(storeIdString);
@@ -150,7 +150,7 @@ public class StoreController {
 		return transporter;
 	}
 
-	@SaCheckRole(value = {"guest","admin"},mode = SaMode.OR)
+	@SaCheckRole(value = {"store","admin"},mode = SaMode.OR)
 	@GetMapping("/show")
 	public Transporter showAll(){
 		final var select = storeService.select();
@@ -164,7 +164,7 @@ public class StoreController {
 	 * 商品列表显示：
 	 * 编辑商品信息
 	 */
-	@SaCheckRole("store")
+	@SaCheckRole(value = {"admin", "store"}, mode = SaMode.OR)
 	@GetMapping("/edit/{productId}/{productName}/{productPrice}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter editProduct (@PathVariable("productId") String productIdString,
@@ -184,7 +184,7 @@ public class StoreController {
 	 * 商品列表显示：
 	 * 删除商品信息
 	 */
-	@SaCheckRole("store")
+	@SaCheckRole(value = {"admin", "store"}, mode = SaMode.OR)
 	@GetMapping("/delete/{storeId}/{productId}/")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter deleteProduct (@PathVariable("storeId") String storeIdString,

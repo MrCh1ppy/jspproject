@@ -102,10 +102,10 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
         return guestDao.findUserByUserName(username);
     }
 
-	@Override
-	public Integer selectByUserId (Integer userId) {
-		return guestDao.findIdByLoginUser(userId);
-	}
+    @Override
+    public Integer selectByUserId(Integer userId) {
+        return guestDao.findIdByLoginUser(userId);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

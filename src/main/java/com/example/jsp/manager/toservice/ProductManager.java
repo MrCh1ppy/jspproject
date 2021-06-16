@@ -25,5 +25,5 @@ public interface ProductManager {
 
     Boolean isNotExist(Integer id);
 
-	List<Product> selectByStore (int storeId);
+    List<Product> selectByStore(int storeId);
 }

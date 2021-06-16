@@ -23,5 +23,5 @@ public interface ProductDao {
 
     Integer getId(@Param("target") Product product);
 
-	List<Product> selectByStoreId (@Param("storeId") Integer storeId);
+    List<Product> selectByStoreId(@Param("storeId") Integer storeId);
 }

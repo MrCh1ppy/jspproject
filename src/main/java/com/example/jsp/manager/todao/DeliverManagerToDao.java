@@ -25,5 +25,5 @@ public interface DeliverManagerToDao {
 
     User findUserByUserName(String username);
 
-	Integer selectByUserId (Integer userId);
+    Integer selectByUserId(Integer userId);
 }

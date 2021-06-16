@@ -87,10 +87,10 @@ public class DeliverManagerImpl implements DeliverManagerToDao, DeliverManager {
         return deliverDao.findUserByUserName(username);
     }
 
-	@Override
-	public Integer selectByUserId (Integer userId) {
-		return deliverDao.findIdByLoginUser(userId);
-	}
+    @Override
+    public Integer selectByUserId(Integer userId) {
+        return deliverDao.findIdByLoginUser(userId);
+    }
 
     @Override
     public Integer restore(Deliver deliver) throws SonElementNotExistExceptionOld {

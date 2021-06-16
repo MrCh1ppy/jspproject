@@ -101,15 +101,19 @@ public class DeliverController {
      * 骑手接单
      */
     @SaCheckRole(value = {"admin", "deliver"}, mode = SaMode.OR)
-    @GetMapping("/take/{orderId}")
-    public Transporter takeOrder(@PathVariable("orderId") String orderIdString) throws ProjectException {
+    @GetMapping("/take/{orderId}/{deliverId}")
+    public Transporter takeOrder(@PathVariable("orderId") String orderIdString,@PathVariable("deliverId")String deliverIdString) throws ProjectException {
+        var deliverId=Integer.parseInt(deliverIdString);
         var orderId = Integer.parseInt(orderIdString);
         var transporter = new Transporter();
-        val select = orderService.select(orderId);
-        val status = select.getStatus();
-        select.setStatus(status + 1);
-        transporter.addData("status", status + 1)
-                .setMsg("接单成功");
+
+        val order = orderService.select(orderId);
+        var deliver=deliverService.select(deliverId);
+        order.setStatus(order.getStatus()+1).setDeliver(deliver);
+        orderService.restore(order);
+
+        transporter.addData("order",order)
+                .setMsg(deliver.getName()+"接单成功");
         return transporter;
     }
 

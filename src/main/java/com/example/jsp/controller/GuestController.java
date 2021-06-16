@@ -132,9 +132,10 @@ public class GuestController {
 	 */
 	@SaCheckRole("guest")
 	@GetMapping("/info/{guestId}")
-	public Transporter showInfo (@PathVariable("guestId") Integer guestId) throws ProjectException {
+	public Transporter showInfo (@PathVariable("guestId") String guestIdString) throws ProjectException {
+		var guestId = Integer.parseInt(guestIdString);
 		val select = guestService.select(guestId);
-		Transporter transporter = new Transporter();
+		var transporter = new Transporter();
 		transporter.addData("guest", select)
 				.setMsg("查询成功");
 		return transporter;
@@ -146,10 +147,11 @@ public class GuestController {
 	 */
 	@SaCheckRole("guest")
 	@GetMapping("/enroll/{guestId}/{guestName}{guestTelephone}/{guestAddress}/")
-	public Transporter edit (@PathVariable("guestId") Integer guestId,
+	public Transporter edit (@PathVariable("guestId") String guestIdString,
 	                         @PathVariable("guestName") String guestName,
 	                         @PathVariable("guestTelephone") String guestTelephone,
 	                         @PathVariable("guestAddress") String guestAddress) throws ProjectException {
+		var guestId = Integer.parseInt(guestIdString);
 		val select = guestService.select(guestId);
 		val address = new Address();
 		address.setAddressString(guestAddress);
@@ -166,11 +168,17 @@ public class GuestController {
 	@SaCheckRole("admin")
 	@GetMapping("/create/{storeId}/{productId}/{productNum}/{guestId}/{addressId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter create (@PathVariable("storeId") Integer storeId,
-	                           @PathVariable("productId") Integer productId,
-	                           @PathVariable("productNum") Integer productNum,
-	                           @PathVariable("guestId") Integer guestId,
-	                           @PathVariable("addressId") Integer addressId) throws ProjectException {
+	public Transporter create (@PathVariable("storeId") String storeIdString,
+	                           @PathVariable("productId") String productIdString,
+	                           @PathVariable("productNum") String productNumString,
+	                           @PathVariable("guestId") String guestIdString,
+	                           @PathVariable("addressId") String addressIdString) throws ProjectException {
+		var storeId = Integer.parseInt(storeIdString);
+		var productId = Integer.parseInt(productIdString);
+		var productNum = Integer.parseInt(productNumString);
+		var guestId = Integer.parseInt(guestIdString);
+		var addressId = Integer.parseInt(addressIdString);
+
 		var transporter = new Transporter();
 		var order = new Order();
 		var store = storeService.select(storeId);

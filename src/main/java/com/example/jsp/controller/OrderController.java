@@ -43,11 +43,17 @@ public class OrderController {
 	@SaCheckRole("admin")
 	@GetMapping("/create/{storeId}/{productId}/{productNum}/{guestId}/{addressId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter create (@PathVariable("storeId") Integer storeId,
-	                           @PathVariable("productId") Integer productId,
-	                           @PathVariable("productNum") Integer productNum,
-	                           @PathVariable("guestId") Integer guestId,
-	                           @PathVariable("addressId") Integer addressId) throws ProjectException {
+	public Transporter create (@PathVariable("storeId") String storeIdString,
+	                           @PathVariable("productId") String productIdString,
+	                           @PathVariable("productNum") String productNumString,
+	                           @PathVariable("guestId") String guestIdString,
+	                           @PathVariable("addressId") String addressIdString) throws ProjectException {
+		var storeId = Integer.parseInt(storeIdString);
+		var productId = Integer.parseInt(productIdString);
+		var productNum = Integer.parseInt(productNumString);
+		var guestId = Integer.parseInt(guestIdString);
+		var addressId = Integer.parseInt(addressIdString);
+
 		var transporter = new Transporter();
 		var order = new Order();
 		var store = storeService.select(storeId);

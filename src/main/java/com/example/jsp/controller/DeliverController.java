@@ -72,9 +72,10 @@ public class DeliverController {
 	@SaCheckRole("deliver")
 	@GetMapping("/edit/{deliverId}/{deliverName}/{deliverTel}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter edit (@PathVariable("deliverId") Integer deliverId,
+	public Transporter edit (@PathVariable("deliverId") String deliverIdString,
 	                         @PathVariable("deliverName") String deliverName,
 	                         @PathVariable("deliverTel") String deliverTel) throws ProjectException {
+		var deliverId = Integer.parseInt(deliverIdString);
 		val select = deliverService.select(deliverId);
 		select.setName(deliverName)
 				.setTelephone(deliverTel);
@@ -120,11 +121,4 @@ public class DeliverController {
 		transporter.addData("deliver", select);
 		return transporter.setMsg("查询成功");
 	}
-	/**
-	 * 骑手信息页
-	 * 骑手信息修改
-	 * 与edit相同
-	 */
-
-
 }

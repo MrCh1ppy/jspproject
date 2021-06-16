@@ -8,18 +8,16 @@ import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.pojo.Address;
 import com.example.jsp.pojo.Guest;
-import com.example.jsp.pojo.Order;
 import com.example.jsp.pojo.User;
 import com.example.jsp.service.GuestService;
 import com.example.jsp.service.OrderService;
-import com.example.jsp.service.StoreService;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 /**
@@ -27,10 +25,11 @@ import java.util.List;
  */
 
 @RestController
+@RequestMapping("/guest")
 public class GuestController {
 	private GuestService guestService;
 	private OrderService orderService;
-	private StoreService storeService;
+
 
 	@Autowired
 	public void setGuestService (GuestService guestService) {
@@ -38,13 +37,10 @@ public class GuestController {
 	}
 
 	@Autowired
-	private void setOrderService (OrderService orderService) {
-		this.orderService = orderService;
+	private  void setOrderService(OrderService orderService){
+		this.orderService=orderService;
 	}
 
-	public void setStoreService (StoreService storeService) {
-		this.storeService = storeService;
-	}
 
 	@GetMapping("/enroll/{username}/{password}/{name}/{address}/{telephone}")
 	public Transporter enroll (@PathVariable("username") String username,
@@ -85,6 +81,7 @@ public class GuestController {
 	@GetMapping("/take/{orderId}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter takeOrder (@PathVariable("orderId") String orderIdString) throws ProjectException {
+
 		var orderId = Integer.parseInt(orderIdString);
 		var transporter = new Transporter();
 		val select = orderService.select(orderId);
@@ -117,7 +114,7 @@ public class GuestController {
 	 * 管理顾客页
 	 * 删除
 	 */
-	@SaCheckRole("guest")
+	@SaCheckRole(value = {"admin", "guest"}, mode = SaMode.OR)
 	@GetMapping("/delete/{userid}")
 	@Transactional(rollbackFor = Exception.class)
 	public Transporter delete (@PathVariable("userid") String userIdString) throws ProjectException {
@@ -130,7 +127,7 @@ public class GuestController {
 	 * 顾客信息页
 	 * 顾客信息显示
 	 */
-	@SaCheckRole("guest")
+	@SaCheckRole(value = {"admin", "guest"}, mode = SaMode.OR)
 	@GetMapping("/info/{guestId}")
 	public Transporter showInfo (@PathVariable("guestId") String guestIdString) throws ProjectException {
 		var guestId = Integer.parseInt(guestIdString);
@@ -145,7 +142,7 @@ public class GuestController {
 	 * 顾客信息页
 	 * 顾客信息修改
 	 */
-	@SaCheckRole("guest")
+	@SaCheckRole(value = {"admin", "guest"}, mode = SaMode.OR)
 	@GetMapping("/enroll/{guestId}/{guestName}{guestTelephone}/{guestAddress}/")
 	public Transporter edit (@PathVariable("guestId") String guestIdString,
 	                         @PathVariable("guestName") String guestName,
@@ -153,7 +150,7 @@ public class GuestController {
 	                         @PathVariable("guestAddress") String guestAddress) throws ProjectException {
 		var guestId = Integer.parseInt(guestIdString);
 		val select = guestService.select(guestId);
-		val address = new Address();
+		var address = new Address();
 		address.setAddressString(guestAddress);
 		select.setName(guestName)
 				.setTelephone(guestTelephone)
@@ -162,33 +159,7 @@ public class GuestController {
 		return new Transporter().setMsg("修改成功");
 	}
 
-	/**
-	 * 创建订单
-	 */
-	@SaCheckRole("admin")
-	@GetMapping("/create/{storeId}/{productId}/{productNum}/{guestId}/{addressId}")
-	@Transactional(rollbackFor = Exception.class)
-	public Transporter create (@PathVariable("storeId") String storeIdString,
-	                           @PathVariable("productId") String productIdString,
-	                           @PathVariable("productNum") String productNumString,
-	                           @PathVariable("guestId") String guestIdString,
-	                           @PathVariable("addressId") String addressIdString) throws ProjectException {
-		var storeId = Integer.parseInt(storeIdString);
-		var productId = Integer.parseInt(productIdString);
-		var productNum = Integer.parseInt(productNumString);
-		var guestId = Integer.parseInt(guestIdString);
-		var addressId = Integer.parseInt(addressIdString);
 
-		var transporter = new Transporter();
-		var order = new Order();
-		var store = storeService.select(storeId);
-		var guest = guestService.select(guestId);
-		orderService.addProduct(order, productId, productNum);
-		order.setStore(store)
-				.setGuest(guest)
-				.setAddress(guestService.getAddress(addressId));
-		return transporter.setMsg("创建成功");
-	}
 
 
 }

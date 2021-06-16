@@ -150,6 +150,15 @@ public class StoreController {
 		return transporter;
 	}
 
+	@SaCheckRole(value = {"guest","admin"},mode = SaMode.OR)
+	@GetMapping("/show")
+	public Transporter showAll(){
+		final var select = storeService.select();
+		final var transporter = new Transporter();
+		transporter.addData("storeList",select).setMsg("查询成功");
+		return transporter;
+	}
+
 
 	/**
 	 * 商品列表显示：

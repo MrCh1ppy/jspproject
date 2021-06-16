@@ -77,7 +77,7 @@ class JspprojectApplicationTests {
 
 	@Test
 	@Transactional(rollbackFor = Exception.class)
-	void addressGuestTest () {
+	void addressGuestTest ()throws ProjectException {
 		Guest guest = new Guest();
 		List<Address> addresses = new LinkedList<>();
 		guest.setAddresses(addresses);
@@ -222,7 +222,7 @@ class JspprojectApplicationTests {
 
 	@Test
 	@Transactional(rollbackFor = Exception.class)
-	void addressGuestTest2 () {
+	void addressGuestTest2 ()throws ProjectException {
 		Guest guest = new Guest();
 		List<Address> addresses = new LinkedList<>();
 		guest.setAddresses(addresses);

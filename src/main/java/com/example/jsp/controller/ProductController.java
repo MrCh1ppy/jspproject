@@ -2,6 +2,7 @@ package com.example.jsp.controller;
 
 import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaMode;
+import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class ProductController {
 	@SaCheckRole(value = {"guest","store","admin"},mode = SaMode.OR)
 	public Transporter selectAll(@PathVariable("storeId")String storeIdString){
 		var storeId=Integer.parseInt(storeIdString);
-		final var select = productService.select(storeId);
+		final var select = productService.selectByStore(storeId);
 		final var transporter = new Transporter();
 		transporter.addData("productList",select);
 		return transporter;

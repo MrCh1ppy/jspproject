@@ -22,6 +22,7 @@ public interface ProductService {
 
 	List<Product> select();
 
+	List<Product> selectByStore (Store store);
 
-    List<Product> select(Store store) throws ProjectException;
+	List<Product> selectByStore(Integer storeId);
 }

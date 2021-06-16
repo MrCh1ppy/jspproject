@@ -69,6 +69,7 @@ public class ProductServiceImpl implements ProductService {
 		return select;
 	}
 
+	@Override
 	public List<Product> select () {
 		return productManager.select();
 	}

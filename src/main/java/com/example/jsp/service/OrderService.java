@@ -11,6 +11,8 @@ import java.util.List;
 public interface OrderService {
 	void create (Order order) throws ProjectException;
 
+	void create (Order order,String[] numList,String[] idList) throws ProjectException;
+
 	void delete (Order order) throws ProjectException;
 
 	void delete (Integer id) throws ProjectException;

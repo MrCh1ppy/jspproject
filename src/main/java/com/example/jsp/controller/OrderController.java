@@ -52,19 +52,20 @@ public class OrderController {
 	                           @PathVariable("guestId") String guestIdString,
 	                           @PathVariable("addressId") String addressIdString) throws ProjectException {
 		var storeId = Integer.parseInt(storeIdString);
-		var productId = Integer.parseInt(productIdString);
-		var productNum = Integer.parseInt(productNumString);
 		var guestId = Integer.parseInt(guestIdString);
 		var addressId = Integer.parseInt(addressIdString);
-
 		var transporter = new Transporter();
 		var order = new Order();
 		var store = storeService.select(storeId);
 		var guest = guestService.select(guestId);
-		orderService.addProduct(order, productId, productNum);
+		final var ids = productIdString.split(" ");
+		final var nums = productNumString.split(" ");
+
+
 		order.setStore(store)
 				.setGuest(guest)
 				.setAddress(guestService.getAddress(addressId));
+		orderService.create(order,nums,ids);
 		return transporter.setMsg("创建成功");
 	}
 

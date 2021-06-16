@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Getter
 @ToString
 @Setter
-@JsonIgnoreProperties(value = {"handler"})
+@JsonIgnoreProperties(value = {"handler","store"})
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor

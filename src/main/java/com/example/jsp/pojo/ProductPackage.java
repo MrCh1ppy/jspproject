@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author 橙鼠鼠
  */
 @Getter
-@JsonIgnoreProperties(value = {"handler"})
+@JsonIgnoreProperties(value = {"handler","order"})
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductPackage implements Serializable {

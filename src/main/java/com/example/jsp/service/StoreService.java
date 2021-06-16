@@ -21,7 +21,7 @@ public interface StoreService {
 
 	Store select (Integer storeId) throws ProjectException;
 
-	List<Store> select () throws ProjectException;
+	List<Store> select ();
 
 	void enroll (Store store, User user) throws ProjectException;
 

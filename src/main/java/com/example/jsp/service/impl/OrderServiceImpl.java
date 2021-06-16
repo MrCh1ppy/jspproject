@@ -46,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
 			for (int i = 0; i < numList.length; i++) {
 				orderManager.addProduct(order, Integer.parseInt(idList[i]), Integer.parseInt(numList[i]));
 			}
+			restore(order);
 		} catch (SonElementNotExistExceptionOld elementNotExistExceptionOld) {
 			throw new ProjectException("创建订单时,没有对应的商品", 702);
 		}

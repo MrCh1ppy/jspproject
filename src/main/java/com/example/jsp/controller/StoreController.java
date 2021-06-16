@@ -139,7 +139,7 @@ public class StoreController {
 	 * 商家信息页
 	 * 商家信息显示
 	 */
-	@SaCheckRole("guest")
+	@SaCheckRole("store")
 	@GetMapping("/info/{storeId}")
 	public Transporter showInfo (@PathVariable("storeId") String storeIdString) throws ProjectException {
 		var storeId = Integer.parseInt(storeIdString);

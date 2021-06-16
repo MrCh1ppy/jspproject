@@ -128,12 +128,5 @@ public class DeliverController {
         transporter.addData("deliver", select);
         return transporter.setMsg("查询成功");
     }
-    /**
-     * 骑手信息页
-     * 骑手信息修改
-     * 与edit相同
-     */
-
-
 }
 

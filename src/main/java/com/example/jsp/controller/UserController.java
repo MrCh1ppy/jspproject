@@ -174,8 +174,9 @@ public class UserController {
     @SaCheckRole("admin")
     @GetMapping("/exception/{orderId}/{msg}")
     @Transactional(rollbackFor = Exception.class)
-    public Transporter setMsg(@PathVariable("orderId") Integer orderId,
+    public Transporter setMsg(@PathVariable("orderId") String orderIdString,
                               @PathVariable("msg") String msg) throws ProjectException {
+        var orderId=Integer.parseInt(orderIdString);
         var transporter = new Transporter();
         var order = orderService.select(orderId);
         var orderInfo = new OrderInfo();

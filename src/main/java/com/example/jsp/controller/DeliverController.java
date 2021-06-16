@@ -103,7 +103,8 @@ public class DeliverController {
 	@SaCheckRole("deliver")
 	@GetMapping("/delete/{deliverId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter delete (@PathVariable("deliverId") Integer deliverId) throws ProjectException {
+	public Transporter delete (@PathVariable("deliverId") String deliverIdString) throws ProjectException {
+		var deliverId= Integer.parseInt(deliverIdString);
 		deliverService.delete(deliverId);
 		return new Transporter().setMsg("删除成功");
 	}
@@ -115,9 +116,10 @@ public class DeliverController {
 	@SaCheckRole("deliver")
 	@GetMapping("/show/{storeId}")
 	@Transactional(rollbackFor = Exception.class)
-	public Transporter showProduct (@PathVariable("storeId") Integer storeId) throws ProjectException {
-		Transporter transporter = new Transporter();
-		val select = deliverService.select();
+	public Transporter showProduct (@PathVariable("storeId") String storeIdString) throws ProjectException {
+		var storeId=Integer.parseInt(storeIdString);
+		var transporter = new Transporter();
+		val select = deliverService.select(storeId);
 		transporter.addData("deliver", select);
 		return transporter.setMsg("查询成功");
 	}

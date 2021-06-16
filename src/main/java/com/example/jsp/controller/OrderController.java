@@ -2,6 +2,7 @@ package com.example.jsp.controller;
 
 
 import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaMode;
 import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.model.Transporter;
 import com.example.jsp.pojo.Order;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 @RestController
@@ -63,5 +66,14 @@ public class OrderController {
 				.setGuest(guest)
 				.setAddress(guestService.getAddress(addressId));
 		return transporter.setMsg("创建成功");
+	}
+
+	@SaCheckRole(value = {"admin","guest","deliver","store"},mode = SaMode.OR)
+	@GetMapping("/show")
+	public Transporter selectAll(){
+		final List<Order> orderList = orderService.select();
+		final var transporter = new Transporter();
+		transporter.addData("orderList",orderList).setMsg("success");
+		return transporter;
 	}
 }

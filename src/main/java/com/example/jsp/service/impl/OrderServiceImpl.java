@@ -11,6 +11,8 @@ import com.example.jsp.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService {
 	private OrderManager orderManager;
@@ -54,6 +56,11 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Order select (Integer orderId) throws ProjectException {
 		return orderManager.select(orderId);
+	}
+
+	@Override
+	public List<Order> select () {
+		return orderManager.select();
 	}
 
 

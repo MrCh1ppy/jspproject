@@ -21,4 +21,8 @@ public interface AddressManagerToDao {
 	List<Address> selectByGuestId (Integer id);
 
 	void dropByGuestId (Integer id);
+
+	Integer getId (Address address);
+
+	Integer inOrder(Integer addressId);
 }

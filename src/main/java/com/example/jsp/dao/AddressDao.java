@@ -26,4 +26,6 @@ public interface AddressDao {
 	void dropByGuestId (@Param("id") Integer id);
 
 	Integer getId (@Param("target") Address address);
+
+	Integer inOrder(@Param("id") Integer addressId);
 }

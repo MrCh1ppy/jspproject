@@ -53,6 +53,16 @@ public class AddressManagerImpl implements AddressManagerToDao, AddressManager {
 	}
 
 	@Override
+	public Integer getId (Address address) {
+		return addressDao.getId(address);
+	}
+
+	@Override
+	public Integer inOrder (Integer addressId) {
+		return addressDao.inOrder(addressId);
+	}
+
+	@Override
 	/**@apiNote :会在数据库寻找是否有相同的数据,如果有则返回那个数据的id,反之则返回新插入数据的id
 	 * */
 	public Integer insert (Address address) {

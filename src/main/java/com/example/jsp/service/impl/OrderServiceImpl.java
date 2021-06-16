@@ -85,7 +85,6 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public OrderService addProduct (Order order, Integer productId, Integer num) throws ProjectException {
 		try {
-
 			orderManager.addProduct(order, productId, num);
 		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
 			sonElementNotExistExceptionOld.printStackTrace();

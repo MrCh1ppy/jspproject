@@ -21,91 +21,90 @@ import java.util.List;
  */
 @Service
 public class GuestServiceImpl implements GuestService {
-    private GuestManager guestManager;
-    private UserService userService;
-    private AddressManager addressManager;
+	private GuestManager guestManager;
+	private UserService userService;
+	private AddressManager addressManager;
 
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+	@Autowired
+	public void setUserService (UserService userService) {
+		this.userService = userService;
+	}
 
-    @Autowired
-    public void setGuestManager(GuestManager guestManager) {
-        this.guestManager = guestManager;
-    }
+	@Autowired
+	public void setGuestManager (GuestManager guestManager) {
+		this.guestManager = guestManager;
+	}
 
-    @Override
-    public void create(Guest target) throws ProjectException {
-        try {
-            guestManager.insert(target);
-        } catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-            throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);
-        }
-    }
+	@Override
+	public void create (Guest target) throws ProjectException {
+		try {
+			guestManager.insert(target);
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);
+		}
+	}
 
-    @Override
-    public void delete(Guest target) throws ProjectException {
-        guestManager.destroy(target);
-    }
+	@Override
+	public void delete (Guest target) throws ProjectException {
+		guestManager.destroy(target);
+	}
 
-    @Override
-    public void delete(Integer guestId) throws ProjectException {
-        guestManager.destroy(guestId);
-    }
+	@Override
+	public void delete (Integer guestId) throws ProjectException {
+		guestManager.destroy(guestId);
+	}
 
-    @Override
-    public void restore(Guest guest) throws ProjectException {
-        try {
-            guestManager.restore(guest);
-        } catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-            throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);
-        }
+	@Override
+	public void restore (Guest guest) throws ProjectException {
+		try {
+			guestManager.restore(guest);
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);
+		}
 
-    }
+	}
 
-    @Override
-    public Guest select(Integer guestId) throws ProjectException {
-        return guestManager.select(guestId);
-    }
+	@Override
+	public Guest select (Integer guestId) throws ProjectException {
+		return guestManager.select(guestId);
+	}
 
-    @Override
-    public List<Guest> select() throws ProjectException {
-        return guestManager.select();
-    }
+	@Override
+	public List<Guest> select () throws ProjectException {
+		return guestManager.select();
+	}
 
-    @Override
-    public void enroll(Guest guest, User user) throws ProjectException {
-        userService.create(user);
-        create(guest);
-    }
+	@Override
+	public void enroll (Guest guest, User user) throws ProjectException {
+		userService.create(user);
+		create(guest);
+	}
 
 
-    @Override
-    public List<Address> apart(String addresses) {
-        List<Address> addressList = new ArrayList<>();
-        String[] address = addresses.split("_");
-        for (String s : address) {
-            addressList.add(new Address().setAddressString(s));
-        }
-        return addressList;
-    }
+	@Override
+	public List<Address> apart (String addresses) {
+		List<Address> addressList = new ArrayList<>();
+		String[] address = addresses.split("_");
+		for (String s : address) {
+			addressList.add(new Address().setAddressString(s));
+		}
+		return addressList;
+	}
 
-    @Override
-    public void addAddress(Guest guest, Address address) throws ProjectException {
+	@Override
+	public void addAddress (Guest guest, Address address) throws ProjectException {
 
-        try {
-            address.setGuestId(guest.getId());
-            guest.getAddresses().add(address);
-            addressManager.restore(address);
-            guestManager.restore(guest);
-        } catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
-            throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);
-        }
-    }
+		try {
+			address.setGuestId(guest.getId());
+			guest.getAddresses().add(address);
+			guestManager.restore(guest);
+		} catch (SonElementNotExistExceptionOld sonElementNotExistExceptionOld) {
+			throw new ProjectException(sonElementNotExistExceptionOld.toString(), 304);
+		}
+	}
 
-    @Override
-    public Address getAddress(Integer addressId) {
-        return addressManager.select(addressId);
-    }
+	@Override
+	public Address getAddress (Integer addressId) {
+		return addressManager.select(addressId);
+	}
 }

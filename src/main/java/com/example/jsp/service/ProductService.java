@@ -18,7 +18,9 @@ public interface ProductService {
 
 	void restore (Product product) throws ProjectException;
 
-	Product select (Integer productId) throws ProjectException;
+	Product select (Integer productId) ;
+
+	List<Product> select();
 
 	List<Product> select (Store store) throws ProjectException;
 }

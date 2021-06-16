@@ -69,7 +69,8 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public List<Store> select () {
+	public List<Store> select ()  {
+
 		return storeManager.select();
 	}
 

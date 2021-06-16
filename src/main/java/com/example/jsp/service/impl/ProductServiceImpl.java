@@ -58,15 +58,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> select (Store store) throws ProjectException {
-		List<Product> select = new ArrayList<>();
-		var productList = productManager.select();
-		for (Product product : productList) {
-			if (product.getStore().getId().equals(store.getId())) {
-				select.add(product);
-			}
-		}
-		return select;
+	public List<Product> selectByStore (Store store){
+		return selectByStore(store.getId());
+	}
+
+	@Override
+	public List<Product> selectByStore (Integer storeId){
+		final var products = new ArrayList<>();
+		return productManager.selectByStore(storeId);
 	}
 
 	@Override

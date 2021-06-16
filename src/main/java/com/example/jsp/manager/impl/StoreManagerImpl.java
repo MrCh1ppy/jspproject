@@ -22,7 +22,7 @@ import java.util.List;
 public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
     private UserManager userManager;
     private StoreDao storeDao;
-	private ProductManager productManager;
+    private ProductManager productManager;
 
     @Autowired
     public void setUserManager(UserManager userManager) {
@@ -91,10 +91,10 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
         return storeDao.findUserByUserName(username);
     }
 
-	@Override
-	public Integer selectByUserId (Integer userId) {
-		return storeDao.findIdByLoginUser(userId);
-	}
+    @Override
+    public Integer selectByUserId(Integer userId) {
+        return storeDao.findIdByLoginUser(userId);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -129,13 +129,13 @@ public class StoreManagerImpl implements StoreManagerToDao, StoreManager {
         return storeDao.selectById(id) == null;
     }
 
-	@Override
-	public List<Product> selectHavingProduct (Store store) {
-		return productManager.selectByStore(store.getId());
-	}
+    @Override
+    public List<Product> selectHavingProduct(Store store) {
+        return productManager.selectByStore(store.getId());
+    }
 
-	@Override
-	public List<Product> selectHavingProduct (Integer storeId) {
-		return productManager.selectByStore(storeId);
-	}
+    @Override
+    public List<Product> selectHavingProduct(Integer storeId) {
+        return productManager.selectByStore(storeId);
+    }
 }

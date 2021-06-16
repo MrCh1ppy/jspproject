@@ -22,58 +22,58 @@ import java.util.List;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-	private GuestService guestService;
-	private OrderService orderService;
-	private StoreService storeService;
+    private GuestService guestService;
+    private OrderService orderService;
+    private StoreService storeService;
 
-	@Autowired
-	public void setGuestService (GuestService guestService) {
-		this.guestService = guestService;
-	}
+    @Autowired
+    public void setGuestService(GuestService guestService) {
+        this.guestService = guestService;
+    }
 
-	@Autowired
-	private void setOrderService (OrderService orderService) {
-		this.orderService = orderService;
-	}
+    @Autowired
+    private void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
-	public void setStoreService (StoreService storeService) {
-		this.storeService = storeService;
-	}
+    public void setStoreService(StoreService storeService) {
+        this.storeService = storeService;
+    }
 
-	/**
-	 * 创建订单
-	 */
-	@SaCheckRole("admin")
-	@GetMapping("/create/{storeId}/{productId}/{productNum}/{guestId}/{addressId}")
-	@Transactional(rollbackFor = Exception.class)
-	public Transporter create (@PathVariable("storeId") String storeIdString,
-	                           @PathVariable("productId") String productIdString,
-	                           @PathVariable("productNum") String productNumString,
-	                           @PathVariable("guestId") String guestIdString,
-	                           @PathVariable("addressId") String addressIdString) throws ProjectException {
-		var storeId = Integer.parseInt(storeIdString);
-		var productId = Integer.parseInt(productIdString);
-		var productNum = Integer.parseInt(productNumString);
-		var guestId = Integer.parseInt(guestIdString);
-		var addressId = Integer.parseInt(addressIdString);
+    /**
+     * 创建订单
+     */
+    @SaCheckRole("admin")
+    @GetMapping("/create/{storeId}/{productId}/{productNum}/{guestId}/{addressId}")
+    @Transactional(rollbackFor = Exception.class)
+    public Transporter create(@PathVariable("storeId") String storeIdString,
+                              @PathVariable("productId") String productIdString,
+                              @PathVariable("productNum") String productNumString,
+                              @PathVariable("guestId") String guestIdString,
+                              @PathVariable("addressId") String addressIdString) throws ProjectException {
+        var storeId = Integer.parseInt(storeIdString);
+        var productId = Integer.parseInt(productIdString);
+        var productNum = Integer.parseInt(productNumString);
+        var guestId = Integer.parseInt(guestIdString);
+        var addressId = Integer.parseInt(addressIdString);
 
-		var transporter = new Transporter();
-		var order = new Order();
-		var store = storeService.select(storeId);
-		var guest = guestService.select(guestId);
-		orderService.addProduct(order, productId, productNum);
-		order.setStore(store)
-				.setGuest(guest)
-				.setAddress(guestService.getAddress(addressId));
-		return transporter.setMsg("创建成功");
-	}
+        var transporter = new Transporter();
+        var order = new Order();
+        var store = storeService.select(storeId);
+        var guest = guestService.select(guestId);
+        orderService.addProduct(order, productId, productNum);
+        order.setStore(store)
+                .setGuest(guest)
+                .setAddress(guestService.getAddress(addressId));
+        return transporter.setMsg("创建成功");
+    }
 
-	@SaCheckRole(value = {"admin","guest","deliver","store"},mode = SaMode.OR)
-	@GetMapping("/show")
-	public Transporter selectAll(){
-		final List<Order> orderList = orderService.select();
-		final var transporter = new Transporter();
-		transporter.addData("orderList",orderList).setMsg("success");
-		return transporter;
-	}
+    @SaCheckRole(value = {"admin", "guest", "deliver", "store"}, mode = SaMode.OR)
+    @GetMapping("/show")
+    public Transporter selectAll() {
+        final List<Order> orderList = orderService.select();
+        final var transporter = new Transporter();
+        transporter.addData("orderList", orderList).setMsg("success");
+        return transporter;
+    }
 }

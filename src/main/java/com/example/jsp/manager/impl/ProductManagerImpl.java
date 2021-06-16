@@ -75,10 +75,10 @@ public class ProductManagerImpl implements ProductManagerToDao, ProductManager {
         return productDao.getId(product);
     }
 
-	@Override
-	public List<Product> selectByStore (int storeId) {
-		return productDao.selectByStoreId(storeId);
-	}
+    @Override
+    public List<Product> selectByStore(int storeId) {
+        return productDao.selectByStoreId(storeId);
+    }
 
     @Override
     public void destroy(Integer id) {

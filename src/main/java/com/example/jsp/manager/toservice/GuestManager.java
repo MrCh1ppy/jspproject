@@ -30,5 +30,5 @@ public interface GuestManager {
 
     User findUserByUserName(String username);
 
-	Integer selectByUserId (Integer userId);
+    Integer selectByUserId(Integer userId);
 }

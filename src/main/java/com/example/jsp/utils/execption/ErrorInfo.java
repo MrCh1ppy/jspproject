@@ -26,6 +26,7 @@ public class ErrorInfo {
 		//订单错误7
 		INFO.put("701","传入的商品参数长度不匹配");
 		INFO.put("702","创建订单时,没有对应的商品");
+		INFO.put("703","不存在的快递员接单");
 	}
 
 

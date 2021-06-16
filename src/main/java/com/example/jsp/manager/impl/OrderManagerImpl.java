@@ -257,10 +257,6 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
         if (Boolean.TRUE.equals(notExist1)) {
             throw new SonElementNotExistExceptionOld("store");
         }
-        final Boolean notExist2 = deliverManager.isNotExist(target.getDeliver().getId());
-        if (Boolean.TRUE.equals(notExist2)) {
-            throw new SonElementNotExistExceptionOld("deliver");
-        }
         final var notExist3 = addressManager.isNotExist(target.getAddress().getId());
         if (Boolean.TRUE.equals(notExist3)) {
             throw new SonElementNotExistExceptionOld("address");

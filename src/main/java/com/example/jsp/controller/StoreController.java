@@ -150,7 +150,7 @@ public class StoreController {
         return transporter;
     }
 
-    @SaCheckRole(value = {"store", "admin"}, mode = SaMode.OR)
+    @SaCheckRole(value = {"store", "admin","guest"}, mode = SaMode.OR)
     @GetMapping("/show")
     public Transporter showAll() {
         final var select = storeService.select();
@@ -177,6 +177,7 @@ public class StoreController {
         var select = productService.select(productId);
         select.setName(productName)
                 .setPrice(productPrice);
+        productService.restore(select);
         return transporter.setMsg("修改成功");
     }
 

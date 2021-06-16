@@ -3,10 +3,10 @@ package com.example.jsp.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,13 +16,16 @@ import java.util.List;
 @Getter
 @JsonIgnoreProperties(value = {"handler"})
 @AllArgsConstructor
-@NoArgsConstructor
 public class Guest implements Serializable {
     private Integer id;
     private String name;
     private String telephone;
     private User loginUser;
     private List<Address> addresses;
+
+    public Guest(){
+        addresses=new LinkedList<>();
+    }
 
     public Guest setId(Integer id) {
         this.id = id;

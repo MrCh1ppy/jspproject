@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 
 /**
  * @author 橙鼠鼠
@@ -109,6 +111,9 @@ public class DeliverController {
 
         val order = orderService.select(orderId);
         var deliver=deliverService.select(deliverId);
+        if(Objects.isNull(deliver)){
+            throw new ProjectException("快递员不存在",703);
+        }
         order.setStatus(order.getStatus()+1).setDeliver(deliver);
         orderService.restore(order);
 

@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product select (Integer productId) {
+	public Product select (Integer productId){
 		return productManager.select(productId);
 	}
 

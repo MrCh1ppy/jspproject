@@ -39,12 +39,17 @@
         where a_id = #{target.id}
     </update>
     <delete id="dropByGuestId" parameterType="integer">
-        delete from address where a_g_id=#{id,jdbcType=INTEGER}
+        delete from address where a_g_id=#{id,jdbcType=INTEGER} and (
+        select * from `order`,address where address.a_id=`order`.o_a_id
+        )
     </delete>
     <select id="getId" resultType="integer" parameterType="com.example.jsp.pojo.Address">
         select a_id
         from address
         where address = #{target.addressString}
         and a_g_id = #{target.guestId}
+    </select>
+    <select id="inOrder" resultType="integer" parameterType="integer">
+        select o_id from `order` where o_a_id=#{id,jdbcType=INTEGER}
     </select>
 </mapper>

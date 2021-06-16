@@ -25,4 +25,8 @@ public interface AddressManager {
 	void dropByGuestId (Integer id);
 
 	Boolean isNotExist (Integer id);
+
+	Integer getId (Address address);
+
+	Integer inOrder(Integer addressId);
 }

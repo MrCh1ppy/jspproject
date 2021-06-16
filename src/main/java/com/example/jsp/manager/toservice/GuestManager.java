@@ -1,5 +1,6 @@
 package com.example.jsp.manager.toservice;
 
+import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.pojo.Guest;
 import com.example.jsp.pojo.User;
@@ -20,7 +21,7 @@ public interface GuestManager {
 
 	List<Guest> select ();
 
-	Integer restore (Guest target) throws SonElementNotExistExceptionOld;
+	Integer restore (Guest target) throws SonElementNotExistExceptionOld, ProjectException;
 
 	Integer getId (Guest target);
 

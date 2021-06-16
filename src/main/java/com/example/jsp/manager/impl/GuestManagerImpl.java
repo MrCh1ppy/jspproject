@@ -1,5 +1,6 @@
 package com.example.jsp.manager.impl;
 
+import com.example.jsp.commons.exception.ProjectException;
 import com.example.jsp.commons.oldexception.manager.SonElementNotExistExceptionOld;
 import com.example.jsp.dao.GuestDao;
 import com.example.jsp.manager.todao.GuestManagerToDao;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -123,17 +125,36 @@ public class GuestManagerImpl implements GuestManagerToDao, GuestManager {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public Integer restore (Guest target) throws SonElementNotExistExceptionOld {
+	public Integer restore (Guest target) throws SonElementNotExistExceptionOld,ProjectException {
 		Integer id = getId(target);
 		Boolean notExist = userManager.isNotExist(target.getLoginUser().getId());
 		if (Boolean.TRUE.equals(notExist)) {
 			throw new SonElementNotExistExceptionOld();
 		}
-		addressManager.dropByGuestId(target.getId());
+		final var newMap = new HashMap<>();
+		final var oldMap = new HashMap<>();
+		final var addressesOld = addressManager.selectByGuestId(target.getId());
 		for (Address address : target.getAddresses()) {
-			address.setGuestId(target.getId());
-			int i = addressManager.insert(address);
-			address.setId(i);
+			newMap.put(address.getAddressString(),address.getId());
+		}
+		for (Address address : addressesOld) {
+			oldMap.put(address.getAddressString(),address.getId());
+		}
+		for (Address address : target.getAddresses()) {
+			if(!oldMap.containsKey(address.getAddressString())){
+				address.setGuestId(target.getId());
+				addressManager.insert(address);
+				address.setId(address.getId());
+			}
+		}
+		for (Address address : addressesOld) {
+			if(!newMap.containsKey(address.getAddressString())){
+				if(addressManager.inOrder(address.getId())!=null){
+					throw new ProjectException("地址正被订单引用",704);
+				}else {
+					addressManager.destroy(address.getId());
+				}
+			}
 		}
 		if (id == null) {
 			guestDao.update(target);

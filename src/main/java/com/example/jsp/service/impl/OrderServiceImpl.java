@@ -112,4 +112,9 @@ public class OrderServiceImpl implements OrderService {
 		return this;
 	}
 
+	@Override
+	public List<Order> selectByStatus (Integer low,Integer big) {
+		return orderManager.selectByStatus(low,big);
+	}
+
 }

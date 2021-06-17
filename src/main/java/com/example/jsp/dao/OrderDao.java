@@ -23,5 +23,5 @@ public interface OrderDao {
 
 	Integer getId (@Param("target") Order target);
 
-	List<Order> selectByStatus (@Param("status") Integer target);
+	List<Order> selectByStatus (@Param("biggerStatus") Integer hight,@Param("lowerStatus")Integer low);
 }

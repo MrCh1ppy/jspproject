@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 
+/**
+ * @author 橙鼠鼠
+ */
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -92,6 +95,17 @@ public class OrderController {
 	@GetMapping("/show")
 	public Transporter selectAll () {
 		final List<Order> orderList = orderService.select();
+		final var transporter = new Transporter();
+		transporter.addData("orderList", orderList).setMsg("success");
+		return transporter;
+	}
+
+	@SaCheckRole(value = {"admin","guest","deliver","store"},mode = SaMode.OR)
+	@GetMapping("/show/{statusLow}/{statusBig}")
+	public Transporter selectByStatus(@PathVariable("statusLow")String statusLowString,@PathVariable("statusBig")String statusHighString){
+		var statusL=Integer.parseInt(statusLowString);
+		var statusH=Integer.parseInt(statusHighString);
+		final List<Order> orderList = orderService.selectByStatus(statusL,statusH);
 		final var transporter = new Transporter();
 		transporter.addData("orderList", orderList).setMsg("success");
 		return transporter;
@@ -194,5 +208,16 @@ public class OrderController {
 		select.setStatus(status);
 		transporter.setMsg("回退成功");
 		return transporter;
+	}
+
+	@SaCheckRole(value = {"admin","store"},mode = SaMode.OR)
+	@GetMapping("/take/{orderId}")
+	@Transactional(rollbackFor = Exception.class)
+	public Transporter takeOrder(@PathVariable("orderId")String orderIdString)throws ProjectException{
+		var orderId=Integer.parseInt(orderIdString);
+		final var order = orderService.select(orderId);
+		order.setStatus(2).setMessage("订单制作完成");
+		orderService.restore(order);
+		return new Transporter().setMsg("制作完成");
 	}
 }

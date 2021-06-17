@@ -31,5 +31,5 @@ public interface OrderService {
 
 	OrderService addException (Order order, OrderInfo orderInfo) throws ProjectException;
 
-
+	List<Order> selectByStatus (Integer low,Integer big);
 }

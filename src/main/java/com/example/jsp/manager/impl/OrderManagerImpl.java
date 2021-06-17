@@ -170,9 +170,10 @@ public class OrderManagerImpl implements OrderManagerToDao, OrderManager {
         return orderDao.getId(target);
     }
 
+
     @Override
-    public List<Order> selectByStatus(Integer status) {
-        return orderDao.selectByStatus(status);
+    public List<Order> selectByStatus(Integer low,Integer big) {
+        return orderDao.selectByStatus(low, big);
     }
 
     @Override

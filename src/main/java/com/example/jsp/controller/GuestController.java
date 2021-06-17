@@ -86,9 +86,9 @@ public class GuestController {
 		var orderId = Integer.parseInt(orderIdString);
 		var transporter = new Transporter();
 		val select = orderService.select(orderId);
-		val status = select.getStatus();
-		select.setStatus(status + 1);
-		transporter.addData("status", status + 1)
+		select.setStatus(4).setMessage("收货完成");
+		orderService.restore(select);
+		transporter.addData("order", select)
 				.setMsg("查询成功");
 		return transporter;
 	}

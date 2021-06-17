@@ -76,10 +76,9 @@ public class StoreController {
         var orderId = Integer.parseInt(orderIdString);
         var transporter = new Transporter();
         val select = orderService.select(orderId);
-        val status = select.getStatus();
-        select.setStatus(status + 1);
-
-        transporter.addData("status", status + 1)
+        select.setStatus(1).setMessage("商家接单成功");
+        orderService.restore(select);
+        transporter.addData("order", select)
                 .setMsg("接单成功");
         return transporter;
     }

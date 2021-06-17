@@ -63,6 +63,6 @@
         and o_time = #{target.time}
     </select>
     <select id="selectByStatus" resultMap="orderMap" parameterType="integer">
-        select * from `order` where o_status=#{status}
+        select * from `order` where o_status between #{lowerStatus,jdbcType=INTEGER} and #{biggerStatus,jdbcType=INTEGER}
     </select>
 </mapper>

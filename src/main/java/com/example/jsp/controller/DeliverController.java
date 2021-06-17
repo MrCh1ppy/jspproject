@@ -114,7 +114,7 @@ public class DeliverController {
         if(Objects.isNull(deliver)){
             throw new ProjectException("快递员不存在",703);
         }
-        order.setStatus(order.getStatus()+1).setDeliver(deliver);
+        order.setStatus(3).setDeliver(deliver);
         orderService.restore(order);
 
         transporter.addData("order",order)

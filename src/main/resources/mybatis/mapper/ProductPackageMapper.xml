@@ -5,14 +5,14 @@
 <mapper namespace="com.example.jsp.dao.ProductPackageDao">
     <resultMap id="PackageMap" type="com.example.jsp.pojo.ProductPackage">
         <id column="op_id" property="id"/>
-        <association property="num" column="op_num"/>
+        <result property="num" column="op_num"/>
         <association property="product" select="com.example.jsp.dao.ProductDao.selectById" column="op_p_id"
                      javaType="com.example.jsp.pojo.Product"/>
         <association property="order" select="com.example.jsp.dao.OrderDao.selectById" column="op_o_id"
                      javaType="com.example.jsp.pojo.Order"/>
     </resultMap>
     <select id="selectByOrderId" resultMap="PackageMap" parameterType="integer">
-        select *
+        select op_id,op_o_id,op_num,op_p_id
         from order_product
         where op_o_id = #{id}
     </select>

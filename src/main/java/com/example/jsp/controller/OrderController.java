@@ -91,7 +91,7 @@ public class OrderController {
 	}
 
 
-	@SaCheckRole(value = {"admin", "guest", "deliver", "store"}, mode = SaMode.OR)
+	/*@SaCheckRole(value = {"admin", "guest", "deliver", "store"}, mode = SaMode.OR)*/
 	@GetMapping("/show")
 	public Transporter selectAll () {
 		final List<Order> orderList = orderService.select();
